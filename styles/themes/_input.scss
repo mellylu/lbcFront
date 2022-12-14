@@ -1,0 +1,11 @@
+.input {
+    padding: 1%;
+    &-search {
+        border: 5px solid transparent;
+    }
+}
+.input::placeholder {
+    color: #333333;
+    font-weight: bold;
+    font-size: 14px;
+}

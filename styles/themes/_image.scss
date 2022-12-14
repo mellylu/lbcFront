@@ -1,0 +1,14 @@
+.image {
+    &-big {
+        width: 400px;
+        height: 400px;
+    }
+    &-medium {
+        width: 250px;
+        height: 250px;
+    }
+    &-small {
+        width: 150px;
+        height: 40px;
+    }
+}

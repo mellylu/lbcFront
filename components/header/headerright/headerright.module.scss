@@ -1,0 +1,12 @@
+.maindiv {
+    width: 35%;
+    display: flex;
+    flex-direction: row;
+    direction: rtl;
+    justify-content: flex-start;
+    margin-right: 15%;
+}
+
+.button {
+    cursor: pointer;
+}
