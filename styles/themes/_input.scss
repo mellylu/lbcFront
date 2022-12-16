@@ -1,7 +1,16 @@
 .input {
-    padding: 1%;
+    border-radius: 5px;
     &-search {
+        padding: 1%;
         border: 5px solid transparent;
+    }
+    &-form {
+        width: 100%;
+        padding: 3%;
+        border: 1px solid #d3d3d3;
+        &:focus {
+            border: 1px solid black;
+        }
     }
 }
 .input::placeholder {
