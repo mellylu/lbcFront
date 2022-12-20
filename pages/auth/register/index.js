@@ -20,6 +20,7 @@ const Index = () => {
     const [validEmail, setValidEmail] = useState(false)
     const [eightcaracmin, setEightcaracmin] = useState(false)
     const [oneNumberMin, setOneNumberMin] = useState(false)
+    const [oneCaracSpeMin, setOneCaracSpeMin] = useState(false)
     const [email, setEmail] = useState({})
     const [error, setError] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
@@ -27,6 +28,7 @@ const Index = () => {
     const [isVisible2, setIsVisible2] = useState(false)
     const [isVisible3, setIsVisible3] = useState(false)
     const [isVisible4, setIsVisible4] = useState(false)
+    const [isVisible5, setIsVisible5] = useState(false)
     const [number, setNumber] = useState({})
     const [randomNumber, setRandomNumber] = useState()
     const [newSendEmail, setNewSendEmail] = useState(false)
@@ -51,15 +53,9 @@ const Index = () => {
     }, [email])
 
     useEffect(() => {
-        console.log(randomNumber)
-        console.log(number.code)
-        console.log(randomNumber === number.code)
         if (randomNumber !== undefined && randomNumber !== null) {
-            console.log("1111111")
             if (number.code !== undefined && number.code !== null) {
-                console.log("222222222")
-                if (number.code === randomNumber) {
-                    console.log("3333333333")
+                if (number.code === randomNumber.toString()) {
                     setIsVisible1(false)
                     setIsVisible2(false)
                     setIsVisible3(true)
@@ -70,18 +66,23 @@ const Index = () => {
 
     useEffect(() => {
         if (user.password !== undefined) {
-            var onenumber = /[a-z]+[0-9]+[a-z]+/
+            var onenumber = /[0-9]+/
+            var onecaracspe = /[^A-Za-z0-9_]/
+            //var onenumber = /[a-z]+[0-9]+[a-z]+/
             if (user.password.length >= 8) {
                 setEightcaracmin(true)
-                console.log("11111111111")
             } else {
                 setEightcaracmin(false)
             }
             if (user.password.match(onenumber)) {
                 setOneNumberMin(true)
-                console.log("2222222222")
             } else {
                 setOneNumberMin(false)
+            }
+            if (user.password.match(onecaracspe)) {
+                setOneCaracSpeMin(true)
+            } else {
+                setOneCaracSpeMin(false)
             }
         }
     }, [user.password])
@@ -118,6 +119,24 @@ const Index = () => {
             .catch(err => {
                 console.log(err)
             })
+    }
+
+    const accountCreation = () => {
+        userService
+            .register(user)
+            .then(data => {
+                if (data.auth) {
+                    setIsVisible4(false)
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    const finishregister = () => {
+        setIsVisible5(false)
+        router.push("/")
     }
 
     return (
@@ -204,7 +223,7 @@ const Index = () => {
                 ) : (
                     ""
                 )}
-                {isVisible3 && isVisible1 === false && isVisible2 === false ? (
+                {isVisible3 ? (
                     <div className={styles.divform}>
                         <p className="title-h1">Définissez votre mot de passe</p>
                         <p className="title-h3">
@@ -233,6 +252,30 @@ const Index = () => {
                         ) : (
                             ""
                         )}
+                        {oneCaracSpeMin ? (
+                            <div>
+                                <FiCheck color="green" /> 1 caractère spécial
+                            </div>
+                        ) : (
+                            ""
+                        )}
+                        {eightcaracmin && oneNumberMin && oneCaracSpeMin ? (
+                            <div>
+                                <Button
+                                    id="suivant"
+                                    className="btn btn-orange"
+                                    title="Suivant"
+                                    onClick={() => {
+                                        setIsVisible3(false)
+                                        setIsVisible4(true)
+                                    }}
+                                />
+                            </div>
+                        ) : (
+                            <div className={styles.divbutton}>
+                                <Button id="suivant" className="btn btn-orange" title="Suivant" />
+                            </div>
+                        )}
                     </div>
                 ) : (
                     ""
@@ -240,12 +283,55 @@ const Index = () => {
 
                 {isVisible4 ? (
                     <div className={styles.divform}>
-                        <p className="title-h1">Nom d utilisateur</p>
+                        <p className="title-h1">Et pour finir, choisissez un nom d utilisateur</p>
                         <p className="title-h3">
                             Votre nom d utilisateur sera visible sur votre profil ainsi que sur vos
-                            futures annonces. Vous pourrez le modifier quand vous le souhaitez !
+                            futures annonces. <br />
+                            Vous pourrez le modifier quand vous le souhaitez !
                         </p>
+                        <br />
+                        <Input
+                            label="Nom d'utilisateur"
+                            className="input input-form"
+                            required={true}
+                            onChange={e => {
+                                setUser({ ...user, username: e.target.value })
+                            }}
+                        />
+                        <br />
+                        <Button
+                            className="btn btn-orange"
+                            title="Créer un compte"
+                            onClick={() => {
+                                accountCreation()
+                                setIsVisible4(false)
+                                setIsVisible5(true)
+                            }}
+                        />
                     </div>
+                ) : (
+                    ""
+                )}
+
+                {isVisible5 ? (
+                    <>
+                        <div id="div1">ldsnldsnglsndkgn</div>
+                        <div id="divtransient" className={styles.divform}>
+                            <p className="title-h1 text-center">Création de compte réussi</p>
+                            <br />
+                            <p className="title-h3 text-center">
+                                <FiCheck color="green" /> adresse mail vérifiée
+                            </p>
+                            <br />
+                            <Button
+                                className="btn-white"
+                                title="ok"
+                                onClick={() => {
+                                    finishregister()
+                                }}
+                            />
+                        </div>
+                    </>
                 ) : (
                     ""
                 )}

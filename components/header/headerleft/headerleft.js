@@ -12,8 +12,10 @@ import styles from "./headerleft.module.scss"
 const Headerleft = () => {
     return (
         <div className={styles.maindiv}>
-            <Image src={Logo} alt="Logo leboncoin" className="image image-small" />
-            <div className="py py-l py-r">
+            <div className={styles.searchdiv}>
+                <Image src={Logo} alt="Logo leboncoin" className="image image-small" />
+            </div>
+            <div className={`${styles.searchdiv} py py-l py-r`}>
                 <Button className="btn btn-orange" title="+ Déposer une annonce" />
             </div>
             <div className={`${styles.searchdiv} py py-l`}>

@@ -6,3 +6,17 @@
 @import "./themes/padding";
 @import "./themes/title";
 @import "./themes/color";
+@import "./themes/width";
+
+html,
+#__next {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}

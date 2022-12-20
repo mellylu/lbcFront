@@ -60,7 +60,6 @@ const Index = () => {
                         <Input
                             label="E-mail"
                             className="input input-form"
-                            required={true}
                             onChange={e => {
                                 setUser({ ...user, email: e.target.value })
                             }}
@@ -70,7 +69,6 @@ const Index = () => {
                             label="Mot de passe"
                             type="password"
                             className="input input-form"
-                            required={true}
                             onChange={e => {
                                 setUser({ ...user, password: e.target.value })
                             }}
@@ -78,7 +76,7 @@ const Index = () => {
                         <Button
                             className="btn btn-link color color-blue"
                             onClick={() => {
-                                router.push("/forgotpassword")
+                                router.push("/auth/forgotpassword")
                             }}
                             title="Mot de passe oublié ?"
                         />

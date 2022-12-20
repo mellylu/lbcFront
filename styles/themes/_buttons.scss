@@ -27,11 +27,17 @@
         color: black;
         width: 100%;
         border-radius: 5px;
-        border: 1px solid transparent;
         &:hover {
             background: black;
             color: #ffffff;
         }
+    }
+    &-grey {
+        background-color: #dcdcdc;
+        color: #a9a9a9;
+        border: 0px;
+        width: 100%;
+        border-radius: 5px;
     }
     &-orange {
         background-color: #ff6e14;
@@ -39,6 +45,7 @@
         font-weight: bold;
         border-radius: 5px;
         width: 100%;
+        border: 0px;
         &:hover {
             background: #ffffff;
             color: #ff6e14;

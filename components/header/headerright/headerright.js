@@ -16,11 +16,11 @@ const Headerright = () => {
 
     return (
         <div className={styles.maindiv}>
-            <div className="py py-l py-r">
+            <div className={`${styles.button} py py-l py-r`}>
                 <Button className="btn btn-white">
                     <AiOutlineHeart size={30} />
                 </Button>
-                <p className="title title-h6 color color-grey text text-center">Favoris</p>
+                <p className="title title-h6 color-grey text-center">Favoris</p>
             </div>
             <div className="py py-l py-r">
                 <Button className="btn btn-white">
