@@ -1,6 +1,7 @@
 import { useRouter } from "next/router"
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
 import Image from "next/image"
+import jwtDecode from "jwt-decode"
 
 import Button from "../../../components/body/button/button"
 import Input from "../../../components/body/input/input"
@@ -12,6 +13,7 @@ import userService from "../../../services/user.service"
 
 import styles from "../index.module.scss"
 import Message from "../../../components/body/message/message"
+import AuthContext from "../../../contexts/AuthContext"
 
 const Index = () => {
     const router = useRouter()
@@ -19,16 +21,20 @@ const Index = () => {
     const [user, setUser] = useState({})
     const [error, setError] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
+    const { setUserContext } = useContext(AuthContext)
 
     const handleSubmit = e => {
         e.preventDefault()
         userService
             .login(user)
             .then(data => {
-                console.log(data)
                 if (data.auth === true) {
                     setError(false)
                     localStorage.setItem("token", data.token)
+                    setUserContext({
+                        token: data.token,
+                        username: data.username,
+                    })
                     router.push("/")
                 } else {
                     setError(true)

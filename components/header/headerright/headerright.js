@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext, useEffect } from "react"
 import { useRouter } from "next/router"
 import { AiOutlineHeart } from "react-icons/ai"
 import { BiMessageDetail, BiUser } from "react-icons/bi"
@@ -7,12 +7,19 @@ import Button from "../../body/button/button"
 
 import styles from "./headerright.module.scss"
 
+import AuthContext from "../../../contexts/AuthContext"
+
 const Headerright = () => {
     const router = useRouter()
+    const { userContext } = useContext(AuthContext)
 
     const direction = () => {
         router.push("/auth/login")
     }
+
+    useEffect(() => {
+        console.log(userContext)
+    })
 
     return (
         <div className={styles.maindiv}>
@@ -29,10 +36,25 @@ const Headerright = () => {
                 <p className="title title-h6 color color-grey text text-center">Messages</p>
             </div>
             <div className="py py-l py-r">
-                <Button className="btn btn-white" onClick={() => direction()}>
-                    <BiUser size={30} />
-                </Button>
-                <p className="title title-h6 color color-grey text text-center">Se connecter</p>
+                {userContext === undefined ? (
+                    <div>
+                        <Button className="btn btn-white" onClick={() => direction()}>
+                            <BiUser size={30} />
+                        </Button>
+                        <p className="title title-h6 color color-grey text text-center">
+                            Se connecter
+                        </p>
+                    </div>
+                ) : (
+                    <div>
+                        <Button className="btn btn-white" onClick={() => router.push("/profil")}>
+                            <BiUser size={30} />
+                        </Button>
+                        <p className="title title-h6 color color-grey text text-center">
+                            {userContext.username ? userContext.username : ""}
+                        </p>
+                    </div>
+                )}
             </div>
         </div>
     )

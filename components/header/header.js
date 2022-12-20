@@ -5,7 +5,7 @@ import Headerright from "./headerright/headerright"
 
 import styles from "./header.module.scss"
 
-const Header = () => {
+const Header = ({}) => {
     return (
         <div className={styles.maindiv}>
             <Headerleft />
