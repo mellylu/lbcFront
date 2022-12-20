@@ -243,21 +243,27 @@ const Index = () => {
                                 <FiCheck color="green" /> 8 caractères minimum
                             </div>
                         ) : (
-                            ""
+                            <div>
+                                <FiCheck color="grey" /> 8 caractères minimum
+                            </div>
                         )}
                         {oneNumberMin ? (
                             <div>
                                 <FiCheck color="green" /> 1 chiffre minimum
                             </div>
                         ) : (
-                            ""
+                            <div>
+                                <FiCheck color="grey" /> 1 chiffre minimum
+                            </div>
                         )}
                         {oneCaracSpeMin ? (
                             <div>
                                 <FiCheck color="green" /> 1 caractère spécial
                             </div>
                         ) : (
-                            ""
+                            <div>
+                                <FiCheck color="grey" /> 1 caractère spécial
+                            </div>
                         )}
                         {eightcaracmin && oneNumberMin && oneCaracSpeMin ? (
                             <div>

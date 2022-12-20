@@ -12,6 +12,7 @@ import Headerform from "../../../components/header/headerform/headerform"
 import styles from "../index.module.scss"
 
 import ImgChangePassword from "../../../public/change-password.png"
+import Verifpassword from "../../../components/body/verifpassword/verifpassword"
 
 const Resetpassword = () => {
     const router = useRouter()
@@ -96,21 +97,27 @@ const Resetpassword = () => {
                             <FiCheck color="green" /> 8 caractères minimum
                         </div>
                     ) : (
-                        ""
+                        <div>
+                            <FiCheck color="grey" /> 8 caractères minimum
+                        </div>
                     )}
                     {oneNumberMin ? (
                         <div>
                             <FiCheck color="green" /> 1 chiffre minimum
                         </div>
                     ) : (
-                        ""
+                        <div>
+                            <FiCheck color="grey" /> 1 chiffre minimum
+                        </div>
                     )}
                     {oneCaracSpeMin ? (
                         <div>
                             <FiCheck color="green" /> 1 caractère spécial
                         </div>
                     ) : (
-                        ""
+                        <div>
+                            <FiCheck color="grey" /> 1 caractère spécial
+                        </div>
                     )}
                     {eightcaracmin && oneNumberMin && oneCaracSpeMin ? (
                         <Button
