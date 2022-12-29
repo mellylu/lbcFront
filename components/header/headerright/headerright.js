@@ -13,6 +13,9 @@ const Headerright = () => {
     const router = useRouter()
     const { userContext } = useContext(AuthContext)
 
+    useEffect(() => {
+        console.log(`userContext ${userContext}`)
+    })
     const direction = () => {
         router.push("/auth/login")
     }
@@ -36,7 +39,7 @@ const Headerright = () => {
                 <p className="title title-h6 color color-grey text text-center">Messages</p>
             </div>
             <div className="py py-l py-r">
-                {userContext === undefined ? (
+                {userContext === undefined || (userContext && userContext.token === undefined) ? (
                     <div>
                         <Button className="btn btn-white" onClick={() => direction()}>
                             <BiUser size={30} />

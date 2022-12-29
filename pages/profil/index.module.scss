@@ -1,0 +1,23 @@
+.div {
+    border: 2px solid #a9a9a9;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    padding: 3%;
+}
+
+.divprincipal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.divbutton {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
