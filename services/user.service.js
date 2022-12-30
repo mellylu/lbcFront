@@ -54,13 +54,21 @@ export default {
             body: JSON.stringify(body),
         }).then(res => res.json())
     },
-    update(userId, user) {
+    updateuser(userId, user) {
         return fetch("http://localhost:5000/api/v1/users/" + userId, {
             method: "PUT",
             headers: {
                 "content-type": "application/json",
             },
             body: JSON.stringify(user),
+        }).then(res => res.json())
+    },
+    getuser(id) {
+        return fetch("http://localhost:5000/api/v1/users/" + id, {
+            method: "GET",
+            headers: {
+                "content-type": "application/json",
+            },
         }).then(res => res.json())
     },
 }

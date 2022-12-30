@@ -34,6 +34,7 @@ const Index = () => {
                     setUserContext({
                         token: data.token,
                         username: data.username,
+                        id: data.id,
                     })
                     router.push("/")
                 } else {

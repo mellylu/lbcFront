@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import React, { useContext } from "react"
+import React, { useContext, useEffect, useState } from "react"
 
 import AuthContext from "../../contexts/AuthContext"
 
@@ -9,9 +9,37 @@ import Header from "../../components/header/header"
 
 import styles from "./index.module.scss"
 
+import userService from "../../services/user.service"
+
 const Profil = () => {
     const router = useRouter()
-    const { setUserContext } = useContext(AuthContext)
+    const { setUserContext, userContext } = useContext(AuthContext)
+    const [user, setUser] = useState({})
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        console.log("verifie les infos envoyées")
+        console.log(userContext.id)
+        console.log(user)
+        userService
+            .updateuser(userContext.id, user)
+            .then(data => {
+                console.log(data)
+                setUserContext({ ...userContext, username: data.user.username })
+                setUser({ username: data.user.username })
+            })
+            .catch(err => console.log(err))
+    }
+
+    useEffect(() => {
+        setUser({ username: userContext.username })
+        // userService
+        //     .getuser(userContext.id)
+        //     .then(data => {
+        //         console.log(data)
+        //     })
+        //     .catch(err => console.log(err))
+    }, [])
 
     const logout = () => {
         localStorage.clear()
@@ -35,9 +63,22 @@ const Profil = () => {
                 </div>
                 <br />
                 <div className={styles.div}>
-                    <Input title="Nom d'utilisateur" onChange={() => {}} />
+                    <Input
+                        title="Nom d'utilisateur"
+                        className="input input-form"
+                        value={user.username || ""}
+                        onChange={e => {
+                            setUser({ ...user, username: e.target.value })
+                        }}
+                    />
                     <div>
-                        <Button className="btn btn-orange" title="Enregistrer" onClick={() => {}} />
+                        <Button
+                            className="btn btn-orange"
+                            title="Enregistrer"
+                            onClick={e => {
+                                handleSubmit(e)
+                            }}
+                        />
                     </div>
                 </div>
                 <br />
