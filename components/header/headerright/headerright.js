@@ -20,10 +20,6 @@ const Headerright = () => {
         router.push("/auth/login")
     }
 
-    useEffect(() => {
-        console.log(userContext)
-    })
-
     return (
         <div className={styles.maindiv}>
             <div className={`${styles.button} py py-l py-r`}>
@@ -39,23 +35,23 @@ const Headerright = () => {
                 <p className="title title-h6 color color-grey text text-center">Messages</p>
             </div>
             <div className="py py-l py-r">
-                {userContext === undefined || (userContext && userContext.token === undefined) ? (
+                {!userContext ? (
                     <div>
-                        <Button className="btn btn-white" onClick={() => direction()}>
+                        {/* <Button className="btn btn-white" onClick={() => direction()}>
                             <BiUser size={30} />
-                        </Button>
-                        <p className="title title-h6 color color-grey text text-center">
+                        </Button> */}
+                        {/* <p className="title title-h6 color color-grey text text-center">
                             Se connecter
-                        </p>
+                        </p> */}
                     </div>
                 ) : (
                     <div>
-                        <Button className="btn btn-white" onClick={() => router.push("/profil")}>
+                        {/* <Button className="btn btn-white" onClick={() => router.push("/profil")}>
                             <BiUser size={30} />
                         </Button>
                         <p className="title title-h6 color color-grey text text-center">
-                            {userContext.username ? userContext.username : ""}
-                        </p>
+                            {userContext && userContext.username ? userContext.username : ""}
+                        </p> */}
                     </div>
                 )}
             </div>

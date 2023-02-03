@@ -13,7 +13,7 @@ import styles from "../index.module.scss"
 
 import ImgForgotPassword from "../../../public/forgot-password.svg"
 
-const Forgotpassword = () => {
+const Index = () => {
     const router = useRouter()
     const [email, setEmail] = useState({})
     const [validEmail, setValidEmail] = useState(false)
@@ -87,4 +87,4 @@ const Forgotpassword = () => {
     )
 }
 
-export default Forgotpassword
+export default Index

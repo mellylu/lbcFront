@@ -14,7 +14,7 @@ import styles from "../index.module.scss"
 import ImgChangePassword from "../../../public/change-password.png"
 import Verifpassword from "../../../components/body/verifpassword/verifpassword"
 
-const Resetpassword = () => {
+const Index = () => {
     const router = useRouter()
     const [password, setPassword] = useState({})
     const [validPassword, setValidPassword] = useState(false)
@@ -66,7 +66,7 @@ const Resetpassword = () => {
         e.preventDefault()
         console.log(idToken)
         userService
-            .update(idToken, password)
+            .updateuser(idToken, password)
             .then(() => {
                 router.push("/auth/login")
             })
@@ -143,4 +143,4 @@ const Resetpassword = () => {
     )
 }
 
-export default Resetpassword
+export default Index

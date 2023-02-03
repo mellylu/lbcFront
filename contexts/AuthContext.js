@@ -8,25 +8,25 @@ const AuthContext = createContext({
 
 export const AuthContextProvider = ({ children }) => {
     const [userContext, setUserContext] = useState(
-        localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
+        typeof window !== "undefined" ? JSON.parse(localStorage.getItem("user")) : {},
     )
 
-    //     useEffect(() => {
-    //     const hydrateToken = () => {
-    //         const tokenUser = localStorage.getItem("token")
-    //         if (tokenUser) {
-    //             const { token, username, id } = jwtDecode(tokenUser)
+    useEffect(() => {
+        const hydrateToken = () => {
+            const tokenUser = localStorage.getItem("token")
+            // if (tokenUser) {
+            //     const { token, username, id } = jwtDecode(tokenUser)
 
-    //             setUserContext({
-    //                 token,
-    //                 username,
-    //                 id,
-    //             })
-    //         }
-    //     }
+            //     setUserContext({
+            //         token,
+            //         username,
+            //         id,
+            //     })
+            // }
+        }
 
-    //     hydrateToken()
-    // }, [])
+        hydrateToken()
+    }, [])
 
     const context = {
         userContext,

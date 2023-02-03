@@ -1,4 +1,5 @@
 import React from "react"
+import { useRouter } from "next/router"
 import Image from "next/image"
 import { AiOutlineSearch } from "react-icons/ai"
 
@@ -9,19 +10,32 @@ import Logo from "../../../public/Leboncoin_Logo.png"
 
 import styles from "./headerleft.module.scss"
 
-const Headerleft = () => {
+const Headerleft = ({ postAdd }) => {
+    const router = useRouter()
     return (
         <div className={styles.maindiv}>
             <div className={styles.searchdiv}>
                 <Image src={Logo} alt="Logo leboncoin" className="image image-small" />
             </div>
-            <div className={`${styles.searchdiv} py py-l py-r`}>
-                <Button className="btn btn-orange" title="+ Déposer une annonce" />
-            </div>
-            <div className={`${styles.searchdiv} py py-l`}>
-                <AiOutlineSearch size={20} />
-                <Input className="input input-search" placeholder="Rechercher" />
-            </div>
+            {postAdd ? (
+                <div className="py-l">
+                    <h2> Déposer une annonce</h2>
+                </div>
+            ) : (
+                <div className={`${styles.searchdiv} py py-l py-r`}>
+                    <div className={`${styles.searchdiv} py py-l py-r`}>
+                        <Button
+                            onClick={() => router.push("/postad")}
+                            className="btn btn-orange"
+                            title="+ Déposer une annonce"
+                        />
+                    </div>
+                    <div className={`${styles.searchdiv} py py-l`}>
+                        <AiOutlineSearch size={20} />
+                        <Input className="input input-search" placeholder="Rechercher" />
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

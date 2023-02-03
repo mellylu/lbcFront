@@ -18,11 +18,7 @@ const Input = ({ label, type, value, placeholder, required, onChange, className 
 
     return (
         <div>
-            {label && (
-                <div>
-                    <label htmlFor={label}>{label}</label>
-                </div>
-            )}
+            {label && <label htmlFor={label}>{label}</label>}
             <input
                 type={type}
                 id={label}

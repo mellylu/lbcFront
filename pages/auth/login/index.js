@@ -17,7 +17,6 @@ import AuthContext from "../../../contexts/AuthContext"
 
 const Index = () => {
     const router = useRouter()
-
     const [user, setUser] = useState({})
     const [error, setError] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
@@ -63,36 +62,32 @@ const Index = () => {
                     <p className="title title-h3 text text-center">
                         Connectez-vous pour découvrir toutes nos fonctionnalités.
                     </p>
-                    <form>
-                        <Input
-                            label="E-mail"
-                            className="input input-form"
-                            onChange={e => {
-                                setUser({ ...user, email: e.target.value })
-                            }}
-                        />
-                        <br />
-                        <Input
-                            label="Mot de passe"
-                            type="password"
-                            className="input input-form"
-                            onChange={e => {
-                                setUser({ ...user, password: e.target.value })
-                            }}
-                        />
-                        <Button
-                            className="btn btn-link color color-blue"
-                            onClick={() => {
-                                router.push("/auth/forgotpassword")
-                            }}
-                            title="Mot de passe oublié ?"
-                        />
-                        <Button
-                            className="btn btn-blue"
-                            onClick={e => handleSubmit(e)}
-                            title="Se connecter"
-                        />
-                    </form>
+                    <Input
+                        label="E-mail"
+                        className="input input-form"
+                        onChange={e => {
+                            setUser({ ...user, email: e.target.value })
+                        }}
+                    />
+                    <br />
+                    <Input
+                        label="Mot de passe"
+                        type="password"
+                        className="input input-form"
+                        onChange={e => {
+                            setUser({ ...user, password: e.target.value })
+                        }}
+                    />
+                    <Button
+                        className="btn btn-link color color-blue"
+                        onClick={() => router.push("/auth/forgotpassword")}
+                        title="Mot de passe oublié ?"
+                    />
+                    <Button
+                        className="btn btn-blue"
+                        onClick={e => handleSubmit(e)}
+                        title="Se connecter"
+                    />
                     {error ? <Message mess={errorMessage} type="error" /> : ""}
                     <br />
                     <div className="text-center">
