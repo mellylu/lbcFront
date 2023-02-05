@@ -46,12 +46,12 @@ const Headerright = () => {
                     </div>
                 ) : (
                     <div>
-                        {/* <Button className="btn btn-white" onClick={() => router.push("/profil")}>
+                        <Button className="btn btn-white" onClick={() => router.push("/profil")}>
                             <BiUser size={30} />
                         </Button>
                         <p className="title title-h6 color color-grey text text-center">
                             {userContext && userContext.username ? userContext.username : ""}
-                        </p> */}
+                        </p>
                     </div>
                 )}
             </div>

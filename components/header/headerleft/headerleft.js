@@ -25,7 +25,7 @@ const Headerleft = ({ postAdd }) => {
                 <div className={`${styles.searchdiv} py py-l py-r`}>
                     <div className={`${styles.searchdiv} py py-l py-r`}>
                         <Button
-                            onClick={() => router.push("/postad")}
+                            onClick={() => router.push("/ad/postad")}
                             className="btn btn-orange"
                             title="+ Déposer une annonce"
                         />
