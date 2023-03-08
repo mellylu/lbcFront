@@ -29,7 +29,7 @@ const Index = () => {
             .then(data => {
                 if (data.auth === true) {
                     setError(false)
-                    localStorage.setItem("token", data.token)
+                    // localStorage.setItem("token", data.token)
                     setUserContext({
                         token: data.token,
                         username: data.username,

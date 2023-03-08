@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import { AiOutlineHeart } from "react-icons/ai"
 import { BiMessageDetail, BiUser } from "react-icons/bi"
@@ -12,12 +12,22 @@ import AuthContext from "../../../contexts/AuthContext"
 const Headerright = () => {
     const router = useRouter()
     const { userContext } = useContext(AuthContext)
+    const [isContext, setIsContext] = useState(false)
 
     useEffect(() => {
         console.log(`userContext ${userContext}`)
+        if (userContext) {
+            setIsContext(true)
+        } else {
+            setIsContext(false)
+        }
     })
     const direction = () => {
-        router.push("/auth/login")
+        if (isContext) {
+            router.push("/profil")
+        } else {
+            router.push("/auth/login")
+        }
     }
 
     return (
@@ -35,24 +45,15 @@ const Headerright = () => {
                 <p className="title title-h6 color color-grey text text-center">Messages</p>
             </div>
             <div className="py py-l py-r">
-                {!userContext ? (
-                    <div>
-                        {/* <Button className="btn btn-white" onClick={() => direction()}>
-                            <BiUser size={30} />
-                        </Button> */}
-                        {/* <p className="title title-h6 color color-grey text text-center">
-                            Se connecter
-                        </p> */}
-                    </div>
+                <Button className="btn btn-white" onClick={() => direction()}>
+                    <BiUser size={30} />
+                </Button>
+                {isContext ? (
+                    <p className="title title-h6 color color-grey text text-center">
+                        {userContext.username}
+                    </p>
                 ) : (
-                    <div>
-                        <Button className="btn btn-white" onClick={() => router.push("/profil")}>
-                            <BiUser size={30} />
-                        </Button>
-                        <p className="title title-h6 color color-grey text text-center">
-                            {userContext && userContext.username ? userContext.username : ""}
-                        </p>
-                    </div>
+                    "Se connecter"
                 )}
             </div>
         </div>

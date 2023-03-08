@@ -3,9 +3,11 @@ import { useRouter } from "next/router"
 
 import Button from "../../../components/body/button/button"
 import Headerleft from "../../../components/header/headerleft/headerleft"
+import Input from "../../../components/body/input/input"
 
 import styles from "../index.module.scss"
-import Input from "../../../components/body/input/input"
+
+import filterService from "../../../services/filter.service"
 
 const Index = () => {
     const router = useRouter()
@@ -13,13 +15,53 @@ const Index = () => {
     const [next, setNext] = useState(true)
     const [next1, setNext1] = useState(false)
     const [next2, setNext2] = useState(false)
-
+    const [filter, setFilter] = useState([])
+    console.log("ff")
+    console.log(filter[0][getKeys(filter[0])[6]])
+    console.log("ff")
+    let tab = []
     useEffect(() => {
         console.log(ad)
     }, [ad])
     useEffect(() => {
         console.log("dans useEffect")
     }, [ad.category])
+
+    const filterAd = () => {
+        console.log("--------")
+        console.log(ad.category)
+        console.log(typeof ad.category)
+        console.log("-------")
+        filterService
+            .getElement(ad.category)
+            .then(data => {
+                setFilter(data.filter)
+            })
+            .catch(err => console.log(err))
+    }
+    const getKeys = element => {
+        var keys = Object.keys(element)
+
+        return keys
+    }
+
+    useEffect(() => {
+        console.log("FILTER")
+        console.log(filter)
+        if (filter) {
+            console.log("OOOKKK")
+            filter.forEach(el => {
+                Object.keys(el).forEach(element => {
+                    {
+                        tab.push(element)
+                    }
+                })
+            })
+        }
+        console.log("FILTER")
+
+        console.log(tab)
+    }, [filter])
 
     return (
         <div className="width">
@@ -74,17 +116,14 @@ const Index = () => {
                                         id="pet-select"
                                     >
                                         <option value="">--Please choose an option--</option>
-                                        <option value="dog">Dog</option>
-                                        <option value="cat">Cat</option>
-                                        <option value="hamster">Hamster</option>
-                                        <option value="parrot">Parrot</option>
-                                        <option value="spider">Spider</option>
-                                        <option value="goldfish">Goldfish</option>
+                                        <option value="Vêtement">Vêtement</option>
+                                        <option value="Maison">Maison</option>
                                     </select>
                                     <br />
                                     <Button
                                         title="Continuer"
                                         onClick={() => {
+                                            filterAd()
                                             setNext(false)
                                             setNext2(true)
                                         }}
@@ -100,6 +139,17 @@ const Index = () => {
                             <div>
                                 <br />
                                 <h3>Dites nous en plus</h3>
+                                {filter
+                                    ? filter.map(element => (
+                                          //on met data.type ? pour que les données est le temps de charger et affiche bien
+
+                                          <div key={element._id}>
+                                              {Object.keys(element)[4]}{" "}
+                                              {element[getKeys(element)[6]]}
+                                          </div>
+                                      ))
+                                    : ""}
+
                                 <p>Univers</p>
                                 <select
                                     onClick={e => {
