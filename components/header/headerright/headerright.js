@@ -53,7 +53,7 @@ const Headerright = () => {
                         {userContext.username}
                     </p>
                 ) : (
-                    "Se connecter"
+                    <p className="title title-h6 color color-grey text text-center">Se connecter</p>
                 )}
             </div>
         </div>

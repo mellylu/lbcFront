@@ -16,6 +16,10 @@ const Index = () => {
     const [next1, setNext1] = useState(false)
     const [filter, setFilter] = useState([])
 
+    useEffect(() => {
+        console.log(ad)
+    }, [ad])
+
     const filterAd = () => {
         filterService
             .getElement(ad.category)
@@ -24,17 +28,6 @@ const Index = () => {
             })
             .catch(err => console.log(err))
     }
-    const xx = () => {
-        console.log(ad)
-        router.push({
-            pathname: "/ad/postAd2",
-            query: filter,
-        })
-    }
-
-    useEffect(() => {
-        console.log(ad)
-    }, [ad])
 
     return (
         <div className="width">
@@ -50,67 +43,235 @@ const Index = () => {
             </div>
             <div className={styles.divform2}>
                 <div className={styles.divform}>
-                    <div>
-                        <h3>Commençons par l essentiel !</h3>
-                        <br />
-                        <Input
-                            label="Quel est le titre de l'annonce ?"
-                            className="input input-form"
-                            onChange={e => {
-                                setAd({ ...ad, name: e.target.value })
-                            }}
-                        />
-                        {ad.name && !next1 ? (
-                            <Button
-                                className="btn-orange"
-                                title="Continuer"
-                                onClick={() => {
-                                    setNext1(true)
+                    {next ? (
+                        <div>
+                            <h3>Commençons par l essentiel !</h3>
+                            <br />
+                            <Input
+                                label="Quel est le titre de l'annonce ?"
+                                className="input input-form"
+                                onChange={e => {
+                                    setAd({ ...ad, name: e.target.value })
                                 }}
                             />
-                        ) : (
-                            <>
-                                <Button className="btn-grey" title="Continuer" />
-                            </>
-                        )}
-
-                        {next1 ? (
-                            <div>
-                                <br />
-                                <hr></hr>
-                                <br />
-                                <h3>Choisissez une catégorie suggérée</h3>
-                                <select
-                                    onClick={e => {
-                                        setAd({ ...ad, category: e.target.value })
-                                    }}
-                                    name="pets"
-                                    id="pet-select"
-                                >
-                                    <option value="">--Please choose an option--</option>
-                                    <option value="Vêtement">Vêtement</option>
-                                    <option value="Maison">Maison</option>
-                                </select>
-                                <br />
+                            {ad.name && !next1 ? (
                                 <Button
+                                    className="btn-orange"
                                     title="Continuer"
                                     onClick={() => {
-                                        filterAd()
+                                        setNext1(true)
                                     }}
-                                    className="btn btn-blue"
                                 />
+                            ) : (
+                                <>
+                                    <Button className="btn-grey" title="Continuer" />
+                                </>
+                            )}
+
+                            {next1 ? (
+                                <div>
+                                    <br />
+                                    <hr></hr>
+                                    <br />
+                                    <h3>Choisissez une catégorie suggérée</h3>
+                                    <select
+                                        onClick={e => {
+                                            setAd({ ...ad, category: e.target.value })
+                                        }}
+                                        name="pets"
+                                        id="pet-select"
+                                    >
+                                        <option value="">--Please choose an option--</option>
+                                        <option value="Vêtement">Vêtement</option>
+                                        <option value="Maison">Maison</option>
+                                    </select>
+                                    <br />
+                                    <Button
+                                        title="Continuer"
+                                        onClick={() => {
+                                            filterAd()
+                                            setNext(false)
+                                        }}
+                                        className="btn btn-blue"
+                                    />
+                                </div>
+                            ) : (
+                                ""
+                            )}
+                        </div>
+                    ) : (
+                        <div>
+                            <div>
+                                <br />
+                                <h3>Dites nous en plus</h3>
+
+                                {filter.type !== undefined && filter.type.length > 0 ? (
+                                    <div>
+                                        <p>Type</p>
+                                        <select
+                                            onClick={e => {
+                                                setAd({ ...ad, type: e.target.value })
+                                            }}
+                                            name="pets"
+                                            id="pet-select"
+                                        >
+                                            <option value="">--Please choose an option--</option>
+                                            {filter.type.map(element => (
+                                                <option key={element} value={element}>
+                                                    {element}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                ) : (
+                                    ""
+                                )}
+
+                                {filter.univers !== undefined && filter.univers.length > 0 ? (
+                                    <div>
+                                        <p>Univers</p>
+                                        <select
+                                            onClick={e => {
+                                                setAd({ ...ad, univers: e.target.value })
+                                            }}
+                                            name="pets"
+                                            id="pet-select"
+                                        >
+                                            <option value="">--Please choose an option--</option>
+                                            {filter.univers.map(element => (
+                                                <option key={element} value={element}>
+                                                    {element}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                ) : (
+                                    ""
+                                )}
+
+                                {filter.brand !== undefined && filter.brand.length > 0 ? (
+                                    <div>
+                                        <p>Marque</p>
+                                        <select
+                                            onClick={e => {
+                                                setAd({ ...ad, brand: e.target.value })
+                                            }}
+                                            name="pets"
+                                            id="pet-select"
+                                        >
+                                            <option value="">--Please choose an option--</option>
+                                            {filter.brand.map(element => (
+                                                <option key={element} value={element}>
+                                                    {element}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                ) : (
+                                    ""
+                                )}
+
+                                {filter.material !== undefined && filter.material.length > 0 ? (
+                                    <div>
+                                        <p>Matière</p>
+                                        <select
+                                            onClick={e => {
+                                                setAd({ ...ad, material: e.target.value })
+                                            }}
+                                            name="pets"
+                                            id="pet-select"
+                                        >
+                                            <option value="">--Please choose an option--</option>
+                                            {filter.material.map(element => (
+                                                <option key={element} value={element}>
+                                                    {element}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                ) : (
+                                    ""
+                                )}
+
+                                {filter.color !== undefined && filter.color.length > 0 ? (
+                                    <div>
+                                        <p>Couleur</p>
+                                        <select
+                                            onClick={e => {
+                                                setAd({ ...ad, color: e.target.value })
+                                            }}
+                                            name="pets"
+                                            id="pet-select"
+                                        >
+                                            <option value="">--Please choose an option--</option>
+                                            {filter.color.map(element => (
+                                                <option key={element} value={element}>
+                                                    {element}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                ) : (
+                                    ""
+                                )}
+
+                                {filter.state !== undefined && filter.state.length > 0 ? (
+                                    <div>
+                                        <p>Etat</p>
+                                        <select
+                                            onClick={e => {
+                                                setAd({ ...ad, state: e.target.value })
+                                            }}
+                                            name="pets"
+                                            id="pet-select"
+                                        >
+                                            <option value="">--Please choose an option--</option>
+                                            {filter.state.map(element => (
+                                                <option key={element} value={element}>
+                                                    {element}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                ) : (
+                                    ""
+                                )}
+
+                                {filter.size !== undefined && filter.size.length > 0 ? (
+                                    <div>
+                                        <p>Taille</p>
+                                        <select
+                                            onClick={e => {
+                                                setAd({ ...ad, size: e.target.value })
+                                            }}
+                                            name="pets"
+                                            id="pet-select"
+                                        >
+                                            <option value="">--Please choose an option--</option>
+                                            {filter.size.map(element => (
+                                                <option key={element} value={element}>
+                                                    {element}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                ) : (
+                                    ""
+                                )}
+
                                 <Button
-                                    title="Envoyer"
                                     onClick={() => {
-                                        xx()
+                                        router.push({
+                                            pathname: "/ad/postadmiddle",
+                                            query: ad,
+                                        })
                                     }}
-                                    className="btn btn-blue"
+                                    className="btn-blue"
+                                    title="Suivant"
                                 />
                             </div>
-                        ) : (
-                            ""
-                        )}
-                    </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

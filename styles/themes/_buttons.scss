@@ -22,6 +22,16 @@
             font-weight: bold;
         }
     }
+    &-linkPage {
+        background-color: #ffffff;
+        font-size: 18px;
+        text-align: center;
+        width: 100%;
+        &:hover {
+            background-color: #8f97a0;
+            color: black;
+        }
+    }
     &-white {
         background-color: #ffffff;
         color: black;

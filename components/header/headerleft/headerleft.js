@@ -15,7 +15,12 @@ const Headerleft = ({ postAdd }) => {
     return (
         <div className={styles.maindiv}>
             <div className={styles.searchdiv}>
-                <Image src={Logo} alt="Logo leboncoin" className="image image-small" />
+                <Image
+                    onClick={() => router.push("/")}
+                    src={Logo}
+                    alt="Logo leboncoin"
+                    className="image image-small"
+                />
             </div>
             {postAdd ? (
                 <div className="py-l">

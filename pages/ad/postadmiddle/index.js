@@ -3,9 +3,9 @@ import { useRouter } from "next/router"
 
 import Button from "../../../components/body/button/button"
 import Headerleft from "../../../components/header/headerleft/headerleft"
+import Input from "../../../components/body/input/input"
 
 import styles from "../index.module.scss"
-import Input from "../../../components/body/input/input"
 
 const Index = () => {
     const router = useRouter()
