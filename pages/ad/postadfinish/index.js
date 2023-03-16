@@ -7,6 +7,7 @@ import Input from "../../../components/body/input/input"
 
 import adService from "../../../services/ad.service"
 import userService from "../../../services/user.service"
+import uploadService from "../../../services/upload.service"
 
 import styles from "../index.module.scss"
 
@@ -15,8 +16,9 @@ import AuthContext from "../../../contexts/AuthContext"
 const Index = () => {
     const router = useRouter()
     const [ad, setAd] = useState({})
-    const [file, setfile] = useState([])
+    const [uploadFile, setUploadFile] = useState({})
     const { userContext } = useContext(AuthContext)
+    const [filebis, setFileBis] = useState({})
 
     useEffect(() => {
         setAd(router.query)
@@ -72,17 +74,39 @@ const Index = () => {
             })
     }
 
-    useEffect(() => {
-        console.log(file)
-    }, [file])
-
     const handleSubmit = async e => {
         e.preventDefault()
-        // upload image
+        console.log(uploadFile, "file")
+        const formData = new FormData()
+        formData.append("file", uploadFile)
+        formData.append("upload_preset", "ml_default")
+        const response = await fetch(`http://localhost:5000/api/v1/upload/uploadfile`, {
+            method: "POST",
+            body: formData,
+            // headers: {
+            //     "Content-Type": "multipart/form-data",
+            // },
+        })
+        const data = await response.json()
+        console.log(data)
+
+        // if (formData) {
+        //     console.log("dans le if du form data")
+        //     console.log(formData)
+        //     uploadService
+        //         .uploadfile(formData)
+        //         .then(data => console.log(data))
+        //         .catch(err => console.log(err))
+        // }
     }
 
+    useEffect(() => {
+        console.log("filebis")
+        console.log(filebis)
+    }, [filebis])
+
     const handleFileSelected = e => {
-        setfile(e.target.files[0])
+        setUploadFile(e.target.files[0])
     }
 
     return (

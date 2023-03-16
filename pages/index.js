@@ -11,6 +11,7 @@ import AuthContext from "../contexts/AuthContext"
 import adService from "../services/ad.service"
 
 import styles from "./index.module.scss"
+import Upload from "../components/body/upload/upload"
 
 export default function Home() {
     const { userContext } = useContext(AuthContext)
@@ -36,6 +37,7 @@ export default function Home() {
 
             <h1 className="title-h0 text-center py-t">
                 Des millions de petites annonces et autant d occasions de se faire plaisir
+                <Upload />
             </h1>
             <br />
             <div className={styles.maindiv}>
