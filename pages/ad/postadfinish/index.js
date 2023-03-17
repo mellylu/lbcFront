@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react"
 import { useRouter } from "next/router"
+import Image from "next/image"
 
 import Button from "../../../components/body/button/button"
 import Headerleft from "../../../components/header/headerleft/headerleft"
@@ -7,7 +8,6 @@ import Input from "../../../components/body/input/input"
 
 import adService from "../../../services/ad.service"
 import userService from "../../../services/user.service"
-import uploadService from "../../../services/upload.service"
 
 import styles from "../index.module.scss"
 
@@ -18,7 +18,8 @@ const Index = () => {
     const [ad, setAd] = useState({})
     const [uploadFile, setUploadFile] = useState({})
     const { userContext } = useContext(AuthContext)
-    const [filebis, setFileBis] = useState({})
+    const [cloudinaryImage, setCloudinaryImage] = useState("")
+    const [isVisible, setIsVisible] = useState(false)
 
     useEffect(() => {
         setAd(router.query)
@@ -83,30 +84,38 @@ const Index = () => {
         const response = await fetch(`http://localhost:5000/api/v1/upload/uploadfile`, {
             method: "POST",
             body: formData,
-            // headers: {
-            //     "Content-Type": "multipart/form-data",
-            // },
         })
         const data = await response.json()
+        if (data.api_key) {
+            console.log("l'image est possible")
+            setCloudinaryImage(data)
+            setAd({ ...ad, image: data.secure_url })
+        } else {
+            console.log(data.message)
+        }
         console.log(data)
-
-        // if (formData) {
-        //     console.log("dans le if du form data")
-        //     console.log(formData)
-        //     uploadService
-        //         .uploadfile(formData)
-        //         .then(data => console.log(data))
-        //         .catch(err => console.log(err))
-        // }
     }
-
-    useEffect(() => {
-        console.log("filebis")
-        console.log(filebis)
-    }, [filebis])
 
     const handleFileSelected = e => {
         setUploadFile(e.target.files[0])
+    }
+
+    const deleteImage = async () => {
+        console.log(cloudinaryImage.public_id)
+        const response = await fetch(
+            `http://localhost:5000/api/v1/upload/` + cloudinaryImage.public_id,
+            {
+                method: "DELETE",
+                headers: {
+                    "content-type": "application/json",
+                },
+            },
+        )
+        const data = await response.json()
+        if (data.message) {
+            setCloudinaryImage("")
+            setAd({ ...ad, image: "" })
+        }
     }
 
     return (
@@ -132,11 +141,24 @@ const Index = () => {
                             setAd({ ...ad, price: e.target.value })
                         }}
                     />
-                    {/* https://stacklima.com/telecharger-et-recuperer-une-image-sur-mongodb-a-l-aide-de-mongoose/ */}
                     <form onSubmit={handleSubmit}>
                         <input type="file" name="image" onChange={handleFileSelected} />
                         <button type="submit">Upload image</button>
                     </form>
+                    {/* {cloudinaryImage && (
+                        <Image
+                            src={cloudinaryImage}
+                            alt="image annonce"
+                            className="image image-small"
+                        />
+                    )} */}
+                    {cloudinaryImage.secure_url && <img src={cloudinaryImage.secure_url} />}
+                    <Button
+                        title="Supprimer image"
+                        onClick={() => {
+                            deleteImage()
+                        }}
+                    />
                     <br />
                     <Button
                         onClick={e => {
