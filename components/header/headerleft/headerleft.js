@@ -33,6 +33,7 @@ const Headerleft = ({ postAdd }) => {
                             onClick={() => router.push("/ad/postad")}
                             className="btn btn-orange"
                             title="+ Déposer une annonce"
+                            classNameTitle={styles.size}
                         />
                     </div>
                     <div className={`${styles.searchdiv} py py-l`}>

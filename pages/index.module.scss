@@ -17,17 +17,24 @@
 
 .searchdiv {
     width: 80%;
-    border-radius: 3%;
-    height: 20%;
+    height: 15%;
+    border: 2px solid rgb(199, 197, 197);
+    box-shadow: 5px 10px 10px -10px #cdcaca;
 }
 
 .box {
     padding: 20px 10px 10px 10px;
     display: flex;
+    align-items: center;
 }
 .divbox {
     display: flex;
     justify-content: center;
+    align-items: center;
+}
+
+.div3 {
+    background-color: rgb(199, 197, 197);
 }
 
 .btnmain {
@@ -36,7 +43,29 @@
 }
 
 .btn {
-    width: 50%;
+    width: 30%;
     padding-top: 2%;
     padding-bottom: 2%;
+}
+
+.image {
+    width: 300px;
+    height: 150px;
+    text-align: center;
+    border-radius: 5px;
+    margin: 20px 10px 30px;
+    object-fit: contain;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    border: 2px solid black;
+    position: relative;
+}
+
+.heart {
+    position: absolute;
+    right: 2%;
+    bottom: 2%;
 }

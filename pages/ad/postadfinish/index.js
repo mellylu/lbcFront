@@ -90,6 +90,7 @@ const Index = () => {
             console.log("l'image est possible")
             setCloudinaryImage(data)
             setAd({ ...ad, image: data.secure_url })
+            setIsVisible(true)
         } else {
             console.log(data.message)
         }
@@ -115,6 +116,7 @@ const Index = () => {
         if (data.message) {
             setCloudinaryImage("")
             setAd({ ...ad, image: "" })
+            setIsVisible(false)
         }
     }
 
@@ -153,12 +155,16 @@ const Index = () => {
                         />
                     )} */}
                     {cloudinaryImage.secure_url && <img src={cloudinaryImage.secure_url} />}
-                    <Button
-                        title="Supprimer image"
-                        onClick={() => {
-                            deleteImage()
-                        }}
-                    />
+                    {isVisible ? (
+                        <Button
+                            title="Supprimer image"
+                            onClick={() => {
+                                deleteImage()
+                            }}
+                        />
+                    ) : (
+                        ""
+                    )}
                     <br />
                     <Button
                         onClick={e => {

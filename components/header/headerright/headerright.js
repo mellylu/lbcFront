@@ -33,7 +33,7 @@ const Headerright = () => {
     return (
         <div className={styles.maindiv}>
             <div className={`${styles.button} py py-l py-r`}>
-                <Button className="btn btn-white">
+                <Button className="btn btn-white" onClick={() => router.push("/favorite")}>
                     <AiOutlineHeart size={30} />
                 </Button>
                 <p className="title title-h6 color-grey text-center">Favoris</p>
