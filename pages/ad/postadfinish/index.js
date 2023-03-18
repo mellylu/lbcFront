@@ -31,10 +31,11 @@ const Index = () => {
 
     const addAd = e => {
         e.preventDefault()
+        console.log(ad)
         adService
             .postAd(ad)
             .then(data => {
-                console.log(data)
+                console.log(data, "kkkk")
                 getUserId(data.ad._id)
             })
             .catch(err => {
@@ -49,7 +50,8 @@ const Index = () => {
             .then(data => {
                 console.log(data)
                 data.user.announcement.forEach(element => {
-                    tab.push({ ad: element.ad._id })
+                    console.log(element)
+                    tab.push({ ad: { _id: element.ad._id } })
                 })
                 tab.push({ ad: idAd })
                 addAdUser(tab)
@@ -60,6 +62,7 @@ const Index = () => {
     }
 
     const addAdUser = tab => {
+        console.log(tab)
         userService
             .updateuser(userContext.id, {
                 announcement: tab,
@@ -81,7 +84,7 @@ const Index = () => {
         const formData = new FormData()
         formData.append("file", uploadFile)
         formData.append("upload_preset", "ml_default")
-        const response = await fetch(`http://localhost:5000/api/v1/upload/uploadfile`, {
+        const response = await fetch(`http://localhost:5000/api/v1/upload/uploadfile/annonces`, {
             method: "POST",
             body: formData,
         })

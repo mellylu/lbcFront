@@ -11,6 +11,7 @@ import Image from "next/image"
 import Button from "../components/body/button/button"
 import Input from "../components/body/input/input"
 import Header from "../components/header/header"
+import Favoris from "../components/body/favoris/favoris"
 
 import AuthContext from "../contexts/AuthContext"
 
@@ -18,6 +19,7 @@ import adService from "../services/ad.service"
 
 import styles from "./index.module.scss"
 import userService from "../services/user.service"
+import Announcement from "../components/body/announcement/announcement"
 
 export default function Home() {
     const { userContext } = useContext(AuthContext)
@@ -38,44 +40,44 @@ export default function Home() {
             })
     }, [])
 
-    async function addFavoris(id) {
-        if (userContext.token) {
-            const user = await userService.getuser(userContext.id)
-            var index = 0
-            console.log(user, "usergg")
-            let favorisExist = user.user.favorite.findIndex(el => {
-                if (el.ad._id === id) {
-                    setIsExist(true)
-                    return el._id
-                } else {
-                    setIsExist(false)
-                }
-            })
-            if (favorisExist === -1) {
-                user.user.favorite.push({ ad: { _id: id } })
-            } else {
-                let newFavoris = []
-                user.user.favorite.forEach(favoris => {
-                    if (favoris.ad._id !== id) {
-                        newFavoris.push(favoris)
-                    }
-                })
-                user.user.favorite = newFavoris
-            }
-            console.log(user.user.favorite)
-            userService
-                .updateuser(userContext.id, { favorite: user.user.favorite })
-                .then(dataFavoris => {
-                    console.log(dataFavoris)
-                    // if (dataFavoris.update == true) {
-                    //     setData(dataFavoris.user)
-                    // }
-                })
-                .catch(err => console.log(err))
-        } else {
-            console.log("Vous n'êtes pas connectés")
-        }
-    }
+    // async function addFavoris(id) {
+    //     if (userContext.token) {
+    //         const user = await userService.getuser(userContext.id)
+    //         var index = 0
+    //         console.log(user, "usergg")
+    //         let favorisExist = user.user.favorite.findIndex(el => {
+    //             if (el.ad._id === id) {
+    //                 setIsExist(true)
+    //                 return el._id
+    //             } else {
+    //                 setIsExist(false)
+    //             }
+    //         })
+    //         if (favorisExist === -1) {
+    //             user.user.favorite.push({ ad: { _id: id } })
+    //         } else {
+    //             let newFavoris = []
+    //             user.user.favorite.forEach(favoris => {
+    //                 if (favoris.ad._id !== id) {
+    //                     newFavoris.push(favoris)
+    //                 }
+    //             })
+    //             user.user.favorite = newFavoris
+    //         }
+    //         console.log(user.user.favorite)
+    //         userService
+    //             .updateuser(userContext.id, { favorite: user.user.favorite })
+    //             .then(dataFavoris => {
+    //                 console.log(dataFavoris)
+    //                 // if (dataFavoris.update == true) {
+    //                 //     setData(dataFavoris.user)
+    //                 // }
+    //             })
+    //             .catch(err => console.log(err))
+    //     } else {
+    //         console.log("Vous n'êtes pas connectés")
+    //     }
+    // }
 
     return (
         <div className="width">
@@ -136,34 +138,7 @@ export default function Home() {
                         <div>
                             <h2>Votre recherche est .... à ....</h2>
                         </div>
-                        <div>
-                            {ad.map(element => {
-                                console.log(element.price)
-                                return (
-                                    <div key={element._id} className={styles.flex}>
-                                        <img src={element.image} className={styles.image} alt="" />
-                                        <div>
-                                            <p className="title title-h2">{element.price} $</p>
-                                            <p>{element.name}</p>
-                                            <p>{element.localization}</p>
-                                            <p>{element.date}</p>
-                                        </div>
-                                        <Button
-                                            className={styles.heart}
-                                            onClick={() => {
-                                                addFavoris(element._id)
-                                            }}
-                                        >
-                                            {isExist ? (
-                                                <AiFillHeart size={25} />
-                                            ) : (
-                                                <AiOutlineHeart size={25} />
-                                            )}
-                                        </Button>
-                                    </div>
-                                )
-                            })}
-                        </div>
+                        <Announcement stateElement={ad} />
                     </div>
                 </div>
             </div>

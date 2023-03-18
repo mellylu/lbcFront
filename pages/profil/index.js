@@ -1,5 +1,6 @@
 import { useRouter } from "next/router"
 import React, { useContext, useEffect, useState } from "react"
+import Image from "next/image"
 
 import AuthContext from "../../contexts/AuthContext"
 
@@ -15,6 +16,8 @@ const Profil = () => {
     const router = useRouter()
     const { setUserContext, userContext } = useContext(AuthContext)
     const [user, setUser] = useState({})
+    const [uploadFile, setUploadFile] = useState({})
+    const [cloudinaryImage, setCloudinaryImage] = useState("")
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -29,6 +32,28 @@ const Profil = () => {
                 setUser({ username: data.user.username })
             })
             .catch(err => console.log(err))
+    }
+
+    const handleSubmitPhoto = async e => {
+        e.preventDefault()
+        const formData = new FormData()
+        formData.append("file", uploadFile)
+        formData.append("upload_preset", "ml_default")
+        const response = await fetch(`http://localhost:5000/api/v1/upload/uploadfile/users`, {
+            method: "POST",
+            body: formData,
+        })
+        const data = await response.json()
+        if (data.api_key) {
+            console.log("l'image est possible")
+            setCloudinaryImage(data)
+        } else {
+            console.log(data.message)
+        }
+        console.log(data)
+    }
+    const handleFileSelected = e => {
+        setUploadFile(e.target.files[0])
     }
 
     useEffect(() => {
@@ -53,11 +78,18 @@ const Profil = () => {
             <div className={styles.divprincipal}>
                 <div className={styles.div}>
                     <p>IMAGE DE L UTILISATEUR</p>
+                    {cloudinaryImage.secure_url && <Image src={cloudinaryImage.secure_url} />}
+                    <form onSubmit={handleSubmitPhoto}>
+                        <input type="file" name="image" onChange={handleFileSelected} />
+                        <button type="submit">Changer photo</button>
+                    </form>
                     <div className={styles.divbutton}>
                         <Button
                             className="btn btn-blue"
                             title="Voir mon profil public"
-                            onClick={() => {}}
+                            onClick={() => {
+                                router.push("/profilpublic")
+                            }}
                         />
                     </div>
                 </div>

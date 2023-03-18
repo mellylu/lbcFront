@@ -9,4 +9,13 @@ export default {
             body: JSON.stringify(file),
         }).then(res => res.json())
     },
+    deletefile(public_id) {
+        return fetch(`http://localhost:5000/api/v1/upload/uploadfile`, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(file),
+        }).then(res => res.json())
+    },
 }
