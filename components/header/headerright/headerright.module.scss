@@ -1,14 +1,6 @@
-.maindiv {
-    width: 35%;
+.container {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    margin-right: 15%;
-}
-
-.button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    margin-right: 15%;
 }

@@ -1,4 +1,5 @@
 import React from "react"
+import Button from "../button/button"
 
 import Deletead from "../deletead/deletead"
 import Favoris from "../favoris/favoris"
@@ -15,13 +16,32 @@ const Announcement = ({ stateElement, ad = false, favoris = true }) => {
                 }
                 return (
                     <div key={element._id} className={styles.flex}>
-                        <img src={element.image} className={styles.image} alt="" />
-                        <div>
-                            <p className="title title-h2">{element.price} $</p>
-                            <p>{element.name}</p>
-                            <p>{element.localization}</p>
-                            <p>{element.date}</p>
-                        </div>
+                        <Button className={`btn btn-link ${styles.button}`}>
+                            <img src={element.image} className={styles.image} alt="annonce" />
+                            <div className={styles.container}>
+                                <p
+                                    className={`title title-h2 text-left ${styles.interligne} ${styles.titre}`}
+                                >
+                                    {element.name}
+                                </p>
+                                <p className={`title title-h3 text-left ${styles.interligne}`}>
+                                    {element.price} $
+                                </p>
+                                <br />
+                                <p
+                                    className={`title-p color-greyligth text-left ${styles.interligne}`}
+                                >
+                                    Nanterre
+                                </p>
+                                {/* <p>{element.localization}</p> */}
+                                <p
+                                    className={`title-p color-greyligth text-left ${styles.interligne}`}
+                                >
+                                    02/03/2023 à 8:25
+                                </p>
+                                {/* <p>{element.date}</p> */}
+                            </div>
+                        </Button>
                         <div>
                             {favoris ? (
                                 <div>

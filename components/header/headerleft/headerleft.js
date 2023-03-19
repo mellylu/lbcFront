@@ -27,15 +27,15 @@ const Headerleft = ({ postAdd }) => {
                     <h2> Déposer une annonce</h2>
                 </div>
             ) : (
-                <div className={`${styles.searchdiv} py py-l py-r`}>
-                    <div className={`${styles.searchdiv} py py-l py-r`}>
-                        <Button
-                            onClick={() => router.push("/ad/postad")}
-                            className="btn btn-orange"
-                            title="+ Déposer une annonce"
-                            classNameTitle={styles.size}
-                        />
-                    </div>
+                <div className={`${styles.searchdiv}`}>
+                    {/* <div className={`${styles.searchdiv} py py-l py-r`}> */}
+                    <Button
+                        onClick={() => router.push("/ad/postad")}
+                        className="btn btn-orange"
+                        title="+ Déposer une annonce"
+                        classNameTitle={styles.size}
+                    />
+                    {/* </div> */}
                     <div className={`${styles.searchdiv} py py-l`}>
                         <AiOutlineSearch size={20} />
                         <Input className="input input-search" placeholder="Rechercher" />

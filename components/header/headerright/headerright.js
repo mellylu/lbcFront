@@ -13,6 +13,7 @@ const Headerright = () => {
     const router = useRouter()
     const { userContext } = useContext(AuthContext)
     const [isContext, setIsContext] = useState(false)
+    const [isContextImage, setIsContextImage] = useState(false)
 
     useEffect(() => {
         console.log(`userContext ${userContext}`)
@@ -20,6 +21,11 @@ const Headerright = () => {
             setIsContext(true)
         } else {
             setIsContext(false)
+        }
+        if (userContext.image) {
+            setIsContextImage(true)
+        } else {
+            setIsContextImage(false)
         }
     })
 
@@ -32,22 +38,22 @@ const Headerright = () => {
     }
 
     return (
-        <div className={styles.maindiv}>
-            <div className={`${styles.button} py py-l py-r`}>
+        <div className={styles.container}>
+            <div className="py-r py-t py-l">
                 <Button className="btn btn-white" onClick={() => router.push("/favorite")}>
                     <AiOutlineHeart size={30} />
                 </Button>
                 <p className="title title-h6 color-grey text-center">Favoris</p>
             </div>
-            <div className="py py-l py-r">
+            <div className="py-r py-t py-l">
                 <Button className="btn btn-white">
                     <BiMessageDetail size={30} />
                 </Button>
                 <p className="title title-h6 color color-grey text text-center">Messages</p>
             </div>
-            <div className="py py-l py-r">
+            <div className="py-r py-t">
                 <Button className="btn btn-white" onClick={() => direction()}>
-                    {userContext.image ? (
+                    {isContextImage ? (
                         <img
                             className="image-profil"
                             src={userContext.image}

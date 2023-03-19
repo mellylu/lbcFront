@@ -1,15 +1,27 @@
 .image {
-    width: 300px;
+    width: 200px;
     height: 150px;
-    text-align: center;
     border-radius: 5px;
-    margin: 20px 10px 30px;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .flex {
     display: flex;
-    align-items: center;
-    border: 2px solid black;
-    position: relative;
+    border-radius: 8px;
+    border: 2px solid rgb(193, 190, 190);
+    margin-top: 3%;
+}
+
+.container {
+    margin-left: 3%;
+}
+
+.interligne {
+    line-height: 0.5em;
+}
+
+.button {
+    display: flex;
+    width: 100%;
+    border-radius: 10px;
 }

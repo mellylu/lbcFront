@@ -25,8 +25,8 @@ export default {
             },
         }).then(res => res.json())
     },
-    getAllAd() {
-        return fetch("http://localhost:5000/api/v1/ad", {
+    getAllAd(nbpage) {
+        return fetch(`http://localhost:5000/api/v1/ad?page=${nbpage}`, {
             method: "GET",
             headers: {
                 "content-type": "application/json",

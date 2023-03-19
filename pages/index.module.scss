@@ -1,25 +1,19 @@
-.div {
-    display: flex;
-    flex-direction: row;
-}
-
 .maindiv {
     display: flex;
     justify-content: center;
     height: 100%;
+    width: 100%;
 }
 .div {
-    width: 70%;
+    width: 100%;
     display: flex;
     justify-content: center;
-    border: 2px solid black;
+    flex-direction: row;
 }
 
 .searchdiv {
-    width: 80%;
-    height: 15%;
-    border: 2px solid rgb(199, 197, 197);
-    box-shadow: 5px 10px 10px -10px #cdcaca;
+    width: 100%;
+    height: 100%;
 }
 
 .box {
@@ -68,4 +62,16 @@
     position: absolute;
     right: 2%;
     bottom: 2%;
+}
+
+.previouspage {
+    position: relative;
+    display: inline-block;
+    float: left;
+}
+
+.nextpage {
+    position: relative;
+    display: inline-block;
+    float: right;
 }

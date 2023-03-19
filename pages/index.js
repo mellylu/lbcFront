@@ -21,18 +21,25 @@ import styles from "./index.module.scss"
 import userService from "../services/user.service"
 import Announcement from "../components/body/announcement/announcement"
 
+import Lancome from "../public/lancome.jpg"
+import Modal from "../components/body/modal/modal"
+
 export default function Home() {
     const { userContext } = useContext(AuthContext)
     const [search, setSearch] = useState({})
     const [ad, setAd] = useState([])
+    const [nbpage, setNbpage] = useState()
     const [isExist, setIsExist] = useState(false)
+    const [totalpage, setTotalpage] = useState()
 
     useEffect(() => console.log(userContext))
 
     useEffect(() => {
+        console.log(nbpage)
         adService
-            .getAllAd()
+            .getAllAd(nbpage)
             .then(data => {
+                setNbpage(0)
                 setAd(data.ad)
             })
             .catch(err => {
@@ -40,108 +47,138 @@ export default function Home() {
             })
     }, [])
 
-    // async function addFavoris(id) {
-    //     if (userContext.token) {
-    //         const user = await userService.getuser(userContext.id)
-    //         var index = 0
-    //         console.log(user, "usergg")
-    //         let favorisExist = user.user.favorite.findIndex(el => {
-    //             if (el.ad._id === id) {
-    //                 setIsExist(true)
-    //                 return el._id
-    //             } else {
-    //                 setIsExist(false)
-    //             }
-    //         })
-    //         if (favorisExist === -1) {
-    //             user.user.favorite.push({ ad: { _id: id } })
-    //         } else {
-    //             let newFavoris = []
-    //             user.user.favorite.forEach(favoris => {
-    //                 if (favoris.ad._id !== id) {
-    //                     newFavoris.push(favoris)
-    //                 }
-    //             })
-    //             user.user.favorite = newFavoris
-    //         }
-    //         console.log(user.user.favorite)
-    //         userService
-    //             .updateuser(userContext.id, { favorite: user.user.favorite })
-    //             .then(dataFavoris => {
-    //                 console.log(dataFavoris)
-    //                 // if (dataFavoris.update == true) {
-    //                 //     setData(dataFavoris.user)
-    //                 // }
-    //             })
-    //             .catch(err => console.log(err))
-    //     } else {
-    //         console.log("Vous n'êtes pas connectés")
-    //     }
-    // }
+    useEffect(() => {
+        console.log(nbpage)
+    }, [nbpage])
+
+    const nextpage = () => {
+        setNbpage(nbpage + 1)
+    }
+
+    const previouspage = () => {
+        setNbpage(nbpage - 1)
+    }
+
+    useEffect(() => {
+        adService
+            .getAllAd(nbpage)
+            .then(data => {
+                setAd(data.ad)
+                setTotalpage(data.total)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [nbpage])
 
     return (
         <div className="width">
             <Header />
 
-            <h1 className="title-h0 text-center py-t">
-                Des millions de petites annonces et autant d occasions de se faire plaisir
-            </h1>
-            <br />
-            <div className={styles.maindiv}>
-                <div className={styles.div}>
-                    <div className={`${styles.searchdiv} bgcolor-write`}>
-                        <div className={styles.divbox}>
-                            <div className={styles.box}>
-                                <AiOutlineBars size={20} />
-                                <select
-                                    onClick={e => {
-                                        setSearch({ ...search, category: e.target.value })
-                                    }}
-                                    name="pets"
-                                    id="pet-select"
-                                    className="input input-select"
-                                >
-                                    <option value="">Catégorie</option>
-                                    <option value="Vêtement">Vêtement</option>
-                                    <option value="Maison">Maison</option>
-                                </select>
+            <Modal
+                title={true}
+                text="Des millions de petites annonces et autant d occasions de se faire plaisir"
+            >
+                <div className={styles.maindiv}>
+                    <div className={styles.div}>
+                        <div className={`${styles.searchdiv}`}>
+                            <div className={styles.divbox}>
+                                <div className={styles.box}>
+                                    <AiOutlineBars size={20} />
+                                    <select
+                                        onClick={e => {
+                                            setSearch({ ...search, category: e.target.value })
+                                        }}
+                                        name="pets"
+                                        id="pet-select"
+                                        className="input input-select"
+                                    >
+                                        <option value="">Catégorie</option>
+                                        <option value="Vêtement">Vêtement</option>
+                                        <option value="Maison">Maison</option>
+                                    </select>
+                                </div>
+                                <div className={styles.box}>
+                                    <AiOutlineSearch size={20} />
+                                    <Input
+                                        className="input input-select"
+                                        placeholder="Que recherchez vous ?"
+                                    />
+                                </div>
+                                <div className={styles.box}>
+                                    <AiFillEnvironment size={20} />
+                                    <Input
+                                        className="input input-select"
+                                        placeholder="Saisissez une ville"
+                                        onClick={() => {}}
+                                    />
+                                </div>
+                            </div>
+                            <div className={styles.btnmain}>
+                                <div className={styles.btn}>
+                                    <Button
+                                        className="btn btn-blue"
+                                        title="Rechercher"
+                                        onClick={() => {}}
+                                    />
+                                </div>
                             </div>
                             <div className={styles.box}>
                                 <AiOutlineSearch size={20} />
-                                <Input
-                                    className="input input-select"
-                                    placeholder="Que recherchez vous ?"
-                                />
+                                <h2>Recherches récentes</h2>
                             </div>
-                            <div className={styles.box}>
-                                <AiFillEnvironment size={20} />
-                                <Input
-                                    className="input input-select"
-                                    placeholder="Saisissez une ville"
-                                    onClick={() => {}}
-                                />
+                            <div>
+                                <h2>Votre recherche est .... à ....</h2>
                             </div>
+                            <Announcement stateElement={ad} />
+                            <br />
+                            {nbpage > 0 && nbpage < totalpage ? (
+                                <div>
+                                    <div className={styles.previouspage}>
+                                        <Button
+                                            className={`${styles.previouspage} btn btn-white`}
+                                            title="Page précédente"
+                                            onClick={() => previouspage()}
+                                        />
+                                    </div>
+                                    <div className={styles.nextpage}>
+                                        <Button
+                                            className={`${styles.nextpage} btn btn-white`}
+                                            title="Page suivante"
+                                            onClick={() => nextpage()}
+                                        />
+                                    </div>
+                                </div>
+                            ) : (
+                                ""
+                            )}
+                            {nbpage === 0 ? (
+                                <div className={styles.nextpage}>
+                                    <Button
+                                        className="btn btn-white"
+                                        title="Page suivante"
+                                        onClick={() => nextpage()}
+                                    />
+                                </div>
+                            ) : (
+                                ""
+                            )}
+                            {nbpage === totalpage ? (
+                                <div className={styles.previouspage}>
+                                    <Button
+                                        title="Page précédente"
+                                        className="btn btn-white"
+                                        onClick={() => previouspage()}
+                                    />
+                                </div>
+                            ) : (
+                                ""
+                            )}
                         </div>
-                        <div className={styles.btnmain}>
-                            <div className={styles.btn}>
-                                <Button
-                                    className="btn btn-blue"
-                                    title="Rechercher"
-                                    onClick={() => {}}
-                                />
-                            </div>
-                        </div>
-                        <div className={styles.box}>
-                            <AiOutlineSearch size={20} />
-                            <h2>Recherches récentes</h2>
-                        </div>
-                        <div>
-                            <h2>Votre recherche est .... à ....</h2>
-                        </div>
-                        <Announcement stateElement={ad} />
                     </div>
                 </div>
-            </div>
+            </Modal>
+            <p className="text text-right">MMMMMMMMMMMMMMM</p>
         </div>
     )
 }
