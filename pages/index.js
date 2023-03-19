@@ -1,46 +1,31 @@
 import React, { useState, useContext, useEffect } from "react"
-import {
-    AiOutlineSearch,
-    AiFillEnvironment,
-    AiOutlineBars,
-    AiOutlineHeart,
-    AiFillHeart,
-} from "react-icons/ai"
-import Image from "next/image"
+import { AiOutlineSearch, AiFillEnvironment, AiOutlineBars } from "react-icons/ai"
 
 import Button from "../components/body/button/button"
 import Input from "../components/body/input/input"
 import Header from "../components/header/header"
-import Favoris from "../components/body/favoris/favoris"
+import Announcement from "../components/body/announcement/announcement"
+import Modal from "../components/body/modal/modal"
 
 import AuthContext from "../contexts/AuthContext"
 
 import adService from "../services/ad.service"
 
 import styles from "./index.module.scss"
-import userService from "../services/user.service"
-import Announcement from "../components/body/announcement/announcement"
-
-import Lancome from "../public/lancome.jpg"
-import Modal from "../components/body/modal/modal"
 
 export default function Home() {
-    const { userContext } = useContext(AuthContext)
     const [search, setSearch] = useState({})
     const [ad, setAd] = useState([])
-    const [nbpage, setNbpage] = useState()
-    const [isExist, setIsExist] = useState(false)
+    const [nbpage, setNbpage] = useState(0)
     const [totalpage, setTotalpage] = useState()
-
-    useEffect(() => console.log(userContext))
+    const [sort, setSort] = useState({})
 
     useEffect(() => {
-        console.log(nbpage)
         adService
-            .getAllAd(nbpage)
+            .getAllAd(nbpage, sort.name)
             .then(data => {
-                setNbpage(0)
                 setAd(data.ad)
+                setTotalpage(data.total)
             })
             .catch(err => {
                 console.log(err)
@@ -48,8 +33,16 @@ export default function Home() {
     }, [])
 
     useEffect(() => {
-        console.log(nbpage)
-    }, [nbpage])
+        adService
+            .getAllAd(nbpage, sort.name)
+            .then(data => {
+                setAd(data.ad)
+                setNbpage(0)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [sort])
 
     const nextpage = () => {
         setNbpage(nbpage + 1)
@@ -61,10 +54,10 @@ export default function Home() {
 
     useEffect(() => {
         adService
-            .getAllAd(nbpage)
+            .getAllAd(nbpage, sort.name)
             .then(data => {
+                console.log(data)
                 setAd(data.ad)
-                setTotalpage(data.total)
             })
             .catch(err => {
                 console.log(err)
@@ -130,6 +123,18 @@ export default function Home() {
                             <div>
                                 <h2>Votre recherche est .... à ....</h2>
                             </div>
+                            <select
+                                onClick={e => {
+                                    setSort({ ...sort, name: e.target.value })
+                                }}
+                                name="pets"
+                                id="pet-select"
+                                className={`input input-form ${styles.select}`}
+                            >
+                                <option value="">Choix du tri</option>
+                                <option value="name">Titre</option>
+                                <option value="price">Prix</option>
+                            </select>
                             <Announcement stateElement={ad} />
                             <br />
                             {nbpage > 0 && nbpage < totalpage ? (
@@ -178,7 +183,6 @@ export default function Home() {
                     </div>
                 </div>
             </Modal>
-            <p className="text text-right">MMMMMMMMMMMMMMM</p>
         </div>
     )
 }
