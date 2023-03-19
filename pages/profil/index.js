@@ -17,7 +17,6 @@ const Profil = () => {
     const { setUserContext, userContext } = useContext(AuthContext)
     const [user, setUser] = useState({})
     const [uploadFile, setUploadFile] = useState({})
-    const [cloudinaryImage, setCloudinaryImage] = useState("")
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -29,7 +28,7 @@ const Profil = () => {
             .then(data => {
                 console.log(data)
                 setUserContext({ ...userContext, username: data.user.username })
-                setUser({ username: data.user.username })
+                setUser({ ...user, username: data.user.username })
             })
             .catch(err => console.log(err))
     }
@@ -46,7 +45,12 @@ const Profil = () => {
         const data = await response.json()
         if (data.api_key) {
             console.log("l'image est possible")
-            setCloudinaryImage(data)
+            userService
+                .updateuser(userContext.id, { image: data.secure_url })
+                .then(() => {
+                    setUserContext({ ...userContext, image: data.secure_url })
+                })
+                .catch(err => console.log(err))
         } else {
             console.log(data.message)
         }
@@ -57,14 +61,14 @@ const Profil = () => {
     }
 
     useEffect(() => {
-        setUser({ username: userContext.username })
-        // userService
-        //     .getuser(userContext.id)
-        //     .then(data => {
-        //         console.log(data)
-        //     })
-        //     .catch(err => console.log(err))
+        console.log(userContext)
+        setUser({ ...user, username: userContext.username })
+        setUser({ ...user, image: userContext.image })
     }, [])
+
+    useEffect(() => {
+        setUser({ ...user, image: userContext.image })
+    }, [userContext])
 
     const logout = () => {
         localStorage.clear()
@@ -77,8 +81,8 @@ const Profil = () => {
             <Header />
             <div className={styles.divprincipal}>
                 <div className={styles.div}>
-                    <p>IMAGE DE L UTILISATEUR</p>
-                    {cloudinaryImage.secure_url && <Image src={cloudinaryImage.secure_url} />}
+                    <img className="image-profil" src={user.image} alt="photo utilisateur" />
+
                     <form onSubmit={handleSubmitPhoto}>
                         <input type="file" name="image" onChange={handleFileSelected} />
                         <button type="submit">Changer photo</button>

@@ -28,7 +28,6 @@ const Deletead = ({ idElement, idAd }) => {
                 console.log(data)
             })
             .catch(err => console.log(err))
-        deleteImage
     }
 
     return (

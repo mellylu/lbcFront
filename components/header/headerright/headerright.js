@@ -22,6 +22,7 @@ const Headerright = () => {
             setIsContext(false)
         }
     })
+
     const direction = () => {
         if (isContext) {
             router.push("/profil")
@@ -46,7 +47,15 @@ const Headerright = () => {
             </div>
             <div className="py py-l py-r">
                 <Button className="btn btn-white" onClick={() => direction()}>
-                    <BiUser size={30} />
+                    {userContext.image ? (
+                        <img
+                            className="image-profil"
+                            src={userContext.image}
+                            alt="photo utilisateur"
+                        />
+                    ) : (
+                        <BiUser size={30} />
+                    )}
                 </Button>
                 {isContext ? (
                     <p className="title title-h6 color color-grey text text-center">

@@ -24,7 +24,6 @@ const Favorite = () => {
                 if (data.user.favorite.length === 0) {
                     setIsNull(true)
                 } else {
-                    console.log("gggggggggggggggggggggggg")
                     setFavoris(data.user.favorite)
                 }
             })
@@ -60,27 +59,6 @@ const Favorite = () => {
                                     automatiquement de votre sélection.
                                 </p>
                                 <Announcement stateElement={favoris} ad={true} />
-                                {/* {favoris.map(element => {
-                                    console.log(element)
-                                    return (
-                                        <div key={element._id} className={styles.flex}>
-                                            <img
-                                                src={element.ad.image}
-                                                className={styles.imagefavoris}
-                                                alt=""
-                                            />
-                                            <div>
-                                                <p className="title title-h2">
-                                                    {element.ad.price} $
-                                                </p>
-                                                <p>{element.ad.name}</p>
-                                                <p>{element.ad.localization}</p>
-                                                <p>{element.ad.date}</p>
-                                            </div>
-                                            <Favoris idElement={element._id} />
-                                        </div>
-                                    )
-                                })} */}
                             </div>
                         </div>
                     )}

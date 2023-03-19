@@ -13,7 +13,6 @@ const Announcement = ({ stateElement, ad = false, favoris = true }) => {
                 if (ad) {
                     element = element.ad
                 }
-                console.log(element)
                 return (
                     <div key={element._id} className={styles.flex}>
                         <img src={element.image} className={styles.image} alt="" />
@@ -23,11 +22,17 @@ const Announcement = ({ stateElement, ad = false, favoris = true }) => {
                             <p>{element.localization}</p>
                             <p>{element.date}</p>
                         </div>
-                        {favoris ? (
-                            <Favoris idElement={element._id} />
-                        ) : (
-                            <Deletead idElement={x._id} idAd={element._id} />
-                        )}
+                        <div>
+                            {favoris ? (
+                                <div>
+                                    <Favoris idElement={element._id} />
+                                </div>
+                            ) : (
+                                <div>
+                                    <Deletead idElement={x._id} idAd={element._id} />
+                                </div>
+                            )}
+                        </div>
                     </div>
                 )
             })}
