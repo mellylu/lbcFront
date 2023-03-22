@@ -1,12 +1,15 @@
 import React from "react"
-import Button from "../button/button"
+import { useRouter } from "next/router"
 
+import Button from "../button/button"
 import Deletead from "../deletead/deletead"
 import Favoris from "../favoris/favoris"
 
 import styles from "./announcement.module.scss"
 
 const Announcement = ({ stateElement, ad = false, favoris = true }) => {
+    const router = useRouter()
+
     return (
         <div>
             {stateElement.map(element => {
@@ -16,7 +19,15 @@ const Announcement = ({ stateElement, ad = false, favoris = true }) => {
                 }
                 return (
                     <div key={element._id} className={styles.flex}>
-                        <Button className={`btn btn-link ${styles.button}`}>
+                        <Button
+                            className={`btn btn-link ${styles.button}`}
+                            onClick={() => {
+                                router.push({
+                                    pathname: "/detailproduct",
+                                    query: { id: element._id },
+                                })
+                            }}
+                        >
                             <img src={element.image} className={styles.image} alt="annonce" />
                             <div className={styles.container}>
                                 <p

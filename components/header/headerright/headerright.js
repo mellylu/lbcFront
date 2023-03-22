@@ -19,13 +19,13 @@ const Headerright = () => {
         console.log(`userContext ${userContext}`)
         if (userContext) {
             setIsContext(true)
+            if (userContext.image) {
+                setIsContextImage(true)
+            } else {
+                setIsContextImage(false)
+            }
         } else {
             setIsContext(false)
-        }
-        if (userContext.image) {
-            setIsContextImage(true)
-        } else {
-            setIsContextImage(false)
         }
     })
 

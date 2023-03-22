@@ -20,14 +20,12 @@ const Index = () => {
     const { userContext } = useContext(AuthContext)
     const [cloudinaryImage, setCloudinaryImage] = useState("")
     const [isVisible, setIsVisible] = useState(false)
+    const idUser = []
 
     useEffect(() => {
         setAd(router.query)
-    }, [])
-
-    useEffect(() => {
         console.log(ad)
-    }, [ad])
+    }, [])
 
     const addAd = e => {
         e.preventDefault()
@@ -37,6 +35,7 @@ const Index = () => {
             .then(data => {
                 console.log(data, "kkkk")
                 getUserId(data.ad._id)
+                addUserAd(data.ad._id)
             })
             .catch(err => {
                 console.log(err)
@@ -69,6 +68,19 @@ const Index = () => {
             })
             .then(data => {
                 console.log(data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    const addUserAd = id => {
+        console.log(id, "idAd")
+        const obj = { user: { _id: userContext.id } }
+        idUser.push(obj)
+        adService
+            .updateAd(id, { userad: idUser })
+            .then(() => {
                 router.push({
                     pathname: "/ad/postadsuccess",
                 })

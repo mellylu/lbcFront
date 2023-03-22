@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import { useRouter } from "next/router"
 
 import Button from "../../../components/body/button/button"
@@ -9,6 +9,8 @@ import styles from "../index.module.scss"
 
 import filterService from "../../../services/filter.service"
 
+import AuthContext from "../../../contexts/AuthContext"
+
 const Index = () => {
     const router = useRouter()
     const [ad, setAd] = useState({})
@@ -16,11 +18,8 @@ const Index = () => {
     const [next1, setNext1] = useState(false)
     const [filter, setFilter] = useState([])
 
-    useEffect(() => {
-        console.log(ad)
-    }, [ad])
-
     const filterAd = () => {
+        setAd({ ...ad, userad: [] })
         filterService
             .getElement(ad.category)
             .then(data => {
@@ -28,6 +27,10 @@ const Index = () => {
             })
             .catch(err => console.log(err))
     }
+
+    useEffect(() => {
+        console.log(ad)
+    }, [ad])
 
     return (
         <div className="width">
