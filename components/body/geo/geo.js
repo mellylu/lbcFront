@@ -12,18 +12,8 @@ export default function Index({ localization }) {
     return <Map localization={localization} />
 }
 function Map({ localization }) {
-    // useEffect(()=>{
-
-    // })
-    // console.log(localization)
-    // const center = null
-    // if (localization) {
-    //     center = localization
-    // } else {
-    //     center = { lat: 46, lng: -20 }
-    // }
     return (
-        <GoogleMap zoom={10} center={localization} mapContainerClassName={styles.mapcontainer}>
+        <GoogleMap zoom={15} center={localization} mapContainerClassName={styles.mapcontainer}>
             {localization && <Marker position={localization} />}
         </GoogleMap>
     )

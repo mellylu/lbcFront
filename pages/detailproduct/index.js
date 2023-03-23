@@ -4,9 +4,10 @@ import { useRouter } from "next/router"
 import adService from "../../services/ad.service"
 
 import Geo from "../../components/body/geo/geo"
-import Headerleft from "../../components/header/headerleft/headerleft"
+import Header from "../../components/header/header"
 
 import styles from "./index.module.scss"
+import Button from "../../components/body/button/button"
 
 const Index = () => {
     const router = useRouter()
@@ -20,23 +21,44 @@ const Index = () => {
 
     return (
         <div className="width">
-            <Headerleft postAdd={true} title="Détail du produit" />
-            {ad ? <Geo localization={ad.localization} /> : <Geo />}
-            {ad ? (
-                <div>
-                    <h1 className="title-h0 text-center py-t">{ad.name}</h1>
+            <Header />
+            <div className={styles.div}>
+                {ad ? (
+                    <div className={styles.div1}>
+                        <div>
+                            <img className="image-medium" src={ad.image} alt="image product" />
 
-                    <div className={styles.maindiv}>
-                        <div className={styles.div}></div>
-                        <img src={ad.image} alt="image product" />
-                        <p>Prix : {ad.price}</p>
-                        <p>Description : {ad.description}</p>
+                            <h1 className="title-h0 text-left py-l py-t">{ad.name}</h1>
+                            <p className="text-left py-l title-h3">Ville</p>
+                            <p className="text-left py-l title-h2">Prix : {ad.price}</p>
+                            <p className="text-left py-l title-h4">Date xx/xx/xxxx à xx:xx</p>
+                            <p>_____________________________________________________________</p>
+                            <p>_____________________________________________________________</p>
+                            <p className="text-left py-l title-h3">
+                                Description <br />
+                                {ad.description}
+                                <br />
+                            </p>
+                        </div>
                         {/* <p>Localisation : {ad.localization}</p> */}
                     </div>
+                ) : (
+                    ""
+                )}
+
+                <div className={styles.div2}>
+                    <div className={styles.div3}>
+                        <p>Propriétaire</p>
+                        <Button
+                            title="Envoyer un message"
+                            className="btn btn-blue"
+                            onClick={() => {}}
+                        />
+                    </div>
                 </div>
-            ) : (
-                ""
-            )}
+            </div>
+            <br />
+            {ad ? <Geo localization={ad.localization} /> : <Geo />}
         </div>
     )
 }
