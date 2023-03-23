@@ -27,6 +27,7 @@ const Index = () => {
         userService
             .login(user)
             .then(data => {
+                console.log(data)
                 if (data.auth === true) {
                     setError(false)
                     // localStorage.setItem("token", data.token)
@@ -34,6 +35,7 @@ const Index = () => {
                         token: data.token,
                         username: data.username,
                         id: data.id,
+                        image: data.image,
                     })
                     router.push("/")
                 } else {

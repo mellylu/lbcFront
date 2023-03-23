@@ -14,6 +14,7 @@ const Headerright = () => {
     const { userContext } = useContext(AuthContext)
     const [isContext, setIsContext] = useState(false)
     const [isContextImage, setIsContextImage] = useState(false)
+    const [isContextUsername, setIsContextUsername] = useState(false)
 
     useEffect(() => {
         console.log(`userContext ${userContext}`)
@@ -23,6 +24,11 @@ const Headerright = () => {
                 setIsContextImage(true)
             } else {
                 setIsContextImage(false)
+            }
+            if (userContext.username) {
+                setIsContextUsername(true)
+            } else {
+                setIsContextUsername(false)
             }
         } else {
             setIsContext(false)
@@ -63,7 +69,7 @@ const Headerright = () => {
                         <BiUser size={30} />
                     )}
                 </Button>
-                {isContext ? (
+                {isContext && isContextUsername ? (
                     <p className="title title-h6 color color-grey text text-center">
                         {userContext.username}
                     </p>

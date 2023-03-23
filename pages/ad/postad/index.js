@@ -35,7 +35,7 @@ const Index = () => {
     return (
         <div className="width">
             <div className={styles.maindiv}>
-                <Headerleft postAdd={true} />
+                <Headerleft postAdd={true} title="Déposer un annonce" />
                 <div className={styles.maindiv2}>
                     <Button
                         onClick={() => router.push("/")}

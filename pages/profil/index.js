@@ -71,6 +71,9 @@ const Profil = () => {
     }, [userContext])
 
     const logout = () => {
+        // localStorage.removeItem("user")
+        // localStorage.getItem("user").clear()
+        localStorage.clear()
         localStorage.clear()
         setUserContext(null)
         router.push("/")

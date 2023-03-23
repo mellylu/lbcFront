@@ -3,7 +3,8 @@ import { useRouter } from "next/router"
 
 import adService from "../../services/ad.service"
 
-import Header from "../../components/header/header"
+import Geobis from "../../components/body/geobis/geobis"
+import Headerleft from "../../components/header/headerleft/headerleft"
 
 import styles from "./index.module.scss"
 
@@ -12,7 +13,6 @@ const Index = () => {
     const [ad, setAd] = useState()
 
     useEffect(() => {
-        console.log(router.query.id)
         adService.getAd(router.query.id).then(data => {
             setAd(data.ad)
         })
@@ -20,7 +20,9 @@ const Index = () => {
 
     return (
         <div className="width">
-            <Header />
+            <Headerleft postAdd={true} title="Détail du produit" />
+            <Geobis />
+
             {ad ? (
                 <div>
                     <h1 className="title-h0 text-center py-t">{ad.name}</h1>
@@ -29,6 +31,7 @@ const Index = () => {
                         <img src={ad.image} alt="image product" />
                         <p>Prix : {ad.price}</p>
                         <p>Description : {ad.description}</p>
+                        <p>Localisation : {ad.localization}</p>
                     </div>
                 </div>
             ) : (

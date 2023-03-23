@@ -10,7 +10,7 @@ import Logo from "../../../public/Leboncoin_Logo.png"
 
 import styles from "./headerleft.module.scss"
 
-const Headerleft = ({ postAdd }) => {
+const Headerleft = ({ postAdd, title }) => {
     const router = useRouter()
     return (
         <div className={styles.maindiv}>
@@ -24,7 +24,7 @@ const Headerleft = ({ postAdd }) => {
             </div>
             {postAdd ? (
                 <div className="py-l">
-                    <h2> Déposer une annonce</h2>
+                    <h2>{title}</h2>
                 </div>
             ) : (
                 <div className={`${styles.searchdiv}`}>
