@@ -15,30 +15,36 @@ import styles from "./geobis.module.scss"
 import Input from "../input/input"
 import Button from "../button/button"
 
-export default function Index() {
+export default function Index({ setAd, ad }) {
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: "AIzaSyDbr6FgqPsctO5kXmIFoYL7X7TuaXAGX_o",
         libraries: ["places"],
     })
 
     if (!isLoaded) return <div>Loading...</div>
-    return <Map />
+    return <Map setAd={setAd} ad={ad} />
 }
-function Map() {
+function Map({ setAd, ad }) {
     const [selected, setSelected] = useState(null)
+
+    useEffect(() => {
+        console.log(selected)
+        console.log(ad, "ad")
+    }, [selected])
+
     return (
-        <>
+        <div>
             <div className={styles.placescontainer}>
-                <PlacesAutocomplete setSelected={setSelected} />
+                <PlacesAutocomplete setSelected={setSelected} setAd={setAd} ad={ad} />
             </div>
-            <GoogleMap zoom={15} center={selected} mapContainerClassName={styles.mapcontainer}>
-                {selected && <Marker position={selected} />}
-            </GoogleMap>
-        </>
+            {/* <GoogleMap zoom={15} center={selected} mapContainerClassName={styles.mapcontainer}>
+                 {selected && <Marker position={selected} />}
+             </GoogleMap> */}
+        </div>
     )
 }
 
-const PlacesAutocomplete = ({ setSelected }) => {
+const PlacesAutocomplete = ({ setSelected, setAd, ad }) => {
     const {
         ready,
         value,
@@ -53,6 +59,7 @@ const PlacesAutocomplete = ({ setSelected }) => {
         const results = await getGeocode({ address })
         const { lat, lng } = getLatLng(results[0])
         setSelected({ lat, lng })
+        setAd({ ...ad, localization: { lat, lng } })
     }
 
     return (

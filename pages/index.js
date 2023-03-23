@@ -24,6 +24,7 @@ export default function Home() {
         adService
             .getAllAd(nbpage, sort.name)
             .then(data => {
+                console.log(data)
                 setAd(data.ad)
                 setTotalpage(data.total)
             })

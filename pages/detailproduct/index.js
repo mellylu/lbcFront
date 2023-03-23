@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 
 import adService from "../../services/ad.service"
 
-import Geobis from "../../components/body/geobis/geobis"
+import Geo from "../../components/body/geo/geo"
 import Headerleft from "../../components/header/headerleft/headerleft"
 
 import styles from "./index.module.scss"
@@ -21,17 +21,17 @@ const Index = () => {
     return (
         <div className="width">
             <Headerleft postAdd={true} title="Détail du produit" />
-            <Geobis />
-
+            {ad ? <Geo localization={ad.localization} /> : <Geo />}
             {ad ? (
                 <div>
                     <h1 className="title-h0 text-center py-t">{ad.name}</h1>
+
                     <div className={styles.maindiv}>
                         <div className={styles.div}></div>
                         <img src={ad.image} alt="image product" />
                         <p>Prix : {ad.price}</p>
                         <p>Description : {ad.description}</p>
-                        <p>Localisation : {ad.localization}</p>
+                        {/* <p>Localisation : {ad.localization}</p> */}
                     </div>
                 </div>
             ) : (

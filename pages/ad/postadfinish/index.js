@@ -5,6 +5,7 @@ import Image from "next/image"
 import Button from "../../../components/body/button/button"
 import Headerleft from "../../../components/header/headerleft/headerleft"
 import Input from "../../../components/body/input/input"
+import Geobis from "../../../components/body/geobis/geobis"
 
 import adService from "../../../services/ad.service"
 import userService from "../../../services/user.service"
@@ -20,6 +21,8 @@ const Index = () => {
     const { userContext } = useContext(AuthContext)
     const [cloudinaryImage, setCloudinaryImage] = useState("")
     const [isVisible, setIsVisible] = useState(false)
+
+    const [isVisible2, setIsVisible2] = useState(false)
     const idUser = []
 
     useEffect(() => {
@@ -181,6 +184,21 @@ const Index = () => {
                         ""
                     )}
                     <br />
+                    <Button
+                        title="Next"
+                        onClick={() => {
+                            setIsVisible2(true)
+                        }}
+                    />
+                    {isVisible2 ? (
+                        <div>
+                            <h3>Localisation</h3>
+                            <Geobis setAd={setAd} ad={ad} />
+                        </div>
+                    ) : (
+                        ""
+                    )}
+
                     <Button
                         onClick={e => {
                             addAd(e)
