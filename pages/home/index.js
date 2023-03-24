@@ -1,15 +1,15 @@
 import React, { useState, useContext, useEffect } from "react"
 import { AiOutlineSearch, AiFillEnvironment, AiOutlineBars } from "react-icons/ai"
 
-import Button from "../components/body/button/button"
-import Input from "../components/body/input/input"
-import Header from "../components/header/header"
-import Announcement from "../components/body/announcement/announcement"
-import Modal from "../components/body/modal/modal"
+import Button from "../../components/body/button/button"
+import Input from "../../components/body/input/input"
+import Header from "../../components/header/header"
+import Announcement from "../../components/body/announcement/announcement"
+import Modal from "../../components/body/modal/modal"
 
-import AuthContext from "../contexts/AuthContext"
+import AuthContext from "../../contexts/AuthContext"
 
-import adService from "../services/ad.service"
+import adService from "../../services/ad.service"
 
 import styles from "./index.module.scss"
 
@@ -22,7 +22,7 @@ export default function Home() {
 
     useEffect(() => {
         adService
-            .getAllAd(nbpage, sort.name)
+            .getAllAd(nbpage, sort.name || "")
             .then(data => {
                 console.log(data)
                 setAd(data.ad)
@@ -35,7 +35,7 @@ export default function Home() {
 
     useEffect(() => {
         adService
-            .getAllAd(nbpage, sort.name)
+            .getAllAd(nbpage, sort.name || "")
             .then(data => {
                 setAd(data.ad)
                 setNbpage(0)
@@ -55,7 +55,7 @@ export default function Home() {
 
     useEffect(() => {
         adService
-            .getAllAd(nbpage, sort.name)
+            .getAllAd(nbpage, sort.name || "")
             .then(data => {
                 console.log(data)
                 setAd(data.ad)
@@ -125,14 +125,16 @@ export default function Home() {
                                 <h2>Votre recherche est .... à ....</h2>
                             </div>
                             <select
-                                onClick={e => {
+                                onChange={e => {
                                     setSort({ ...sort, name: e.target.value })
                                 }}
                                 name="pets"
                                 id="pet-select"
                                 className={`input input-form ${styles.select}`}
                             >
-                                <option value="">Choix du tri</option>
+                                <option value="" disabled selected hidden>
+                                    Choix du tri
+                                </option>
                                 <option value="name">Titre</option>
                                 <option value="price">Prix</option>
                             </select>

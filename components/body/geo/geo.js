@@ -4,10 +4,10 @@ import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api"
 import styles from "./geo.module.scss"
 
 export default function Index({ localization }) {
+    console.log(localization, "localization")
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: "AIzaSyDbr6FgqPsctO5kXmIFoYL7X7TuaXAGX_o",
     })
-
     if (!isLoaded) return <div>Loading...</div>
     return <Map localization={localization} />
 }
