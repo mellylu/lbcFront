@@ -52,16 +52,16 @@ const PlacesAutocomplete = ({ setSelected, setAd, ad }) => {
         const { lat, lng } = getLatLng(results[0])
         setSelected({ lat, lng })
         setAd({ ...ad, localization: { lat, lng } })
-        addAdress(address)
+        // addAdress(address)
     }
 
-    const addAdress = address => {
-        let cpt = 0
-        address.split(",").forEach(element => {
-            cpt += 1
-        })
-        setAd({ ...ad, country: address.split(",")[cpt - 2].trim() })
-    }
+    // const addAdress = address => {
+    //     let cpt = 0
+    //     address.split(",").forEach(element => {
+    //         cpt += 1
+    //     })
+    //     setAd({ ...ad, country: address.split(",")[cpt - 2].trim() })
+    // }
 
     return (
         <Combobox onSelect={handleSelect}>

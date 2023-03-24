@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react"
 import { AiOutlineSearch, AiFillEnvironment, AiOutlineBars } from "react-icons/ai"
+import { useRouter } from "next/router"
 
 import Button from "../../components/body/button/button"
 import Input from "../../components/body/input/input"
@@ -11,12 +12,13 @@ import Geobis from "../../components/body/geobis/geobis"
 import AuthContext from "../../contexts/AuthContext"
 
 import adService from "../../services/ad.service"
+import userService from "../../services/user.service"
 
 import styles from "./index.module.scss"
-import { useRouter } from "next/router"
 
 export default function Home() {
     const router = useRouter()
+    const { userContext } = useContext(AuthContext)
     const [search, setSearch] = useState({})
     const [ad, setAd] = useState([])
     const [nbpage, setNbpage] = useState(0)
@@ -25,6 +27,7 @@ export default function Home() {
     const [localization, setLocalization] = useState({})
     const [category, setCategory] = useState({})
     const [isVisible, setIsVisible] = useState(false)
+    const [userRecentSearch, setUserRecentSearch] = useState([])
 
     useEffect(() => {
         adService
@@ -36,6 +39,11 @@ export default function Home() {
             .catch(err => {
                 console.log(err)
             })
+
+        userService
+            .getuser(userContext.id)
+            .then(data => setUserRecentSearch(data.user.recentSearch))
+            .catch(err => console.log(err))
     }, [])
 
     useEffect(() => {
@@ -59,17 +67,52 @@ export default function Home() {
     }
 
     const searchAd = () => {
+        console.log(localization, "localisation")
         adService
             .getAllFilter(category.name || "", search.name || "", localization.localization || {})
             .then(data => {
-                console.log(data)
+                console.log(data, "DATA")
                 setAd(data.ad)
                 setIsVisible(true)
             })
             .catch(err => {
                 console.log(err)
             })
+        if (userRecentSearch.length >= 3) {
+            console.log("supérieur à 3")
+            userRecentSearch.shift()
+        }
+
+        userRecentSearch.push({
+            category: category.name || "",
+            search: search.name || "",
+            localization: localization.localization || "",
+        })
+        userService
+            .updateuser(userContext.id, { recentSearch: userRecentSearch })
+            .then(data => {
+                console.log(data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+        // setUserRecentSearch(...userRecentSearch, {
+        //     category: category.name || "",
+        //     search: search.name || "",
+        //     localization: localization.localization || "",
+        // })
     }
+
+    // useEffect(() => {
+    //     console.log(userRecentSearch, "userRecentSearch")
+    //     // userService.updateuser(userRecentSearch({...})
+    //     //     {
+    //     //     category: category.name || "",
+    //     //     search: search.name || "",
+    //     //     localization: localization.localization || {},
+    //     // })
+    // }, [userRecentSearch])
 
     useEffect(() => {
         adService
@@ -208,9 +251,22 @@ export default function Home() {
                                     )}
                                 </div>
                             ) : (
-                                <div className={styles.box}>
+                                <div className="width">
                                     <AiOutlineSearch size={20} />
                                     <h2>Recherches récentes</h2>
+                                    <div className={styles.divrecentsearch}>
+                                        {userRecentSearch
+                                            ? userRecentSearch.map(element => (
+                                                  <div key={element._id}>
+                                                      <div className={styles.recentsearch}>
+                                                          <p>{element.search}</p>
+                                                          <p>{element.category}</p>
+                                                          {/* <p>{element.localization}</p> */}
+                                                      </div>
+                                                  </div>
+                                              ))
+                                            : ""}
+                                    </div>
                                 </div>
                             )}
                         </div>
