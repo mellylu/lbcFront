@@ -42,7 +42,7 @@ const Announcement = ({ stateElement, ad = false, favoris = true }) => {
                             </p>
                             <br />
                             <p className={`title-p color-greyligth text-left ${styles.interligne}`}>
-                                Nanterre
+                                {element.country}
                             </p>
                             {/* <p>{element.localization}</p> */}
                             <p className={`title-p color-greyligth text-left ${styles.interligne}`}>

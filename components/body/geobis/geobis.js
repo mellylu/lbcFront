@@ -27,19 +27,11 @@ export default function Index({ setAd, ad }) {
 function Map({ setAd, ad }) {
     const [selected, setSelected] = useState(null)
 
-    useEffect(() => {
-        console.log(selected)
-        console.log(ad, "ad")
-    }, [selected])
-
     return (
         <div>
             <div className={styles.placescontainer}>
                 <PlacesAutocomplete setSelected={setSelected} setAd={setAd} ad={ad} />
             </div>
-            {/* <GoogleMap zoom={15} center={selected} mapContainerClassName={styles.mapcontainer}>
-                 {selected && <Marker position={selected} />}
-             </GoogleMap> */}
         </div>
     )
 }
@@ -60,6 +52,15 @@ const PlacesAutocomplete = ({ setSelected, setAd, ad }) => {
         const { lat, lng } = getLatLng(results[0])
         setSelected({ lat, lng })
         setAd({ ...ad, localization: { lat, lng } })
+        addAdress(address)
+    }
+
+    const addAdress = address => {
+        let cpt = 0
+        address.split(",").forEach(element => {
+            cpt += 1
+        })
+        setAd({ ...ad, country: address.split(",")[cpt - 2].trim() })
     }
 
     return (

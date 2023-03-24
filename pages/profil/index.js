@@ -102,17 +102,19 @@ const Profil = () => {
                 </div>
                 <br />
                 <div className={styles.div}>
-                    <Input
-                        title="Nom d'utilisateur"
-                        className="input input-form"
-                        value={user.username || ""}
-                        onChange={e => {
-                            setUser({ ...user, username: e.target.value })
-                        }}
-                    />
-                    <div>
+                    <div className={styles.left}>
+                        <Input
+                            label="Nom d'utilisateur"
+                            className={`input input-form`}
+                            value={userContext.username || ""}
+                            onChange={e => {
+                                setUser({ ...user, username: e.target.value })
+                            }}
+                        />
+                    </div>
+                    <div className={styles.right}>
                         <Button
-                            className="btn btn-orange"
+                            className={`btn btn-orange`}
                             title="Enregistrer"
                             onClick={e => {
                                 handleSubmit(e)

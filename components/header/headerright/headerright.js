@@ -45,38 +45,57 @@ const Headerright = () => {
 
     return (
         <div className={styles.container}>
-            <div className="py-r py-t py-l">
-                <Button className="btn btn-white" onClick={() => router.push("/favorite")}>
-                    <AiOutlineHeart size={30} />
-                </Button>
-                <p className="title title-h6 color-grey text-center">Favoris</p>
-            </div>
-            <div className="py-r py-t py-l">
-                <Button className="btn btn-white">
-                    <BiMessageDetail size={30} />
-                </Button>
-                <p className="title title-h6 color color-grey text text-center">Messages</p>
-            </div>
-            <div className="py-r py-t">
-                <Button className="btn btn-white" onClick={() => direction()}>
-                    {isContextImage ? (
-                        <img
-                            className="image-profil"
-                            src={userContext.image}
-                            alt="photo utilisateur"
-                        />
-                    ) : (
+            {isContext ? (
+                <div className={styles.container}>
+                    <div className="py-r py-t py-l">
+                        <Button
+                            className="btn btn-white"
+                            onClick={() => {
+                                router.push("/favorite")
+                            }}
+                        >
+                            <AiOutlineHeart size={30} />
+                        </Button>
+                        <p className="title title-h6 color-grey text-center">Favoris</p>
+                    </div>
+                    <div className="py-r py-t py-l">
+                        <Button className="btn btn-white">
+                            <BiMessageDetail size={30} />
+                        </Button>
+                        <p className="title title-h6 color color-grey text text-center">Messages</p>
+                    </div>
+                    <div className="py-r py-t">
+                        <Button className="btn btn-white" onClick={() => direction()}>
+                            {isContextImage ? (
+                                <img
+                                    className="image-profil"
+                                    src={userContext.image}
+                                    alt="photo utilisateur"
+                                />
+                            ) : (
+                                <BiUser size={30} />
+                            )}
+                        </Button>
+                        {isContextUsername ? (
+                            <p className="title title-h6 color color-grey text text-center">
+                                {userContext.username}
+                            </p>
+                        ) : (
+                            <p className="title title-h6 color color-grey text text-center">
+                                Se connecter
+                            </p>
+                        )}
+                    </div>
+                </div>
+            ) : (
+                <div>
+                    <Button className="btn btn-white" onClick={() => direction()}>
                         <BiUser size={30} />
-                    )}
-                </Button>
-                {isContext && isContextUsername ? (
-                    <p className="title title-h6 color color-grey text text-center">
-                        {userContext.username}
-                    </p>
-                ) : (
+                    </Button>
+
                     <p className="title title-h6 color color-grey text text-center">Se connecter</p>
-                )}
-            </div>
+                </div>
+            )}
         </div>
     )
 }

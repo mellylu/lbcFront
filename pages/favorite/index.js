@@ -30,7 +30,7 @@ const Favorite = () => {
             .catch(err => {
                 console.log(err)
             })
-    }, [])
+    }, [favoris])
 
     return (
         <div className="width">

@@ -27,6 +27,14 @@
     justify-content: center;
 }
 
+.noconnect {
+    box-shadow: 0 0 2px 0px #d3d3d3 inset;
+    border-radius: 5px;
+    padding: 3%;
+    width: 50%;
+    filter: blur(4px);
+}
+
 .button1 {
     justify-content: flex-end;
 }
