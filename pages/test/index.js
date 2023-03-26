@@ -45,9 +45,7 @@ export default function Home() {
                     : lat && (category || search)
                     ? `&lat=${lat}`
                     : ""
-            }
-            ${lng ? `lng=${lng}` : ""}
-            `,
+            }${lng ? `&lng=${lng}` : ""}`,
         )
     }
 
