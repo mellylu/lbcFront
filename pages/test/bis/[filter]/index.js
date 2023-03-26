@@ -16,7 +16,12 @@ const Index = () => {
             console.log(filter, "filter")
         } else {
             adService
-                .getAllFilter(filter.category, filter.search)
+                .getAllFilter(
+                    filter.category || "",
+                    filter.search || "",
+                    filter.lat || "",
+                    filter.lng || "",
+                )
                 .then(data => {
                     console.log(data, "DATA")
                     setAd(data.ad)

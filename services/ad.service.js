@@ -41,16 +41,18 @@ export default {
             },
         }).then(res => res.json())
     },
-    getAllFilter(category, search, localization) {
+    getAllFilter(category, search, lat, lng) {
         console.log(category, "category")
+        console.log(search, "search")
+        console.log(lat, "lat")
+        console.log(lng, "lng")
         return fetch(
-            `http://localhost:5000/api/v1/ad/getallfilter?category=${category}&search=${search}`,
+            `http://localhost:5000/api/v1/ad/getallfilter?category=${category}&search=${search}&lat=${lat}$lng=${lng}`,
             {
-                method: "POST",
+                method: "GET",
                 headers: {
                     "content-type": "application/json",
                 },
-                body: JSON.stringify(localization),
             },
         ).then(res => res.json())
     },

@@ -32,9 +32,7 @@ export default function Home() {
     const [lng, setLng] = useState()
 
     const searchAd = () => {
-        console.log(lat)
-        console.log(lng)
-        console.log(
+        router.push(
             `/test/bis/carte?${category}${
                 search && category && search !== "search="
                     ? `&${search}`
@@ -51,11 +49,6 @@ export default function Home() {
             ${lng ? `lng=${lng}` : ""}
             `,
         )
-        // router.push(
-        //     `/test/bis/carte?${category}&${search}&${localization.localization.lat || ""}${
-        //         localization.localization.lng || ""
-        //     }`,
-        // )
     }
 
     useEffect(() => {
