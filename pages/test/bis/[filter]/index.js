@@ -7,18 +7,25 @@ import styles from "./index.module.scss"
 import Announcement from "../../../../components/body/announcement/announcement"
 import Modal from "../../../../components/body/modal/modal"
 import Header from "../../../../components/header/header"
+import Button from "../../../../components/body/button/button"
 
 const Index = () => {
     const router = useRouter()
-    const [ad, setAd] = useState()
+    const [ad, setAd] = useState({})
     const [sort, setSort] = useState("")
     const filter = router.query
     const [ok, setOk] = useState(false)
+    const [page, setPage] = useState()
 
     useEffect(() => {
-        console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRRR")
+        console.log("RRROOOUUTTEEERR RRREEEAAADDDYYY")
+
         if (!router.isReady) {
         } else {
+            // console.log(page, "page")
+            // router.query.page = page || 0
+            // router.push(router)
+            console.log(filter.page, "filter.page")
             setOk(true)
             adService
                 .getAllFilter(
@@ -26,9 +33,10 @@ const Index = () => {
                     filter.search || "",
                     filter.lat || "",
                     filter.lng || "",
+                    filter.page || "",
                 )
                 .then(data => {
-                    setAd(data.ad)
+                    setAd(data)
                 })
                 .catch(err => {
                     console.log(err)
@@ -44,6 +52,7 @@ const Index = () => {
     }, [sort])
 
     useEffect(() => {
+        console.log("RROOOUUUTTTEEERRR")
         if (ok) {
             adService
                 .getAllFilter(
@@ -51,16 +60,36 @@ const Index = () => {
                     filter.search || "",
                     filter.lat || "",
                     filter.lng || "",
+                    filter.page || "",
                     sort || "",
                 )
                 .then(data => {
-                    setAd(data.ad)
+                    setAd(data)
                 })
                 .catch(err => {
                     console.log(err)
                 })
         }
     }, [router])
+
+    const nextPage = () => {
+        filter.page = parseInt(filter.page)
+        filter.page = filter.page + 1
+        router.query.page = filter.page
+        router.push(router)
+        // setPage(page + 1)
+    }
+    // useEffect(() => {
+    //     router.query.page = filter.page
+    //     router.push(router)
+    // }, [page])
+
+    const previousPage = () => {
+        filter.page = parseInt(filter.page)
+        filter.page = filter.page - 1
+        router.query.page = filter.page
+        router.push(router)
+    }
 
     return (
         <div className="width">
@@ -90,8 +119,34 @@ const Index = () => {
                                 <option value="name">Titre</option>
                                 <option value="price">Prix</option>
                             </select>
-                            <Announcement stateElement={ad} />
+                            <Announcement stateElement={ad.ad} />
                             <br />
+                            {ad.top ? (
+                                <Button
+                                    className="btn btn-orange"
+                                    title="page précédente"
+                                    onClick={() => previousPage()}
+                                />
+                            ) : ad.bottom ? (
+                                <Button
+                                    className="btn btn-orange"
+                                    title="page suivante"
+                                    onClick={() => nextPage()}
+                                />
+                            ) : (
+                                <div>
+                                    <Button
+                                        className="btn btn-orange"
+                                        title="page précédente"
+                                        onClick={() => previousPage()}
+                                    />
+                                    <Button
+                                        className="btn btn-orange"
+                                        title="page suivante"
+                                        onClick={() => nextPage()}
+                                    />
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

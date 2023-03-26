@@ -41,13 +41,13 @@ export default {
             },
         }).then(res => res.json())
     },
-    getAllFilter(category, search, lat, lng, sort) {
+    getAllFilter(category, search, lat, lng, page, sort) {
         console.log(category, "category")
         console.log(search, "search")
         console.log(lat, "lat")
         console.log(lng, "lng")
         return fetch(
-            `http://localhost:5000/api/v1/ad/getallfilter?category=${category}&search=${search}&lat=${lat}&lng=${lng}&sort=${sort}`,
+            `http://localhost:5000/api/v1/ad/getallfilter?category=${category}&search=${search}&lat=${lat}&lng=${lng}&sort=${sort}&page=${page}`,
             {
                 method: "GET",
                 headers: {
