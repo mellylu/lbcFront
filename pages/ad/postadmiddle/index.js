@@ -41,21 +41,23 @@ const Index = () => {
                         className="input input-form"
                     />
                     <br />
-                    <Input
+                    <label>Description de l annonce</label>
+                    <textarea
+                        className="input input-form height-big"
+                        onChange={e => {
+                            setAd({ ...ad, description: e.target.value })
+                        }}
+                    ></textarea>
+                    {/* <Input
+                
                         onChange={e => {
                             setAd({ ...ad, description: e.target.value })
                         }}
                         label="Description de l'annonce"
                         className="input input-form height-big"
-                    />
+                    /> */}
                     <br />
-                    <div className={styles.button1}>
-                        <Button
-                            title="Retour"
-                            className="btn-blue"
-                            onClick={() => router.push("/ad/postad")}
-                        />
-                    </div>
+
                     <div className={styles.button2}>
                         <Button
                             onClick={() =>

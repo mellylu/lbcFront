@@ -55,12 +55,13 @@ const Favoris = ({ idElement }) => {
     return (
         <div>
             <Button
-                className={styles.heart}
                 onClick={() => {
                     addFavoris({ idElement })
                 }}
             >
-                <AiFillHeart size={25} />
+                <div className={styles.heart}>
+                    <AiFillHeart size={25} />
+                </div>
                 {/* {isExist ? (
         <AiFillHeart size={25} />
     ) : (

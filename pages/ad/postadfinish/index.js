@@ -206,13 +206,6 @@ const Index = () => {
                         title="Ajouter l'annonce"
                         className="btn btn-blue"
                     />
-                    <Button
-                        onClick={() => {
-                            router.push("ad/postad")
-                        }}
-                        title="Retour"
-                        className="btn btn-blue"
-                    />
                 </div>
             </div>
         </div>
