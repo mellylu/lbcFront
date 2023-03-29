@@ -41,12 +41,9 @@ export default {
             },
         }).then(res => res.json())
     },
-    getAllFilter(category, search, lat, lng, page, sort) {
-        console.log(
-            `http://localhost:5000/api/v1/ad/getallfilter?category=${category}&search=${search}&lat=${lat}&lng=${lng}&sort=${sort}&page=${page}`,
-        )
+    getAllFilter(category, search, lat, lng, page, sort, type) {
         return fetch(
-            `http://localhost:5000/api/v1/ad/getallfilter?category=${category}&search=${search}&lat=${lat}&lng=${lng}&sort=${sort}&page=${page}`,
+            `http://localhost:5000/api/v1/ad/getallfilter?category=${category}&search=${search}&lat=${lat}&lng=${lng}&sort=${sort}&page=${page}&type=${type}`,
             {
                 method: "GET",
                 headers: {

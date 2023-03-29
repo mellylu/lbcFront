@@ -32,6 +32,9 @@ export default function Home() {
     const [lng, setLng] = useState()
 
     const searchAd = () => {
+        console.log(category, "category")
+        console.log(search, "search")
+        console.log(lat, lng, "lat & lng")
         router.push(
             `/test/bis/carte?${category}${
                 search && category && search !== "search="
@@ -40,12 +43,14 @@ export default function Home() {
                     ? search
                     : ""
             }${
-                lat && !category && !search
+                lat && !category && (!search || search === "search=")
                     ? `lat=${lat}`
                     : lat && (category || search)
                     ? `&lat=${lat}`
                     : ""
-            }${lng ? `&lng=${lng}` : ""}${search || category || lat ? "&page=0" : "page=0"}`,
+            }${lng ? `&lng=${lng}` : ""}${
+                (search && search !== "search=") || category || lat ? "&page=0" : "page=0"
+            }`,
         )
     }
 
