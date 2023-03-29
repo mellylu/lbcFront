@@ -14,19 +14,12 @@ const Index = () => {
     const [ad, setAd] = useState({})
     const [sort, setSort] = useState("")
     const filter = router.query
-    const [ok, setOk] = useState(false)
-    const [page, setPage] = useState()
 
     useEffect(() => {
-        console.log("RRROOOUUTTEEERR RRREEEAAADDDYYY")
-
         if (!router.isReady) {
         } else {
-            // console.log(page, "page")
-            // router.query.page = page || 0
-            // router.push(router)
-            console.log(filter.page, "filter.page")
-            setOk(true)
+            console.log(router)
+            console.log(sort, "sort")
             adService
                 .getAllFilter(
                     filter.category || "",
@@ -34,6 +27,7 @@ const Index = () => {
                     filter.lat || "",
                     filter.lng || "",
                     filter.page || "",
+                    sort || router.query.sort || "",
                 )
                 .then(data => {
                     setAd(data)
@@ -42,7 +36,7 @@ const Index = () => {
                     console.log(err)
                 })
         }
-    }, [router.isReady])
+    }, [router || router.isReady])
 
     useEffect(() => {
         if (sort && sort !== "") {
@@ -51,38 +45,35 @@ const Index = () => {
         }
     }, [sort])
 
-    useEffect(() => {
-        console.log("RROOOUUUTTTEEERRR")
-        if (ok) {
-            adService
-                .getAllFilter(
-                    filter.category || "",
-                    filter.search || "",
-                    filter.lat || "",
-                    filter.lng || "",
-                    filter.page || "",
-                    sort || "",
-                )
-                .then(data => {
-                    setAd(data)
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-        }
-    }, [router])
+    // useEffect(() => {
+    //     console.log("RROOOUUUTTTEEERRR")
+    //     if (ok) {
+    //         console.log(sort, "sort2")
+    //         adService
+    //             .getAllFilter(
+    //                 filter.category || "",
+    //                 filter.search || "",
+    //                 filter.lat || "",
+    //                 filter.lng || "",
+    //                 filter.page || "",
+    //                 sort || "",
+    //             )
+    //             .then(data => {
+    //                 console.log(data, "data complete")
+    //                 setAd(data)
+    //             })
+    //             .catch(err => {
+    //                 console.log(err)
+    //             })
+    //     }
+    // }, [router])
 
     const nextPage = () => {
         filter.page = parseInt(filter.page)
         filter.page = filter.page + 1
         router.query.page = filter.page
         router.push(router)
-        // setPage(page + 1)
     }
-    // useEffect(() => {
-    //     router.query.page = filter.page
-    //     router.push(router)
-    // }, [page])
 
     const previousPage = () => {
         filter.page = parseInt(filter.page)
@@ -121,18 +112,20 @@ const Index = () => {
                             </select>
                             <Announcement stateElement={ad.ad} />
                             <br />
-                            {ad.top ? (
+                            {ad.top && !ad.bottom ? (
                                 <Button
                                     className="btn btn-orange"
                                     title="page précédente"
                                     onClick={() => previousPage()}
                                 />
-                            ) : ad.bottom ? (
+                            ) : ad.bottom && !ad.top ? (
                                 <Button
                                     className="btn btn-orange"
                                     title="page suivante"
                                     onClick={() => nextPage()}
                                 />
+                            ) : ad.top && ad.bottom ? (
+                                <div></div>
                             ) : (
                                 <div>
                                     <Button

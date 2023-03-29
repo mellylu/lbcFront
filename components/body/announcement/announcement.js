@@ -10,7 +10,6 @@ import Link from "next/link"
 
 const Announcement = ({ stateElement, ad = false, favoris = true }) => {
     const router = useRouter()
-    console.log(stateElement, "Satate element")
 
     return (
         <div>
