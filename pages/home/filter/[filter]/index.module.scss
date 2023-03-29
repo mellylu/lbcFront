@@ -14,6 +14,7 @@
 .searchdiv {
     width: 100%;
     height: 100%;
+    position: relative;
 }
 
 .box {
@@ -90,4 +91,26 @@
 .recentsearch {
     border: 2px solid black;
     background-color: red;
+}
+
+.divfilter {
+    background-color: #d3d3d3;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+}
+
+.secondfilter {
+    display: flex;
+}
+
+.button {
+    justify-content: center;
+    display: flex;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+.divmaintrifilter {
+    display: flex;
+    justify-content: space-between;
 }

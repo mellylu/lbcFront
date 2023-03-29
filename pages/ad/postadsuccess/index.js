@@ -15,7 +15,7 @@ const index = () => {
                 <Headerleft postAdd={true} title="Déposer un annonce" />
                 <div className={styles.maindiv2}>
                     <Button
-                        onClick={() => router.push("/")}
+                        onClick={() => router.push("/home")}
                         className="btn-white"
                         title="Quitter"
                     />
@@ -25,7 +25,7 @@ const index = () => {
                 <h1 className="text-center">Votre annonce a été ajoutée !</h1>
                 <br />
                 <Button
-                    onClick={() => router.push("/")}
+                    onClick={() => router.push("/home")}
                     className="btn btn-linkPage"
                     title="Revenir à la page d accueil"
                 />

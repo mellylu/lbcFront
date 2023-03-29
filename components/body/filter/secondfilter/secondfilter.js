@@ -20,9 +20,7 @@ const Secondfilter = ({
     state,
     setState,
 }) => {
-    useEffect(() => console.log(type, "TYPE"))
     const functionType = e => {
-        console.log(type.indexOf(e.target.value))
         if (type.indexOf(e.target.value) === -1) {
             setType([...type, e.target.value])
         } else {

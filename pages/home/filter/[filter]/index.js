@@ -2,14 +2,16 @@ import React, { useState, useEffect } from "react"
 import { useRouter } from "next/router"
 
 import adService from "../../../../services/ad.service"
+import filterService from "../../../../services/filter.service"
 
 import styles from "./index.module.scss"
+
 import Announcement from "../../../../components/body/announcement/announcement"
 import Modal from "../../../../components/body/modal/modal"
 import Header from "../../../../components/header/header"
 import Button from "../../../../components/body/button/button"
-import filterService from "../../../../services/filter.service"
 import Secondfilter from "../../../../components/body/filter/secondfilter/secondfilter"
+import Footer from "../../../../components/footer/footer"
 
 const Index = () => {
     const router = useRouter()
@@ -31,8 +33,6 @@ const Index = () => {
     useEffect(() => {
         if (!router.isReady) {
         } else {
-            console.log(router)
-            console.log(type, "type")
             adService
                 .getAllFilter(
                     filter.category || "",
@@ -41,7 +41,13 @@ const Index = () => {
                     filter.lng || "",
                     filter.page || "",
                     sort || router.query.sort || "",
+                    univers.toString() || router.query.univers || "",
+                    size.toString() || router.query.size || "",
                     type.toString() || router.query.type || "",
+                    brand.toString() || router.query.brand || "",
+                    material.toString() || router.query.material || "",
+                    color.toString() || router.query.color || "",
+                    state.toString() || router.query.state || "",
                 )
                 .then(data => {
                     setAd(data)
@@ -74,13 +80,17 @@ const Index = () => {
     }
 
     const choiceFilter = () => {
-        filterService
-            .getElement(filter.category || "")
-            .then(data => {
-                setSecondFilter(data.filter)
-                setIsVisibleSecondFilter(true)
-            })
-            .catch(err => {})
+        if (isVisibleSecondFilter) {
+            setIsVisibleSecondFilter(false)
+        } else {
+            filterService
+                .getElement(filter.category || "")
+                .then(data => {
+                    setSecondFilter(data.filter)
+                    setIsVisibleSecondFilter(true)
+                })
+                .catch(err => {})
+        }
     }
 
     const searchFilter = () => {
@@ -126,53 +136,77 @@ const Index = () => {
                 <div className={styles.maindiv}>
                     <div className={styles.div}>
                         <div className={`${styles.searchdiv}`}>
+                            <br />
+                            <br />
                             <div>
-                                <h2>Votre recherche est .... à ....</h2>
+                                <h2 className="title-h1">Faire une nouvelle recherche</h2>
+                                <Button
+                                    className="btn btn-blue"
+                                    title="Nouvelle recherche"
+                                    onClick={() => {}}
+                                />
                             </div>
-                            <select
-                                onChange={e => {
-                                    setSort(e.target.value)
-                                }}
-                                name="pets"
-                                id="pet-select"
-                                className={`input input-form ${styles.select}`}
-                            >
-                                <option value="" disabled selected hidden>
-                                    Choix du tri
-                                </option>
-                                <option value="name">Titre</option>
-                                <option value="price">Prix</option>
-                            </select>
-                            <Button
-                                title="Choix des filtres"
-                                onClick={() => {
-                                    choiceFilter()
-                                }}
-                            />
-                            {isVisibleSecondFilter ? (
-                                <div className="bg bg-grey">
-                                    <Secondfilter
-                                        secondFilter={secondFilter}
-                                        type={type}
-                                        setType={setType}
-                                        color={color}
-                                        setColor={setColor}
-                                        univers={univers}
-                                        setUnivers={setUnivers}
-                                        size={size}
-                                        setSize={setSize}
-                                        brand={brand}
-                                        setBrand={setBrand}
-                                        material={material}
-                                        setMaterial={setMaterial}
-                                        state={state}
-                                        setState={setState}
-                                    />
+                            <br />
+                            <br />
+                            <br />
+                            <div>
+                                <h2 className="title-h1">Votre recherche est .... à ....</h2>
+                            </div>
+                            <div className={styles.divmaintrifilter}>
+                                <select
+                                    onChange={e => {
+                                        setSort(e.target.value)
+                                    }}
+                                    name="pets"
+                                    id="pet-select"
+                                    className={`input input-form ${styles.select}`}
+                                >
+                                    <option value="" disabled selected hidden>
+                                        Choix du tri
+                                    </option>
+                                    <option value="name">Titre</option>
+                                    <option value="price">Prix</option>
+                                </select>
+                                <div>
                                     <Button
-                                        className="btn btn-orange"
-                                        title="Rechercher"
-                                        onClick={() => searchFilter()}
+                                        title="Choix des filtres"
+                                        onClick={() => {
+                                            choiceFilter()
+                                        }}
+                                        className="btn btn-grey2"
                                     />
+                                </div>
+                            </div>
+                            {isVisibleSecondFilter ? (
+                                <div className={styles.divfilter}>
+                                    <div className={styles.secondfilter}>
+                                        <Secondfilter
+                                            secondFilter={secondFilter}
+                                            type={type}
+                                            setType={setType}
+                                            color={color}
+                                            setColor={setColor}
+                                            univers={univers}
+                                            setUnivers={setUnivers}
+                                            size={size}
+                                            setSize={setSize}
+                                            brand={brand}
+                                            setBrand={setBrand}
+                                            material={material}
+                                            setMaterial={setMaterial}
+                                            state={state}
+                                            setState={setState}
+                                        />
+                                    </div>
+                                    <div className={styles.button}>
+                                        <div>
+                                            <Button
+                                                className="btn btn-grey2"
+                                                title="Rechercher"
+                                                onClick={() => searchFilter()}
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
                             ) : (
                                 ""
@@ -207,11 +241,11 @@ const Index = () => {
                                     />
                                 </div>
                             )}
-                            <Button title="Nouvelle recherche" onClick={() => {}} />
                         </div>
                     </div>
                 </div>
             </Modal>
+            <Footer />
         </div>
     )
 }

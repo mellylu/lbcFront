@@ -44,11 +44,22 @@
         }
     }
     &-grey {
-        background-color: #dcdcdc;
+        background-color: #d3d3d3;
         color: #a9a9a9;
         border: 0px;
         width: 100%;
         border-radius: 5px;
+    }
+    &-grey2 {
+        background-color: #ffffff;
+        color: black;
+        border: 2px solid #d3d3d3;
+        width: 100%;
+        border-radius: 5px;
+        &:hover {
+            background: #d3d3d3;
+            color: black;
+        }
     }
     &-orange {
         background-color: #ff6e14;

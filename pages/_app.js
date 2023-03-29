@@ -2,6 +2,7 @@ import "../styles/styles.scss"
 import Head from "next/head"
 
 import { AuthContextProvider } from "../contexts/AuthContext"
+import Footer from "../components/footer/footer"
 
 function MyApp({ Component, pageProps }) {
     return (
@@ -14,6 +15,9 @@ function MyApp({ Component, pageProps }) {
                 </Head>
 
                 <Component {...pageProps} />
+                <footer>
+                    <p>dlksnkdsnkg</p>
+                </footer>
             </div>
         </AuthContextProvider>
     )

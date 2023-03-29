@@ -16,7 +16,7 @@ const Headerleft = ({ postAdd, title }) => {
         <div className={styles.maindiv}>
             <div className={styles.searchdiv}>
                 <Image
-                    onClick={() => router.push("/")}
+                    onClick={() => router.push("/home")}
                     src={Logo}
                     alt="Logo leboncoin"
                     className="image image-small"

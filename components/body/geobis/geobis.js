@@ -49,6 +49,7 @@ const PlacesAutocomplete = ({ setSelected, setAd, ad }) => {
         setValue(address, false)
         clearSuggestions()
         const results = await getGeocode({ address })
+        console.log("result", results)
         const { lat, lng } = getLatLng(results[0])
         setSelected({ lat, lng })
         setAd({ ...ad, localization: { lat, lng } })
