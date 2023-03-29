@@ -1,8 +1,25 @@
 import React, { useState, useEffect } from "react"
+import Detailfilter from "../detailfilter/detailfilter"
 
 import styles from "./secondfilter.module.scss"
 
-const Secondfilter = ({ secondFilter, univers, setUnivers, type, setType, color, setColor }) => {
+const Secondfilter = ({
+    secondFilter,
+    univers,
+    setUnivers,
+    type,
+    setType,
+    color,
+    setColor,
+    size,
+    setSize,
+    brand,
+    setBrand,
+    material,
+    setMaterial,
+    state,
+    setState,
+}) => {
     useEffect(() => console.log(type, "TYPE"))
     const functionType = e => {
         console.log(type.indexOf(e.target.value))
@@ -14,90 +31,107 @@ const Secondfilter = ({ secondFilter, univers, setUnivers, type, setType, color,
     }
 
     const functionColor = e => {
-        console.log(type.indexOf(e.target.value))
         if (type.indexOf(e.target.value) === -1) {
-            setType([...type, e.target.value])
+            setColor([...color, e.target.value])
         } else {
-            setType(type.filter(el => el !== e.target.value))
+            setColor(color.filter(el => el !== e.target.value))
         }
     }
 
     const functionUnivers = e => {
-        console.log(type.indexOf(e.target.value))
         if (type.indexOf(e.target.value) === -1) {
-            setType([...type, e.target.value])
+            setUnivers([...univers, e.target.value])
         } else {
-            setType(type.filter(el => el !== e.target.value))
+            setUnivers(univers.filter(el => el !== e.target.value))
         }
     }
+
+    const functionSize = e => {
+        if (type.indexOf(e.target.value) === -1) {
+            setSize([...size, e.target.value])
+        } else {
+            setSize(size.filter(el => el !== e.target.value))
+        }
+    }
+
+    const functionBrand = e => {
+        if (type.indexOf(e.target.value) === -1) {
+            setBrand([...brand, e.target.value])
+        } else {
+            setBrand(brand.filter(el => el !== e.target.value))
+        }
+    }
+
+    const functionMaterial = e => {
+        if (type.indexOf(e.target.value) === -1) {
+            setMaterial([...material, e.target.value])
+        } else {
+            setMaterial(material.filter(el => el !== e.target.value))
+        }
+    }
+
+    const functionState = e => {
+        if (type.indexOf(e.target.value) === -1) {
+            setState([...state, e.target.value])
+        } else {
+            setState(state.filter(el => el !== e.target.value))
+        }
+    }
+
     return (
         <div>
             {secondFilter
                 ? secondFilter.map(element => (
                       <div key={element._id} className={styles.flex}>
-                          {element.univers !== undefined && element.univers.length > 0 ? (
-                              <div>
-                                  <h3>Univers</h3>
-
-                                  {element.univers.map(el => (
-                                      <div key={el}>
-                                          <input
-                                              id={el}
-                                              value={el}
-                                              type="checkbox"
-                                              onClick={e => {
-                                                  functionUnivers(e)
-                                              }}
-                                          ></input>
-                                          <label> {el}</label>
-                                      </div>
-                                  ))}
-                              </div>
-                          ) : (
-                              ""
-                          )}
-                          {element.type !== undefined && element.type.length > 0 ? (
-                              <div>
-                                  <h3>Type</h3>
-
-                                  {element.type.map(el => (
-                                      <div key={el}>
-                                          <input
-                                              id={el}
-                                              value={el}
-                                              type="checkbox"
-                                              onClick={e => {
-                                                  functionType(e)
-                                              }}
-                                          ></input>
-                                          <label> {el}</label>
-                                      </div>
-                                  ))}
-                              </div>
-                          ) : (
-                              ""
-                          )}
-                          {element.color !== undefined && element.color.length > 0 ? (
-                              <div>
-                                  <h3>Color</h3>
-
-                                  {element.color.map(el => (
-                                      <div key={el}>
-                                          <input
-                                              id={el}
-                                              value={el}
-                                              type="checkbox"
-                                              onClick={e => {
-                                                  functionColor(e)
-                                              }}
-                                          ></input>
-                                          <label> {el}</label>
-                                      </div>
-                                  ))}
-                              </div>
-                          ) : (
-                              ""
-                          )}
+                          <Detailfilter
+                              filtre={element.univers}
+                              title="Univers"
+                              onClick={e => {
+                                  functionUnivers(e)
+                              }}
+                          />
+                          <Detailfilter
+                              filtre={element.type}
+                              title="Type"
+                              onClick={e => {
+                                  functionType(e)
+                              }}
+                          />
+                          <Detailfilter
+                              filtre={element.color}
+                              title="Couleur"
+                              onClick={e => {
+                                  functionColor(e)
+                              }}
+                          />
+                          <Detailfilter
+                              filtre={element.size}
+                              title="Taille"
+                              onClick={e => {
+                                  functionSize(e)
+                              }}
+                          />
+                          <Detailfilter
+                              filtre={element.brand}
+                              title="Marque"
+                              onClick={e => {
+                                  functionBrand(e)
+                              }}
+                          />
+                          <Detailfilter
+                              filtre={element.material}
+                              title="Matériel"
+                              onClick={e => {
+                                  functionMaterial(e)
+                              }}
+                          />
+                          <Detailfilter
+                              filtre={element.state}
+                              title="Etat"
+                              onClick={e => {
+                                  functionState(e)
+                              }}
+                          />
                       </div>
                   ))
                 : ""}

@@ -17,9 +17,14 @@ const Index = () => {
     const [sort, setSort] = useState("")
     const [secondFilter, setSecondFilter] = useState([])
     const [isVisibleSecondFilter, setIsVisibleSecondFilter] = useState(false)
-    const [type, setType] = useState([])
-    const [color, setColor] = useState([])
     const [univers, setUnivers] = useState([])
+    const [size, setSize] = useState([])
+    const [type, setType] = useState([])
+    const [brand, setBrand] = useState([])
+    const [material, setMaterial] = useState([])
+    const [color, setColor] = useState([])
+    const [state, setState] = useState([])
+
     const filter = router.query
     let tab = []
 
@@ -83,35 +88,32 @@ const Index = () => {
             router.query.type = type.toString()
             router.push(router)
         }
+        if (univers) {
+            router.query.univers = univers.toString()
+            router.push(router)
+        }
+        if (size) {
+            router.query.size = size.toString()
+            router.push(router)
+        }
+        if (color) {
+            router.query.color = color.toString()
+            router.push(router)
+        }
+        if (brand) {
+            router.query.brand = brand.toString()
+            router.push(router)
+        }
+        if (material) {
+            router.query.material = material.toString()
+            router.push(router)
+        }
+        if (state) {
+            router.query.state = state.toString()
+            router.push(router)
+        }
         setIsVisibleSecondFilter(false)
     }
-
-    // const functionType = e => {
-    //     console.log(type.indexOf(e.target.value))
-    //     if (type.indexOf(e.target.value) === -1) {
-    //         setType([...type, e.target.value])
-    //     } else {
-    //         setType(type.filter(el => el !== e.target.value))
-    //     }
-    // }
-
-    // const functionColor = e => {
-    //     console.log(type.indexOf(e.target.value))
-    //     if (type.indexOf(e.target.value) === -1) {
-    //         setType([...type, e.target.value])
-    //     } else {
-    //         setType(type.filter(el => el !== e.target.value))
-    //     }
-    // }
-
-    // const functionUnivers = e => {
-    //     console.log(type.indexOf(e.target.value))
-    //     if (type.indexOf(e.target.value) === -1) {
-    //         setType([...type, e.target.value])
-    //     } else {
-    //         setType(type.filter(el => el !== e.target.value))
-    //     }
-    // }
 
     return (
         <div className="width">
@@ -157,79 +159,15 @@ const Index = () => {
                                         setColor={setColor}
                                         univers={univers}
                                         setUnivers={setUnivers}
+                                        size={size}
+                                        setSize={setSize}
+                                        brand={brand}
+                                        setBrand={setBrand}
+                                        material={material}
+                                        setMaterial={setMaterial}
+                                        state={state}
+                                        setState={setState}
                                     />
-                                    {/* {secondFilter
-                                        ? secondFilter.map(element => (
-                                              <div key={element._id} className={styles.flex}>
-                                                  {element.univers !== undefined &&
-                                                  element.univers.length > 0 ? (
-                                                      <div>
-                                                          <h3>Univers</h3>
-
-                                                          {element.univers.map(el => (
-                                                              <div key={el}>
-                                                                  <input
-                                                                      id={el}
-                                                                      value={el}
-                                                                      type="checkbox"
-                                                                      onClick={e => {
-                                                                          functionUnivers(e)
-                                                                      }}
-                                                                  ></input>
-                                                                  <label> {el}</label>
-                                                              </div>
-                                                          ))}
-                                                      </div>
-                                                  ) : (
-                                                      ""
-                                                  )}
-                                                  {element.type !== undefined &&
-                                                  element.type.length > 0 ? (
-                                                      <div>
-                                                          <h3>Type</h3>
-
-                                                          {element.type.map(el => (
-                                                              <div key={el}>
-                                                                  <input
-                                                                      id={el}
-                                                                      value={el}
-                                                                      type="checkbox"
-                                                                      onClick={e => {
-                                                                          functionType(e)
-                                                                      }}
-                                                                  ></input>
-                                                                  <label> {el}</label>
-                                                              </div>
-                                                          ))}
-                                                      </div>
-                                                  ) : (
-                                                      ""
-                                                  )}
-                                                  {element.color !== undefined &&
-                                                  element.color.length > 0 ? (
-                                                      <div>
-                                                          <h3>Color</h3>
-
-                                                          {element.color.map(el => (
-                                                              <div key={el}>
-                                                                  <input
-                                                                      id={el}
-                                                                      value={el}
-                                                                      type="checkbox"
-                                                                      onClick={e => {
-                                                                          functionColor(e)
-                                                                      }}
-                                                                  ></input>
-                                                                  <label> {el}</label>
-                                                              </div>
-                                                          ))}
-                                                      </div>
-                                                  ) : (
-                                                      ""
-                                                  )}
-                                              </div>
-                                          ))
-                                        : ""} */}
                                     <Button
                                         className="btn btn-orange"
                                         title="Rechercher"
