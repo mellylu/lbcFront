@@ -7,10 +7,15 @@ const AuthContext = createContext({
 })
 
 export const AuthContextProvider = ({ children }) => {
-    const [userContext, setUserContext] = useState(
-        typeof window !== "undefined" ? JSON.parse(localStorage.getItem("user")) : {},
-        // {},
-    )
+    const [userContext, setUserContext] = useState()
+    // {},
+    useEffect(() => {
+        setUserContext(
+            localStorage.getItem("user") !== "undefined"
+                ? JSON.parse(localStorage.getItem("user"))
+                : {},
+        )
+    }, [])
 
     // useEffect(() => {
     //     // setUserContext(JSON.parse(localStorage.getItem("user")))

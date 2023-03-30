@@ -5,7 +5,7 @@ import styles from "./detailfilter.module.scss"
 
 const Detailfilter = ({ filtre, title, onClick }) => {
     let router = useRouter()
-    console.log(router.query, "QUERY")
+
     return (
         <div>
             {filtre !== undefined && filtre.length > 0 ? (
@@ -18,10 +18,12 @@ const Detailfilter = ({ filtre, title, onClick }) => {
                                 className={styles.input}
                                 id={el}
                                 value={el}
-                                checked={router.query.type === el ? true : false}
+                                defaultChecked={
+                                    router.query.type && router.query.type.indexOf(el) !== -1
+                                }
                                 type="checkbox"
                                 onClick={onClick}
-                            ></input>
+                            />
                             <label> {el}</label>
                         </div>
                     ))}

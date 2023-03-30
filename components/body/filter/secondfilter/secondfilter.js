@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from "react"
-import Detailfilter from "../detailfilter/detailfilter"
+import React, { useState, useEffect, useContext } from "react"
+import { useRouter } from "next/router"
 
+import FilterContext from "../../../../contexts/FilterContext"
+
+import Detailfilter from "../detailfilter/detailfilter"
 import styles from "./secondfilter.module.scss"
 
 const Secondfilter = ({
@@ -20,60 +23,79 @@ const Secondfilter = ({
     state,
     setState,
 }) => {
+    const { filtreContext, setFilterContext } = useContext(FilterContext)
+    const [isNotNull, setIsNotNull] = useState(false)
+    let router = useRouter()
     const functionType = e => {
         if (type.indexOf(e.target.value) === -1) {
             setType([...type, e.target.value])
+            // if (e.target.value) {
+            //     setIsNotNull(true)
+            // }
         } else {
             setType(type.filter(el => el !== e.target.value))
         }
     }
 
+    useEffect(() => {
+        console.log(type, "TYPE")
+        console.log(router.query)
+    }, [type])
+
+    // useEffect(() => {
+    //     if (type && type !== "") {
+    //         router.query.type = router.query.type = type.toString()
+    //         router.push(router)
+    //     }
+    //     //setFilterContext({ ...filtreContext, type: type })
+    // }, [type])
+
     const functionColor = e => {
-        if (type.indexOf(e.target.value) === -1) {
-            setColor([...color, e.target.value])
-        } else {
-            setColor(color.filter(el => el !== e.target.value))
-        }
+        // if (type.indexOf(e.target.value) === -1) {
+        //     setColor([...color, e.target.value])
+        // } else {
+        //     setColor(color.filter(el => el !== e.target.value))
+        // }
     }
 
     const functionUnivers = e => {
-        if (type.indexOf(e.target.value) === -1) {
-            setUnivers([...univers, e.target.value])
-        } else {
-            setUnivers(univers.filter(el => el !== e.target.value))
-        }
+        // if (type.indexOf(e.target.value) === -1) {
+        //     setUnivers([...univers, e.target.value])
+        // } else {
+        //     setUnivers(univers.filter(el => el !== e.target.value))
+        // }
     }
 
     const functionSize = e => {
-        if (type.indexOf(e.target.value) === -1) {
-            setSize([...size, e.target.value])
-        } else {
-            setSize(size.filter(el => el !== e.target.value))
-        }
+        // if (type.indexOf(e.target.value) === -1) {
+        //     setSize([...size, e.target.value])
+        // } else {
+        //     setSize(size.filter(el => el !== e.target.value))
+        // }
     }
 
     const functionBrand = e => {
-        if (type.indexOf(e.target.value) === -1) {
-            setBrand([...brand, e.target.value])
-        } else {
-            setBrand(brand.filter(el => el !== e.target.value))
-        }
+        // if (type.indexOf(e.target.value) === -1) {
+        //     setBrand([...brand, e.target.value])
+        // } else {
+        //     setBrand(brand.filter(el => el !== e.target.value))
+        // }
     }
 
     const functionMaterial = e => {
-        if (type.indexOf(e.target.value) === -1) {
-            setMaterial([...material, e.target.value])
-        } else {
-            setMaterial(material.filter(el => el !== e.target.value))
-        }
+        // if (type.indexOf(e.target.value) === -1) {
+        //     setMaterial([...material, e.target.value])
+        // } else {
+        //     setMaterial(material.filter(el => el !== e.target.value))
+        // }
     }
 
     const functionState = e => {
-        if (type.indexOf(e.target.value) === -1) {
-            setState([...state, e.target.value])
-        } else {
-            setState(state.filter(el => el !== e.target.value))
-        }
+        // if (type.indexOf(e.target.value) === -1) {
+        //     setState([...state, e.target.value])
+        // } else {
+        //     setState(state.filter(el => el !== e.target.value))
+        // }
     }
 
     return (
@@ -81,13 +103,13 @@ const Secondfilter = ({
             {secondFilter
                 ? secondFilter.map(element => (
                       <div key={element._id} className={styles.flex}>
-                          <Detailfilter
+                          {/* <Detailfilter
                               filtre={element.univers}
                               title="Univers"
                               onClick={e => {
                                   functionUnivers(e)
                               }}
-                          />
+                          /> */}
                           <Detailfilter
                               filtre={element.type}
                               title="Type"
@@ -95,7 +117,7 @@ const Secondfilter = ({
                                   functionType(e)
                               }}
                           />
-                          <Detailfilter
+                          {/* <Detailfilter
                               filtre={element.color}
                               title="Couleur"
                               onClick={e => {
@@ -129,7 +151,7 @@ const Secondfilter = ({
                               onClick={e => {
                                   functionState(e)
                               }}
-                          />
+                          /> */}
                       </div>
                   ))
                 : ""}

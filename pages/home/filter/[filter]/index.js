@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import { useRouter } from "next/router"
+
+import FilterContext from "../../../../contexts/FilterContext"
 
 import adService from "../../../../services/ad.service"
 import filterService from "../../../../services/filter.service"
@@ -21,18 +23,56 @@ const Index = () => {
     const [isVisibleSecondFilter, setIsVisibleSecondFilter] = useState(false)
     const [univers, setUnivers] = useState([])
     const [size, setSize] = useState([])
-    const [type, setType] = useState([])
+    const [type, setType] = useState([router.query.type || ""])
     const [brand, setBrand] = useState([])
     const [material, setMaterial] = useState([])
     const [color, setColor] = useState([])
     const [state, setState] = useState([])
-
+    const { filtreContext, setFilterContext } = useContext(FilterContext)
+    let x = 0
     const filter = router.query
     let tab = []
 
     useEffect(() => {
+        //     if (router.query.type) {
+        //         let TypeSplit = router.query.type.split(",")
+        //         if (TypeSplit.length === 1) {
+        //             if (type.indexOf(TypeSplit) !== -1) {
+        //                 setType([...type, TypeSplit])
+        //             }
+        //         } else if (TypeSplit.length >= 1) {
+        //             TypeSplit.forEach(element => {
+        //                 if (type.indexOf(element) !== -1) {
+        //                     setType([...type, element])
+        //                 }
+        //             })
+        //         } else {
+        //         }
+        //     }
+    }, [])
+
+    useEffect(() => {
         if (!router.isReady) {
         } else {
+            if (router.query.type) {
+                let TypeSplit = router.query.type.split(",")
+
+                if (x === 0) {
+                    if (TypeSplit.length === 1) {
+                        if (type.indexOf(TypeSplit) === -1) {
+                            setType([...type.filter(element => element !== ""), TypeSplit[0]])
+                        }
+                    } else if (TypeSplit.length >= 1) {
+                        TypeSplit.forEach(element => {
+                            if (type.indexOf(element) === -1) {
+                                setType([...type.filter(el => el !== ""), element])
+                            }
+                        })
+                    } else {
+                    }
+                }
+                x += 1
+            }
             adService
                 .getAllFilter(
                     filter.category || "",
@@ -41,13 +81,14 @@ const Index = () => {
                     filter.lng || "",
                     filter.page || "",
                     sort || router.query.sort || "",
-                    univers.toString() || router.query.univers || "",
-                    size.toString() || router.query.size || "",
-                    type.toString() || router.query.type || "",
-                    brand.toString() || router.query.brand || "",
-                    material.toString() || router.query.material || "",
-                    color.toString() || router.query.color || "",
-                    state.toString() || router.query.state || "",
+                    type.filter(element => element !== "") || router.query.type || "",
+                    // univers.toString() || router.query.univers || "",
+                    // size.toString() || router.query.size || "",
+
+                    // brand.toString() || router.query.brand || "",
+                    // material.toString() || router.query.material || "",
+                    // color.toString() || router.query.color || "",
+                    // state.toString() || router.query.state || "",
                 )
                 .then(data => {
                     setAd(data)
@@ -95,33 +136,38 @@ const Index = () => {
 
     const searchFilter = () => {
         if (type) {
-            router.query.type = type.toString()
+            router.query.type = type.filter(element => element !== "").toString()
             router.push(router)
+            if (type.length === 0) {
+                delete router.query.type
+                router.push(router)
+            }
         }
-        if (univers) {
-            router.query.univers = univers.toString()
-            router.push(router)
-        }
-        if (size) {
-            router.query.size = size.toString()
-            router.push(router)
-        }
-        if (color) {
-            router.query.color = color.toString()
-            router.push(router)
-        }
-        if (brand) {
-            router.query.brand = brand.toString()
-            router.push(router)
-        }
-        if (material) {
-            router.query.material = material.toString()
-            router.push(router)
-        }
-        if (state) {
-            router.query.state = state.toString()
-            router.push(router)
-        }
+
+        // if (univers) {
+        //     router.query.univers = univers.toString()
+        //     router.push(router)
+        // }
+        // if (size) {
+        //     router.query.size = size.toString()
+        //     router.push(router)
+        // }
+        // if (color) {
+        //     router.query.color = color.toString()
+        //     router.push(router)
+        // }
+        // if (brand) {
+        //     router.query.brand = brand.toString()
+        //     router.push(router)
+        // }
+        // if (material) {
+        //     router.query.material = material.toString()
+        //     router.push(router)
+        // }
+        // if (state) {
+        //     router.query.state = state.toString()
+        //     router.push(router)
+        // }
         setIsVisibleSecondFilter(false)
     }
 
@@ -137,7 +183,6 @@ const Index = () => {
                     <div className={styles.div}>
                         <div className={`${styles.searchdiv}`}>
                             <br />
-                            <br />
                             <div>
                                 <h2 className="title-h1">Faire une nouvelle recherche</h2>
                                 <Button
@@ -146,8 +191,6 @@ const Index = () => {
                                     onClick={() => {}}
                                 />
                             </div>
-                            <br />
-                            <br />
                             <br />
                             <div>
                                 <h2 className="title-h1">Votre recherche est .... à ....</h2>
