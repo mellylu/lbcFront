@@ -8,6 +8,7 @@ import Button from "../../body/button/button"
 import styles from "./headerright.module.scss"
 
 import AuthContext from "../../../contexts/AuthContext"
+import userService from "../../../services/user.service"
 
 const Headerright = () => {
     const router = useRouter()
@@ -17,18 +18,23 @@ const Headerright = () => {
     const [isContextUsername, setIsContextUsername] = useState(false)
 
     useEffect(() => {
-        console.log(`userContext ${userContext}`)
         if (userContext) {
-            setIsContext(true)
-            if (userContext.image) {
-                setIsContextImage(true)
-            } else {
-                setIsContextImage(false)
-            }
-            if (userContext.username) {
-                setIsContextUsername(true)
-            } else {
-                setIsContextUsername(false)
+            if (userContext.token) {
+                userService.verifyToken(userContext.token).then(data => {
+                    if (data.auth) {
+                        setIsContext(true)
+                        if (userContext.image) {
+                            setIsContextImage(true)
+                        } else {
+                            setIsContextImage(false)
+                        }
+                        if (userContext.username) {
+                            setIsContextUsername(true)
+                        } else {
+                            setIsContextUsername(false)
+                        }
+                    }
+                })
             }
         } else {
             setIsContext(false)
@@ -36,9 +42,15 @@ const Headerright = () => {
     })
 
     const direction = () => {
-        if (isContext) {
-            router.push("/profil")
-        } else {
+        if (userContext && userContext.token)
+            userService.verifyToken(userContext.token).then(data => {
+                if (data.auth) {
+                    router.push("/profil")
+                } else {
+                    router.push("/auth/login")
+                }
+            })
+        else {
             router.push("/auth/login")
         }
     }

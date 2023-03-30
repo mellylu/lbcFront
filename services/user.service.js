@@ -79,4 +79,13 @@ export default {
             },
         }).then(res => res.json())
     },
+    verifyToken(token) {
+        return fetch(`http://localhost:5000/api/v1/users/verifytoken`, {
+            method: "GET",
+            headers: {
+                authorization: token,
+                "content-type": "application/json",
+            },
+        }).then(res => res.json())
+    },
 }

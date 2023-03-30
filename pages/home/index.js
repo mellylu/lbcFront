@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { AiOutlineSearch, AiFillEnvironment, AiOutlineBars } from "react-icons/ai"
 import { useRouter } from "next/router"
 import Image from "next/image"
+import { sqrt } from "mathjs"
 
 import Button from "../../components/body/button/button"
 import Input from "../../components/body/input/input"
@@ -21,6 +22,23 @@ export default function Home() {
     const [category, setCategory] = useState("")
     const [lat, setLat] = useState()
     const [lng, setLng] = useState()
+
+    useEffect(() => {
+        //     let B2 = 49.1154686
+        //     let B3 = -1.0828136
+        //     let C2 = 49.182863
+        //     let C3 = -0.370679
+        //     let b =
+        //         Math.acos(
+        //             Math.sin(B2) * Math.sin(B3) + Math.cos(B2) * Math.cos(B3) * Math.cos(C2 - C3),
+        //         ) * 6371
+        //     console.log(b)
+        //     // function sqr(a) {
+        //     //     return a * a
+        //     // }
+        //     // let b = Math.sqrt(sqr(49.1154686 - 49.182863) + sqr(-1.0828136 - -0.370679))
+        //     // console.log("bbbb = ", b)
+    }, [])
 
     const searchAd = () => {
         router.push(
@@ -109,9 +127,6 @@ export default function Home() {
                 </div>
                 <Image src={Carte} alt="Carte France" />
             </Modal>
-            <div className={styles.footer}>
-                <Footer />
-            </div>
         </div>
     )
 }

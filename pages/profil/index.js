@@ -11,12 +11,28 @@ import Header from "../../components/header/header"
 import styles from "./index.module.scss"
 
 import userService from "../../services/user.service"
+import Token from "../../components/token/token"
+import { verifyToken } from "../../components/token/token"
 
 const Profil = () => {
     const router = useRouter()
     const { setUserContext, userContext } = useContext(AuthContext)
     const [user, setUser] = useState({})
     const [uploadFile, setUploadFile] = useState({})
+
+    useEffect(() => {
+        if (userContext && userContext.token) {
+            verifyToken(userContext.token).then(data => {
+                console.log(data)
+                if (data === true) {
+                } else {
+                    router.push("/auth/login")
+                }
+            })
+        } else {
+            router.push("/auth/login")
+        }
+    }, [])
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -61,20 +77,21 @@ const Profil = () => {
     }
 
     useEffect(() => {
-        console.log(userContext)
-        setUser({ ...user, username: userContext.username })
-        setUser({ ...user, image: userContext.image })
-    }, [])
-
-    useEffect(() => {
-        setUser({ ...user, image: userContext.image })
+        if (userContext && userContext.image) {
+            setUser({ ...user, image: userContext.image })
+        }
     }, [userContext])
 
     const logout = () => {
         // localStorage.removeItem("user")
         // localStorage.getItem("user").clear()
-        localStorage.clear()
-        localStorage.clear()
+        // while (typeof window !== undefined) {
+        //     localStorage.clear()
+        // }
+        // localStorage.clear()
+        // localStorage.clear()
+
+        localStorage.removeItem("user")
         setUserContext(null)
         router.push("/")
     }
@@ -106,7 +123,7 @@ const Profil = () => {
                         <Input
                             label="Nom d'utilisateur"
                             className={`input input-form`}
-                            value={userContext.username || ""}
+                            value={userContext && userContext.username ? userContext.username : ""}
                             onChange={e => {
                                 setUser({ ...user, username: e.target.value })
                             }}
