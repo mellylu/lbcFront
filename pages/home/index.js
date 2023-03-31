@@ -16,6 +16,7 @@ import AuthContext from "../../contexts/AuthContext"
 import styles from "./index.module.scss"
 
 import Carte from "../../public/carteFrance.jpg"
+import userService from "../../services/user.service"
 
 export default function Home() {
     const router = useRouter()

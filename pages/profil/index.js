@@ -49,7 +49,6 @@ const Profil = () => {
         userService
             .updateuser(userContext.id, user)
             .then(data => {
-                console.log(data)
                 setUserContext({ ...userContext, username: data.user.username })
                 setUser({ ...user, username: data.user.username })
             })

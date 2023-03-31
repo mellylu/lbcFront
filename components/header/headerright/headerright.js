@@ -12,7 +12,7 @@ import userService from "../../../services/user.service"
 
 const Headerright = () => {
     const router = useRouter()
-    const { userContext } = useContext(AuthContext)
+    const { userContext, setUserContext } = useContext(AuthContext)
     const [isContext, setIsContext] = useState(false)
     const [isContextImage, setIsContextImage] = useState(false)
     const [isContextUsername, setIsContextUsername] = useState(false)
@@ -37,6 +37,12 @@ const Headerright = () => {
                     }
                 })
             }
+            userService
+                .getuser(userContext.id)
+                .then(data => {
+                    setUserContext({ ...userContext, favorite: data.user.favorite })
+                })
+                .catch(err => console.log(err))
         } else {
             setIsContext(false)
         }

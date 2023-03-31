@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { useRouter } from "next/router"
 
 import Button from "../button/button"
@@ -10,6 +10,16 @@ import Link from "next/link"
 
 const Announcement = ({ stateElement, ad = false, favoris = true }) => {
     const router = useRouter()
+
+    // const [isok, setisok] = useState()
+
+    // userContext.favorite.forEach(element => {
+    //     element.ad._id.includes(idElement) ? (
+
+    //     ) : (
+
+    //     )
+    // })
 
     return (
         <div>

@@ -39,27 +39,28 @@ const Favorite = () => {
             <div className={styles.maindiv}>
                 <div className={styles.div}>
                     {isNull ? (
-                        <div>
-                            <h2 className="title-h2 text-center py-t">
-                                Vous n avez pas d annonce sauvegardée
-                            </h2>
-                            <div className={styles.image}>
-                                <Image
-                                    src={NotFavoris}
-                                    alt="background image pas de favoris"
-                                    className="image image-big"
-                                />
+                        <div className={styles.notAnnouncement}>
+                            <div>
+                                <h2 className="title-h2 text-center py-t">
+                                    {"Vous n'avez pas d'annonce sauvegardée"}
+                                </h2>
+                                <div className={styles.image}>
+                                    <Image
+                                        src={NotFavoris}
+                                        alt="background image pas de favoris"
+                                        className="image image-big"
+                                    />
+                                </div>
                             </div>
                         </div>
                     ) : (
                         <div className={`${styles.searchdiv}`}>
-                            <div>
-                                <p className="title-h2 text-center py-t">
-                                    Si l annonce n est plus active sur le site, elle disparaîtra
-                                    automatiquement de votre sélection.
-                                </p>
-                                <Announcement stateElement={favoris} ad={true} />
-                            </div>
+                            <p className="title-h2 text-center py-t">
+                                {
+                                    "Si l'annonce n'est plus active sur le site, elle disparaîtra automatiquement de votre sélection."
+                                }
+                            </p>
+                            <Announcement stateElement={favoris} ad={true} />
                         </div>
                     )}
                 </div>

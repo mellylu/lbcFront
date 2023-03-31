@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react"
-import { AiFillHeart } from "react-icons/ai"
+import React, { useState, useContext, useEffect } from "react"
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
 
 import Button from "../button/button"
 
@@ -10,11 +10,11 @@ import styles from "./favoris.module.scss"
 import AuthContext from "../../../contexts/AuthContext"
 
 const Favoris = ({ idElement }) => {
-    const { userContext } = useContext(AuthContext)
+    const { userContext, setUserContext } = useContext(AuthContext)
     const [isExist, setIsExist] = useState(false)
+    const [isFavorite, setIsFavorite] = useState()
 
     async function addFavoris(id) {
-        console.log(id)
         id = id.idElement
         if (userContext.token) {
             const user = await userService.getuser(userContext.id)
@@ -32,7 +32,6 @@ const Favoris = ({ idElement }) => {
             } else {
                 let newFavoris = []
                 user.user.favorite.forEach(favoris => {
-                    console.log(favoris, "fff")
                     if (favoris.ad._id !== id) {
                         newFavoris.push(favoris)
                     }
@@ -48,10 +47,33 @@ const Favoris = ({ idElement }) => {
                     // }
                 })
                 .catch(err => console.log(err))
+            userService
+                .getuser(userContext.id)
+                .then(data => {
+                    setUserContext({ ...userContext, favorite: data.user.favorite })
+                })
+                .catch(err => console.log(err))
+            // location.reload()
         } else {
             console.log("Vous n'êtes pas connectés")
         }
     }
+
+    useEffect(() => {
+        let cpt = 0
+        userContext.favorite.forEach(element => {
+            console.log(element.ad.name)
+            if (element.ad._id.includes(idElement)) {
+                cpt += 1
+            }
+        })
+        if (cpt === 0) {
+            setIsFavorite(false)
+        } else {
+            setIsFavorite(true)
+        }
+    }, [userContext])
+
     return (
         <div>
             <Button
@@ -59,14 +81,29 @@ const Favoris = ({ idElement }) => {
                     addFavoris({ idElement })
                 }}
             >
-                <div className={styles.heart}>
-                    <AiFillHeart size={25} />
-                </div>
-                {/* {isExist ? (
-        <AiFillHeart size={25} />
-    ) : (
-        <AiOutlineHeart size={25} />
-    )} */}
+                {isFavorite ? (
+                    <div className={styles.heart}>
+                        <AiFillHeart size={25} />
+                    </div>
+                ) : (
+                    <div className={styles.heart}>
+                        <AiOutlineHeart size={25} />
+                    </div>
+                )}
+
+                {/* <Button
+            >
+                {/* {userContext.favorite.forEach(element => {
+                    element.ad._id.includes(idElement) ? (
+                        <div className={styles.heart}>
+                            <AiFillHeart size={25} />
+                        </div>
+                    ) : (
+                        <div className={styles.heart}>
+                            <AiOutlineHeart size={25} />
+                        </div>
+                    )
+                })} */}
             </Button>
         </div>
     )

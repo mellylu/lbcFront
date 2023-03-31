@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react"
 import { useRouter } from "next/router"
 
 import FilterContext from "../../../../contexts/FilterContext"
+import AuthContext from "../../../../contexts/AuthContext"
 
 import adService from "../../../../services/ad.service"
 import filterService from "../../../../services/filter.service"
@@ -28,12 +29,14 @@ const Index = () => {
     const [material, setMaterial] = useState([router.query.material || ""])
     const [color, setColor] = useState([])
     const [state, setState] = useState([])
+    const { userContext, setUserContext } = useState(AuthContext)
     let x = 0
     const filter = router.query
 
     useEffect(() => {
         if (!router.isReady) {
         } else {
+            ////////////////////////////
             // console.log(type, "type")
             // if (router.query.type) {
             //     let TypeSplit = router.query.type.split(",")
