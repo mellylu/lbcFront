@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import { AiOutlineSearch, AiFillEnvironment, AiOutlineBars } from "react-icons/ai"
 import { useRouter } from "next/router"
 import Image from "next/image"
@@ -11,6 +11,8 @@ import Modal from "../../components/body/modal/modal"
 import Geobis from "../../components/body/geobis/geobis"
 import Footer from "../../components/footer/footer"
 
+import AuthContext from "../../contexts/AuthContext"
+
 import styles from "./index.module.scss"
 
 import Carte from "../../public/carteFrance.jpg"
@@ -22,8 +24,14 @@ export default function Home() {
     const [category, setCategory] = useState("")
     const [lat, setLat] = useState()
     const [lng, setLng] = useState()
+    const { setUserContext } = useContext(AuthContext)
 
     useEffect(() => {
+        if (!localStorage.getItem("user") || localStorage.getItem("user") === null) {
+            setUserContext(null)
+            location.reload()
+        } else {
+        }
         //     let B2 = 49.1154686
         //     let B3 = -1.0828136
         //     let C2 = 49.182863

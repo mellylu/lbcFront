@@ -16,8 +16,16 @@
         object-fit: contain;
     }
     &-profil {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 1px solid grey;
+    }
+    &-icon {
         width: 30px;
         height: 30px;
-        object-fit: contain;
+        object-fit: cover;
+        border-radius: 50%;
     }
 }

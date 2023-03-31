@@ -13,6 +13,13 @@
             border: 1px solid black;
         }
     }
+    &-profil {
+        padding: 13px;
+        border: 2px solid #d3d3d3;
+        &:focus {
+            border: 1px solid black;
+        }
+    }
     &-select {
         width: 175px;
         height: 35px;

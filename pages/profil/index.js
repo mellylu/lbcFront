@@ -1,6 +1,5 @@
 import { useRouter } from "next/router"
 import React, { useContext, useEffect, useState } from "react"
-import Image from "next/image"
 
 import AuthContext from "../../contexts/AuthContext"
 
@@ -8,25 +7,33 @@ import Button from "../../components/body/button/button"
 import Input from "../../components/body/input/input"
 import Header from "../../components/header/header"
 
+import PhotoProfil from "../../public/photoProfil.jpg"
+
 import styles from "./index.module.scss"
 
 import userService from "../../services/user.service"
-import Token from "../../components/token/token"
+import Image from "next/image"
 
 const Profil = () => {
     const router = useRouter()
     const { setUserContext, userContext } = useContext(AuthContext)
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState({ username: userContext.username || "" })
     const [uploadFile, setUploadFile] = useState({})
-
+    const [isChangeUploadFile, setIsChangeUploadFile] = useState(false)
+    const [isUserImage, setIsUserImage] = useState(false)
     useEffect(() => {
-        console.log(userContext, "USERCONTEXT")
         if (userContext && userContext.token) {
             userService
                 .verifyToken(userContext.token)
                 .then(data => {
                     if (!data.auth) {
                         router.push("/auth/login")
+                    } else {
+                        if (userContext.image) {
+                            setIsUserImage(true)
+                        } else {
+                            setIsUserImage(false)
+                        }
                     }
                 })
                 .catch(() => {
@@ -39,9 +46,6 @@ const Profil = () => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        console.log("verifie les infos envoyées")
-        console.log(userContext.id)
-        console.log(user)
         userService
             .updateuser(userContext.id, user)
             .then(data => {
@@ -52,8 +56,7 @@ const Profil = () => {
             .catch(err => console.log(err))
     }
 
-    const handleSubmitPhoto = async e => {
-        e.preventDefault()
+    const handleSubmitPhoto = async () => {
         const formData = new FormData()
         formData.append("file", uploadFile)
         formData.append("upload_preset", "ml_default")
@@ -63,7 +66,6 @@ const Profil = () => {
         })
         const data = await response.json()
         if (data.api_key) {
-            console.log("l'image est possible")
             userService
                 .updateuser(userContext.id, { image: data.secure_url })
                 .then(() => {
@@ -71,13 +73,19 @@ const Profil = () => {
                 })
                 .catch(err => console.log(err))
         } else {
-            console.log(data.message)
         }
-        console.log(data)
     }
     const handleFileSelected = e => {
+        setIsChangeUploadFile(true)
         setUploadFile(e.target.files[0])
     }
+
+    useEffect(() => {
+        if (isChangeUploadFile) {
+            console.log("dddddddddddddddd")
+            handleSubmitPhoto()
+        }
+    }, [uploadFile])
 
     useEffect(() => {
         if (userContext && userContext.image) {
@@ -94,50 +102,87 @@ const Profil = () => {
         // localStorage.clear()
         // localStorage.clear()
 
+        // setUserContext(null)
         localStorage.removeItem("user")
-        setUserContext(null)
-        router.push("/")
+        // setUserContext(null)
+        router.push("/home")
+        // setUserContext(null)
     }
 
     return (
         <div className="width">
             <Header />
             <div className={styles.divprincipal}>
-                <div className={styles.div}>
-                    <img className="image-profil" src={user.image} alt="photo utilisateur" />
+                <div>
+                    <input
+                        id="file"
+                        className={styles.inputfile}
+                        type="file"
+                        onChange={e => handleFileSelected(e)}
+                    />
+                    {/* <Input title="+" type="file" onChange={e => handleFileSelected(e)} /> */}
 
-                    <form onSubmit={handleSubmitPhoto}>
-                        <input type="file" name="image" onChange={handleFileSelected} />
-                        <button type="submit">Changer photo</button>
-                    </form>
+                    {isUserImage ? (
+                        <div>
+                            <div className={styles.imageProfil}>
+                                <img
+                                    className="image-profil"
+                                    src={user.image}
+                                    alt="photo utilisateur"
+                                />
+                            </div>
+                            <br />
+                            <div>
+                                <label for="file" className={`${styles.labelfile} btn btn-white`}>
+                                    {"Changer d'image"}
+                                </label>
+                            </div>
+                        </div>
+                    ) : (
+                        <div>
+                            <div>
+                                <Image
+                                    className="image-profil"
+                                    src={PhotoProfil}
+                                    alt="pas de photo utilisateur"
+                                />
+                            </div>
+                            <br />
+                            <div>
+                                <label for="file" className={`${styles.labelfile} btn btn-white`}>
+                                    {"Changer d'image"}
+                                </label>
+                            </div>
+                        </div>
+                    )}
+                </div>
+                <br />
+                <div className={styles.div}>
+                    <div>
+                        <Input
+                            className={`input input-profil`}
+                            value={(user && user.username) || ""}
+                            onChange={e => {
+                                setUser({ ...user, username: e.target.value })
+                            }}
+                        />
+                    </div>
+
+                    <div className={styles.btnChangeUserName}>
+                        <Button
+                            className={`btn btn-blue`}
+                            title="Changer nom du profil"
+                            onClick={e => {
+                                handleSubmit(e)
+                            }}
+                        />
+                    </div>
                     <div className={styles.divbutton}>
                         <Button
                             className="btn btn-blue"
                             title="Voir mon profil public"
                             onClick={() => {
                                 router.push("/profilpublic")
-                            }}
-                        />
-                    </div>
-                </div>
-                <br />
-                <div className={styles.div}>
-                    <div className={styles.left}>
-                        <Input
-                            label="Nom d'utilisateur"
-                            className={`input input-form`}
-                            value={userContext && userContext.username ? userContext.username : ""}
-                            onChange={e => {
-                                setUser({ ...user, username: e.target.value })
-                            }}
-                        />
-                    </div>
-                    <div className={styles.right}>
-                        <Button
-                            className={`btn btn-orange`}
-                            title="Enregistrer"
-                            onClick={e => {
-                                handleSubmit(e)
                             }}
                         />
                     </div>

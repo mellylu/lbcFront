@@ -18,8 +18,8 @@ const Headerright = () => {
     const [isContextUsername, setIsContextUsername] = useState(false)
 
     useEffect(() => {
-        console.log(userContext, "userContext")
         if (userContext) {
+            console.log(userContext, "USERCONTEXT")
             if (userContext.token) {
                 userService.verifyToken(userContext.token).then(data => {
                     if (data.auth) {
@@ -81,7 +81,7 @@ const Headerright = () => {
                         <Button className="btn btn-white" onClick={() => direction()}>
                             {isContextImage ? (
                                 <img
-                                    className="image-profil"
+                                    className="image-icon"
                                     src={userContext.image}
                                     alt="photo utilisateur"
                                 />
@@ -89,12 +89,12 @@ const Headerright = () => {
                                 <BiUser size={30} />
                             )}
                         </Button>
-                        {isContextUsername ? (
+                        {isContext ? (
                             <p className="title title-h6 color color-grey text text-center">
-                                {userContext.username}
+                                {userContext.username || "Username"}
                             </p>
                         ) : (
-                            <p className="title title-h6 color color-grey text text-center">
+                            <p className="title title-h6 color color-grey text-center">
                                 Se connecter
                             </p>
                         )}

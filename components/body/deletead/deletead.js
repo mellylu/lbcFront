@@ -14,8 +14,6 @@ const Deletead = ({ idElement, idAd }) => {
     const { userContext } = useContext(AuthContext) //fba
     const [ok, setOk] = useState(false)
     const deleteAnnouncement = (idEl, id) => {
-        console.log(idEl, "idEl")
-        console.log(id, "idAd")
         userService
             .deleteAnnouncement(userContext.id, idEl.idElement)
             .then(data => {
@@ -25,7 +23,6 @@ const Deletead = ({ idElement, idAd }) => {
         adService
             .deleteAd(idAd)
             .then(data => {
-                console.log(data)
                 location.reload()
             })
             .catch(err => console.log(err))
