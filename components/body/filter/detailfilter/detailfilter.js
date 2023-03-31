@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 
 import styles from "./detailfilter.module.scss"
 
-const Detailfilter = ({ filtre, title, onClick }) => {
+const Detailfilter = ({ filtre, title, onClick, defaultChecked }) => {
     let router = useRouter()
 
     return (
@@ -19,7 +19,9 @@ const Detailfilter = ({ filtre, title, onClick }) => {
                                 id={el}
                                 value={el}
                                 defaultChecked={
-                                    router.query.type && router.query.type.indexOf(el) !== -1
+                                    (router.query.type && router.query.type.indexOf(el) !== -1) ||
+                                    (router.query.material &&
+                                        router.query.material.indexOf(el) !== -1)
                                 }
                                 type="checkbox"
                                 onClick={onClick}

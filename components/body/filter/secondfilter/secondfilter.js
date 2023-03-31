@@ -29,26 +29,18 @@ const Secondfilter = ({
     const functionType = e => {
         if (type.indexOf(e.target.value) === -1) {
             setType([...type, e.target.value])
-            // if (e.target.value) {
-            //     setIsNotNull(true)
-            // }
         } else {
             setType(type.filter(el => el !== e.target.value))
         }
     }
 
-    useEffect(() => {
-        console.log(type, "TYPE")
-        console.log(router.query)
-    }, [type])
-
-    // useEffect(() => {
-    //     if (type && type !== "") {
-    //         router.query.type = router.query.type = type.toString()
-    //         router.push(router)
-    //     }
-    //     //setFilterContext({ ...filtreContext, type: type })
-    // }, [type])
+    const functionMaterial = e => {
+        if (type.indexOf(e.target.value) === -1) {
+            setMaterial([...material, e.target.value])
+        } else {
+            setMaterial(material.filter(el => el !== e.target.value))
+        }
+    }
 
     const functionColor = e => {
         // if (type.indexOf(e.target.value) === -1) {
@@ -82,14 +74,6 @@ const Secondfilter = ({
         // }
     }
 
-    const functionMaterial = e => {
-        // if (type.indexOf(e.target.value) === -1) {
-        //     setMaterial([...material, e.target.value])
-        // } else {
-        //     setMaterial(material.filter(el => el !== e.target.value))
-        // }
-    }
-
     const functionState = e => {
         // if (type.indexOf(e.target.value) === -1) {
         //     setState([...state, e.target.value])
@@ -117,6 +101,13 @@ const Secondfilter = ({
                                   functionType(e)
                               }}
                           />
+                          <Detailfilter
+                              filtre={element.material}
+                              title="Matériel"
+                              onClick={e => {
+                                  functionMaterial(e)
+                              }}
+                          />
                           {/* <Detailfilter
                               filtre={element.color}
                               title="Couleur"
@@ -138,13 +129,7 @@ const Secondfilter = ({
                                   functionBrand(e)
                               }}
                           />
-                          <Detailfilter
-                              filtre={element.material}
-                              title="Matériel"
-                              onClick={e => {
-                                  functionMaterial(e)
-                              }}
-                          />
+                        
                           <Detailfilter
                               filtre={element.state}
                               title="Etat"

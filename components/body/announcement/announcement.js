@@ -30,57 +30,52 @@ const Announcement = ({ stateElement, ad = false, favoris = true }) => {
                                 })
                             }}
                         > */}
-                            <Button
-                                className="btn btn-white"
-                                onClick={() => router.push(`/home/${element._id}`)}
-                            >
-                                <div className={styles.flex2}>
-                                    <img
-                                        src={element.image}
-                                        className={styles.image}
-                                        alt="annonce"
-                                    />
-                                    {/* <Link href={`/home/${element._id}`}>Voir le produit</Link> */}
 
-                                    <div className={styles.container}>
-                                        <p
-                                            className={`title title-h2 text-left ${styles.interligne} ${styles.titre}`}
+                            <div className={styles.flex2}>
+                                <img src={element.image} className={styles.image} alt="annonce" />
+                                {/* <Link href={`/home/${element._id}`}>Voir le produit</Link> */}
+
+                                <div className={styles.container}>
+                                    <p
+                                        className={`title title-h2 text-left ${styles.interligne} ${styles.titre}`}
+                                    >
+                                        <Button
+                                            className="btn btn-white"
+                                            onClick={() => router.push(`/home/${element._id}`)}
                                         >
                                             {element.name}
-                                        </p>
-                                        <p
-                                            className={`title title-h3 text-left ${styles.interligne}`}
-                                        >
-                                            {element.price} $
-                                        </p>
-                                        <br />
-                                        <p
-                                            className={`title-p color-greyligth text-left ${styles.interligne}`}
-                                        >
-                                            {element.country}
-                                        </p>
-                                        {/* <p>{element.localization}</p> */}
-                                        <p
-                                            className={`title-p color-greyligth text-left ${styles.interligne}`}
-                                        >
-                                            02/03/2023 à 8:25
-                                        </p>
-                                        {/* <p>{element.date}</p> */}
-                                    </div>
-                                    {/* </Button> */}
-                                    <div>
-                                        {favoris ? (
-                                            <div>
-                                                <Favoris idElement={element._id} />
-                                            </div>
-                                        ) : (
-                                            <div>
-                                                <Deletead idElement={x._id} idAd={element._id} />
-                                            </div>
-                                        )}
-                                    </div>
+                                        </Button>
+                                    </p>
+                                    <p className={`title title-h3 text-left ${styles.interligne}`}>
+                                        {element.price} $
+                                    </p>
+                                    <br />
+                                    <p
+                                        className={`title-p color-greyligth text-left ${styles.interligne}`}
+                                    >
+                                        {element.country}
+                                    </p>
+                                    {/* <p>{element.localization}</p> */}
+                                    <p
+                                        className={`title-p color-greyligth text-left ${styles.interligne}`}
+                                    >
+                                        02/03/2023 à 8:25
+                                    </p>
+                                    {/* <p>{element.date}</p> */}
                                 </div>
-                            </Button>
+                                {/* </Button> */}
+                                <div>
+                                    {favoris ? (
+                                        <div>
+                                            <Favoris idElement={element._id} />
+                                        </div>
+                                    ) : (
+                                        <div>
+                                            <Deletead idElement={x._id} idAd={element._id} />
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
                         </div>
                     )
                 })

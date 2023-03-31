@@ -18,17 +18,27 @@ const Index = () => {
     const [email, setEmail] = useState({})
     const [validEmail, setValidEmail] = useState(false)
     const [message, setMessage] = useState(false)
+    const [errorMessage, setErrorMessage] = useState(false)
 
     const handleSubmit = e => {
         e.preventDefault()
-        userService
-            .sendEmailToResetPassword(email)
-            .then(data => {
-                setMessage(true)
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        userService.emailexist(email).then(data => {
+            console.log(data)
+            if (data.message === "adresse email existe déjà") {
+                userService
+                    .sendEmailToResetPassword(email)
+                    .then(data => {
+                        setMessage(true)
+                        setErrorMessage(false)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            } else {
+                setErrorMessage(true)
+                setMessage(false)
+            }
+        })
     }
 
     useEffect(() => {
@@ -74,6 +84,7 @@ const Index = () => {
                         </>
                     )}
                     {message ? <Message type="valid" mess="Email envoyé" /> : ""}
+                    {errorMessage ? <Message type="error" mess="L'Email n'existe pas" /> : ""}
                 </div>
                 <div>
                     <Image

@@ -25,54 +25,55 @@ const Index = () => {
     const [size, setSize] = useState([])
     const [type, setType] = useState([router.query.type || ""])
     const [brand, setBrand] = useState([])
-    const [material, setMaterial] = useState([])
+    const [material, setMaterial] = useState([router.query.material || ""])
     const [color, setColor] = useState([])
     const [state, setState] = useState([])
-    const { filtreContext, setFilterContext } = useContext(FilterContext)
     let x = 0
     const filter = router.query
-    let tab = []
-
-    useEffect(() => {
-        //     if (router.query.type) {
-        //         let TypeSplit = router.query.type.split(",")
-        //         if (TypeSplit.length === 1) {
-        //             if (type.indexOf(TypeSplit) !== -1) {
-        //                 setType([...type, TypeSplit])
-        //             }
-        //         } else if (TypeSplit.length >= 1) {
-        //             TypeSplit.forEach(element => {
-        //                 if (type.indexOf(element) !== -1) {
-        //                     setType([...type, element])
-        //                 }
-        //             })
-        //         } else {
-        //         }
-        //     }
-    }, [])
 
     useEffect(() => {
         if (!router.isReady) {
         } else {
-            if (router.query.type) {
-                let TypeSplit = router.query.type.split(",")
-
-                if (x === 0) {
-                    if (TypeSplit.length === 1) {
-                        if (type.indexOf(TypeSplit) === -1) {
-                            setType([...type.filter(element => element !== ""), TypeSplit[0]])
-                        }
-                    } else if (TypeSplit.length >= 1) {
-                        TypeSplit.forEach(element => {
-                            if (type.indexOf(element) === -1) {
-                                setType([...type.filter(el => el !== ""), element])
-                            }
-                        })
-                    } else {
+            // console.log(type, "type")
+            // if (router.query.type) {
+            //     let TypeSplit = router.query.type.split(",")
+            //     if (x === 0) {
+            //         if (TypeSplit.length === 1) {
+            //             if (type.indexOf(TypeSplit) === -1) {
+            //                 setType([...type.filter(element => element !== ""), TypeSplit[0]])
+            //             }
+            //         } else if (TypeSplit.length >= 1) {
+            //             TypeSplit.forEach(element => {
+            //                 if (type.indexOf(element) === -1) {
+            //                     setType([...type.filter(el => el !== ""), element])
+            //                 }
+            //             })
+            //         } else {
+            //         }
+            //     }
+            // }
+            if (router.query.material) {
+                let materialSplit = router.query.material.split(",")
+                // if (x === 0) {
+                if (materialSplit.length === 1) {
+                    if (material.indexOf(materialSplit) === -1) {
+                        setMaterial([
+                            ...material.filter(element => element !== ""),
+                            materialSplit[0],
+                        ])
                     }
+                } else if (materialSplit.length >= 1) {
+                    materialSplit.forEach(element => {
+                        if (material.indexOf(element) === -1) {
+                            setMaterial([...material.filter(el => el !== ""), element])
+                        }
+                    })
+                } else {
                 }
-                x += 1
+                // }
+                // x += 1
             }
+
             adService
                 .getAllFilter(
                     filter.category || "",
@@ -82,6 +83,7 @@ const Index = () => {
                     filter.page || "",
                     sort || router.query.sort || "",
                     type.filter(element => element !== "") || router.query.type || "",
+                    material.filter(element => element !== "") || router.query.material || "",
                     // univers.toString() || router.query.univers || "",
                     // size.toString() || router.query.size || "",
 
@@ -105,6 +107,33 @@ const Index = () => {
             router.push(router)
         }
     }, [sort])
+
+    useEffect(() => {
+        adService
+            .getAllFilter(
+                filter.category || "",
+                filter.search || "",
+                filter.lat || "",
+                filter.lng || "",
+                filter.page || "",
+                sort || router.query.sort || "",
+                type.filter(element => element !== "") || router.query.type || "",
+                material.filter(element => element !== "") || router.query.material || "",
+                // univers.toString() || router.query.univers || "",
+                // size.toString() || router.query.size || "",
+
+                // brand.toString() || router.query.brand || "",
+                // material.toString() || router.query.material || "",
+                // color.toString() || router.query.color || "",
+                // state.toString() || router.query.state || "",
+            )
+            .then(data => {
+                setAd(data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [type])
 
     const nextPage = () => {
         filter.page = parseInt(filter.page)
@@ -134,12 +163,25 @@ const Index = () => {
         }
     }
 
+    useEffect(() => {
+        console.log(material)
+    }, [material])
+
     const searchFilter = () => {
         if (type) {
+            console.log(type, "TYPE")
             router.query.type = type.filter(element => element !== "").toString()
             router.push(router)
             if (type.length === 0) {
                 delete router.query.type
+                router.push(router)
+            }
+        }
+        if (material) {
+            router.query.material = material.filter(element => element !== "").toString()
+            router.push(router)
+            if (material.length === 0) {
+                delete router.query.material
                 router.push(router)
             }
         }

@@ -26,6 +26,7 @@ const Deletead = ({ idElement, idAd }) => {
             .deleteAd(idAd)
             .then(data => {
                 console.log(data)
+                location.reload()
             })
             .catch(err => console.log(err))
     }

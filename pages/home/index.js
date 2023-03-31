@@ -127,6 +127,7 @@ export default function Home() {
                 </div>
                 <Image src={Carte} alt="Carte France" />
             </Modal>
+            <Footer />
         </div>
     )
 }

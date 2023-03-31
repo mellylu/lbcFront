@@ -18,6 +18,7 @@ const Headerright = () => {
     const [isContextUsername, setIsContextUsername] = useState(false)
 
     useEffect(() => {
+        console.log(userContext, "userContext")
         if (userContext) {
             if (userContext.token) {
                 userService.verifyToken(userContext.token).then(data => {
@@ -39,7 +40,7 @@ const Headerright = () => {
         } else {
             setIsContext(false)
         }
-    })
+    }, [])
 
     const direction = () => {
         if (userContext && userContext.token)

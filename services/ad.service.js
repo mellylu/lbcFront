@@ -49,15 +49,15 @@ export default {
         page,
         sort,
         type,
-        univers,
-        size,
-        brand,
         material,
         color,
         state,
+        univers,
+        size,
+        brand,
     ) {
         return fetch(
-            `http://localhost:5000/api/v1/ad/getallfilter?category=${category}&search=${search}&lat=${lat}&lng=${lng}&sort=${sort}&page=${page}&type=${type}&univers=${univers}&size=${size}&brand=${brand}&material=${material}&color=${color}&state=${state}`,
+            `http://localhost:5000/api/v1/ad/getallfilter?category=${category}&search=${search}&lat=${lat}&lng=${lng}&sort=${sort}&page=${page}&type=${type}&material=${material}&color=${color}&state=${state}&univers=${univers}&size=${size}&brand=${brand}`,
             {
                 method: "GET",
                 headers: {

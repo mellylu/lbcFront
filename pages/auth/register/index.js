@@ -136,7 +136,7 @@ const Index = () => {
 
     const finishregister = () => {
         setIsVisible5(false)
-        router.push("/")
+        router.push("/auth/login")
     }
 
     return (

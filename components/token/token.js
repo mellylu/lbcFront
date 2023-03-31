@@ -5,7 +5,8 @@ import AuthContext from "../../contexts/AuthContext"
 import userService from "../../services/user.service"
 
 export const verifyToken = token => {
-    const resp = userService
+    const resp = console.log(token, "TTOOKKENN")
+    userService
         .verifyToken(token)
         .then(data => {
             if (data.auth) {

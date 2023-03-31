@@ -12,7 +12,6 @@ import styles from "./index.module.scss"
 
 import userService from "../../services/user.service"
 import Token from "../../components/token/token"
-import { verifyToken } from "../../components/token/token"
 
 const Profil = () => {
     const router = useRouter()
@@ -21,14 +20,18 @@ const Profil = () => {
     const [uploadFile, setUploadFile] = useState({})
 
     useEffect(() => {
+        console.log(userContext, "USERCONTEXT")
         if (userContext && userContext.token) {
-            verifyToken(userContext.token).then(data => {
-                console.log(data)
-                if (data === true) {
-                } else {
+            userService
+                .verifyToken(userContext.token)
+                .then(data => {
+                    if (!data.auth) {
+                        router.push("/auth/login")
+                    }
+                })
+                .catch(() => {
                     router.push("/auth/login")
-                }
-            })
+                })
         } else {
             router.push("/auth/login")
         }
