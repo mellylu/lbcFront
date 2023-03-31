@@ -74,6 +74,19 @@
             color: #ff6e14;
         }
     }
+    &-orange2 {
+        background-color: #ff6e14;
+        color: #ffffff;
+        font-weight: bold;
+        border-radius: 5px;
+        width: 100%;
+        border: 0px;
+        padding: 0px;
+        &:hover {
+            background: #ffffff;
+            color: #ff6e14;
+        }
+    }
 
     &-profil {
         width: 60px;

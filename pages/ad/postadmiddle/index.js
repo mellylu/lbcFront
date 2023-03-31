@@ -10,10 +10,28 @@ import styles from "../index.module.scss"
 const Index = () => {
     const router = useRouter()
     const [ad, setAd] = useState({})
+    const [isNbSupCharacterMin, setIsSupNbCharacterMin] = useState(false)
+    const [isNbInfCharacterMax, setIsNbInfCharacterMax] = useState(false)
 
     useEffect(() => {
-        setAd(router.query)
-    }, [])
+        if (!router.isReady) {
+        } else {
+            setAd(router.query)
+        }
+    }, [router.isReady])
+
+    useEffect(() => {
+        if (ad.description && ad.description.length >= 100) {
+            setIsSupNbCharacterMin(true)
+        } else {
+            setIsSupNbCharacterMin(false)
+        }
+        if (ad.description && ad.description.length <= 400) {
+            setIsNbInfCharacterMax(true)
+        } else {
+            setIsNbInfCharacterMax(false)
+        }
+    })
 
     return (
         <div className="width">
@@ -41,35 +59,38 @@ const Index = () => {
                         className="input input-form"
                     />
                     <br />
-                    <label>Description de l annonce</label>
+                    <label>{"Description de l'annonce"}</label>
                     <textarea
                         className="input input-form height-big"
                         onChange={e => {
                             setAd({ ...ad, description: e.target.value })
                         }}
                     ></textarea>
-                    {/* <Input
-                
-                        onChange={e => {
-                            setAd({ ...ad, description: e.target.value })
-                        }}
-                        label="Description de l'annonce"
-                        className="input input-form height-big"
-                    /> */}
-                    <br />
 
-                    <div className={styles.button2}>
-                        <Button
-                            onClick={() =>
-                                router.push({
-                                    pathname: "/ad/postadfinish",
-                                    query: ad,
-                                })
-                            }
-                            title="Continuer"
-                            className="btn-blue"
-                        />
-                    </div>
+                    <br />
+                    {isNbSupCharacterMin && isNbInfCharacterMax ? (
+                        <div className={styles.button2}>
+                            <Button
+                                onClick={() =>
+                                    router.push({
+                                        pathname: "/ad/postadfinish",
+                                        query: ad,
+                                    })
+                                }
+                                title="Continuer"
+                                className="btn-blue"
+                            />
+                        </div>
+                    ) : (
+                        <div>
+                            <p className="color-red title-h6">
+                                * La description doit contenir entre 100 et 00 caractères
+                            </p>
+                            <>
+                                <Button className="btn-grey" title="Continuer" />
+                            </>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

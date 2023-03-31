@@ -66,9 +66,10 @@ const Index = () => {
                                         setAd({ ...ad, name: e.target.value })
                                     }}
                                 />
+                                <br />
                                 {ad.name && !next1 ? (
                                     <Button
-                                        className="btn-orange"
+                                        className="btn-orange2"
                                         title="Continuer"
                                         onClick={() => {
                                             setNext1(true)
@@ -92,20 +93,28 @@ const Index = () => {
                                             }}
                                             name="pets"
                                             id="pet-select"
+                                            className="input input-select"
                                         >
-                                            <option value="">--Please choose an option--</option>
+                                            <option value="" disabled selected hidden>
+                                                Catégorie
+                                            </option>
                                             <option value="Vêtement">Vêtement</option>
                                             <option value="Maison">Maison</option>
                                         </select>
-                                        <br />
-                                        <Button
-                                            title="Continuer"
-                                            onClick={() => {
-                                                filterAd()
-                                                setNext(false)
-                                            }}
-                                            className="btn btn-blue"
-                                        />
+                                        {ad.category ? (
+                                            <Button
+                                                title="Continuer"
+                                                onClick={() => {
+                                                    filterAd()
+                                                    setNext(false)
+                                                }}
+                                                className="btn btn-blue"
+                                            />
+                                        ) : (
+                                            <>
+                                                <Button className="btn-grey" title="Continuer" />
+                                            </>
+                                        )}
                                     </div>
                                 ) : (
                                     ""
@@ -119,16 +128,16 @@ const Index = () => {
 
                                     {filter.type !== undefined && filter.type.length > 0 ? (
                                         <div>
-                                            <p>Type</p>
                                             <select
                                                 onClick={e => {
                                                     setAd({ ...ad, type: e.target.value })
                                                 }}
                                                 name="pets"
                                                 id="pet-select"
+                                                className="input input-select"
                                             >
-                                                <option value="">
-                                                    --Please choose an option--
+                                                <option value="" disabled selected hidden>
+                                                    Type
                                                 </option>
                                                 {filter.type.map(element => (
                                                     <option key={element} value={element}>
@@ -143,16 +152,16 @@ const Index = () => {
 
                                     {filter.univers !== undefined && filter.univers.length > 0 ? (
                                         <div>
-                                            <p>Univers</p>
                                             <select
                                                 onClick={e => {
                                                     setAd({ ...ad, univers: e.target.value })
                                                 }}
                                                 name="pets"
                                                 id="pet-select"
+                                                className="input input-select"
                                             >
-                                                <option value="">
-                                                    --Please choose an option--
+                                                <option value="" disabled selected hidden>
+                                                    Univers
                                                 </option>
                                                 {filter.univers.map(element => (
                                                     <option key={element} value={element}>
@@ -167,16 +176,16 @@ const Index = () => {
 
                                     {filter.brand !== undefined && filter.brand.length > 0 ? (
                                         <div>
-                                            <p>Marque</p>
                                             <select
                                                 onClick={e => {
                                                     setAd({ ...ad, brand: e.target.value })
                                                 }}
                                                 name="pets"
                                                 id="pet-select"
+                                                className="input input-select"
                                             >
-                                                <option value="">
-                                                    --Please choose an option--
+                                                <option value="" disabled selected hidden>
+                                                    Marque
                                                 </option>
                                                 {filter.brand.map(element => (
                                                     <option key={element} value={element}>
@@ -191,16 +200,16 @@ const Index = () => {
 
                                     {filter.material !== undefined && filter.material.length > 0 ? (
                                         <div>
-                                            <p>Matière</p>
                                             <select
                                                 onClick={e => {
                                                     setAd({ ...ad, material: e.target.value })
                                                 }}
                                                 name="pets"
                                                 id="pet-select"
+                                                className="input input-select"
                                             >
-                                                <option value="">
-                                                    --Please choose an option--
+                                                <option value="" disabled selected hidden>
+                                                    Matière
                                                 </option>
                                                 {filter.material.map(element => (
                                                     <option key={element} value={element}>
@@ -215,16 +224,16 @@ const Index = () => {
 
                                     {filter.color !== undefined && filter.color.length > 0 ? (
                                         <div>
-                                            <p>Couleur</p>
                                             <select
                                                 onClick={e => {
                                                     setAd({ ...ad, color: e.target.value })
                                                 }}
                                                 name="pets"
                                                 id="pet-select"
+                                                className="input input-select"
                                             >
-                                                <option value="">
-                                                    --Please choose an option--
+                                                <option value="" disabled selected hidden>
+                                                    Couleur
                                                 </option>
                                                 {filter.color.map(element => (
                                                     <option key={element} value={element}>
@@ -239,16 +248,16 @@ const Index = () => {
 
                                     {filter.state !== undefined && filter.state.length > 0 ? (
                                         <div>
-                                            <p>Etat</p>
                                             <select
                                                 onClick={e => {
                                                     setAd({ ...ad, state: e.target.value })
                                                 }}
                                                 name="pets"
                                                 id="pet-select"
+                                                className="input input-select"
                                             >
-                                                <option value="">
-                                                    --Please choose an option--
+                                                <option value="" disabled selected hidden>
+                                                    Etat
                                                 </option>
                                                 {filter.state.map(element => (
                                                     <option key={element} value={element}>
@@ -263,16 +272,16 @@ const Index = () => {
 
                                     {filter.size !== undefined && filter.size.length > 0 ? (
                                         <div>
-                                            <p>Taille</p>
                                             <select
                                                 onClick={e => {
                                                     setAd({ ...ad, size: e.target.value })
                                                 }}
                                                 name="pets"
                                                 id="pet-select"
+                                                className="input input-select"
                                             >
-                                                <option value="">
-                                                    --Please choose an option--
+                                                <option value="" disabled selected hidden>
+                                                    Taille
                                                 </option>
                                                 {filter.size.map(element => (
                                                     <option key={element} value={element}>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react"
 import { useRouter } from "next/router"
-import Image from "next/image"
 
 import Button from "../../../components/body/button/button"
 import Headerleft from "../../../components/header/headerleft/headerleft"
@@ -13,6 +12,7 @@ import userService from "../../../services/user.service"
 import styles from "../index.module.scss"
 
 import AuthContext from "../../../contexts/AuthContext"
+import Message from "../../../components/body/message/message"
 
 const Index = () => {
     const router = useRouter()
@@ -21,14 +21,22 @@ const Index = () => {
     const { userContext } = useContext(AuthContext)
     const [cloudinaryImage, setCloudinaryImage] = useState("")
     const [isVisible, setIsVisible] = useState(false)
-
+    const [isError, setIsError] = useState(false)
+    const [message, setMessage] = useState("")
     const [isVisible2, setIsVisible2] = useState(false)
     const idUser = []
 
+    // useEffect(() => {
+    //     setAd(router.query)
+    //     console.log(ad)
+    // }, [])
+
     useEffect(() => {
-        setAd(router.query)
-        console.log(ad)
-    }, [])
+        if (!router.isReady) {
+        } else {
+            setAd(router.query)
+        }
+    }, [router.isReady])
 
     const addAd = e => {
         e.preventDefault()
@@ -36,12 +44,13 @@ const Index = () => {
         adService
             .postAd(ad)
             .then(data => {
-                console.log(data, "kkkk")
+                setIsError(true)
+                setMessage(data.message)
                 getUserId(data.ad._id)
                 addUserAd(data.ad._id)
             })
             .catch(err => {
-                console.log(err)
+                console.log(err, "err")
             })
     }
 
@@ -198,6 +207,7 @@ const Index = () => {
                     ) : (
                         ""
                     )}
+                    {isError ? <Message type="error" mess={message} /> : ""}
 
                     <Button
                         onClick={e => {
