@@ -8,6 +8,7 @@ import Header from "../../../components/header/header"
 import Button from "../../../components/body/button/button"
 
 import styles from "./index.module.scss"
+import Paybutton from "../../../components/body/paybutton/paybutton"
 
 const Index = () => {
     const router = useRouter()
@@ -63,6 +64,7 @@ const Index = () => {
                             onClick={() => {}}
                         />
                     </div>
+                    <Paybutton cartItems={ad} />
                 </div>
             </div>
             <br />
