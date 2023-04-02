@@ -49,11 +49,9 @@ const PlacesAutocomplete = ({ setSelected, setAd, ad }) => {
         setValue(address, false)
         clearSuggestions()
         const results = await getGeocode({ address })
-        console.log("result", results)
         const { lat, lng } = getLatLng(results[0])
         setSelected({ lat, lng })
-        setAd({ ...ad, localization: { lat, lng } })
-        // addAdress(address)
+        setAd({ ...ad, localization: { lat, lng }, country: address })
     }
 
     // const addAdress = address => {
@@ -70,7 +68,7 @@ const PlacesAutocomplete = ({ setSelected, setAd, ad }) => {
                 value={value}
                 onChange={e => setValue(e.target.value)}
                 disabled={!ready}
-                className={styles.comboboxinput}
+                className={`${styles.comboboxinput} input input-select2`}
                 placeholder="Search an adress"
             />
             <ComboboxPopover>

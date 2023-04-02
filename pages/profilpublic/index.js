@@ -68,6 +68,8 @@ const Index = () => {
                             </div>
                         )}
                         <Announcement stateElement={announcement} ad={true} favoris={false} />
+                        <br />
+                        <br />
                     </div>
                 </div>
             </div>

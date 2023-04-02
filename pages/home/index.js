@@ -96,7 +96,7 @@ export default function Home() {
                                         }}
                                         name="pets"
                                         id="pet-select"
-                                        className="input input-select"
+                                        className="input input-select2 input-select2-selectcategory"
                                     >
                                         <option value="" disabled selected hidden>
                                             Catégorie
@@ -108,7 +108,7 @@ export default function Home() {
                                 <div className={styles.box}>
                                     <AiOutlineSearch size={20} />
                                     <Input
-                                        className="input input-select"
+                                        className="input input-select2"
                                         placeholder="Que recherchez vous ?"
                                         onChange={e => {
                                             setSearch(`search=${e.target.value}`)
@@ -136,7 +136,6 @@ export default function Home() {
                 </div>
                 <Image src={Carte} alt="Carte France" />
             </Modal>
-            <Footer />
         </div>
     )
 }

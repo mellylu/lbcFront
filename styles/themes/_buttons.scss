@@ -87,6 +87,16 @@
             color: #ff6e14;
         }
     }
+    &-ad {
+        background-color: transparent;
+        border: 0px;
+        padding: 0px;
+        font-weight: bold;
+        &:hover {
+            color: #ff6e14;
+            font-weight: bold;
+        }
+    }
 
     &-profil {
         width: 60px;
@@ -94,17 +104,12 @@
         border-radius: 50%;
         padding: 0px;
     }
+    &-heart {
+        background-color: transparent;
+        padding: 0px;
+        color: #ff6e14;
+        &:hover {
+            font-weight: bold;
+        }
+    }
 }
-// &-profilorange {
-//     background-color: #ff6e14;
-//     color: #ffffff;
-//     font-weight: bold;
-//     border-radius: 5px;
-//     width: 70%;
-//     border: 0px;
-//     padding: 0px;
-//     &:hover {
-//         background: #ffffff;
-//         color: #ff6e14;
-//     }
-// }

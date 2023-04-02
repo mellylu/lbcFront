@@ -31,7 +31,7 @@ const Deletead = ({ idElement, idAd }) => {
     return (
         <div>
             <Button
-                className={styles.cross}
+                className="btn btn-heart"
                 onClick={() => {
                     deleteAnnouncement({ idElement }, { idAd })
                 }}

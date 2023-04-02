@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react"
 import { useRouter } from "next/router"
+import Link from "next/link"
+import Image from "next/image"
 
 import Button from "../button/button"
 import Deletead from "../deletead/deletead"
 import Favoris from "../favoris/favoris"
 
 import styles from "./announcement.module.scss"
-import Link from "next/link"
+import NotImage from "../../../public/pasimage.png"
 
 const Announcement = ({ stateElement, ad = false, favoris = true }) => {
     const router = useRouter()
@@ -31,60 +33,64 @@ const Announcement = ({ stateElement, ad = false, favoris = true }) => {
                     }
                     return (
                         <div key={element._id} className={styles.flex}>
-                            {/* <Button
-                            className={`btn btn-link ${styles.button}`}
-                            onClick={() => {
-                                router.push({
-                                    pathname: "/detailproduct",
-                                    query: { id: element._id },
-                                })
-                            }}
-                        > */}
-
                             <div className={styles.flex2}>
-                                <img src={element.image} className={styles.image} alt="annonce" />
+                                {element.image ? (
+                                    <img
+                                        src={element.image}
+                                        className={styles.image}
+                                        alt="annonce"
+                                    />
+                                ) : (
+                                    <Image
+                                        src={NotImage}
+                                        className={styles.image}
+                                        alt="Pas d'image pour l'anonce"
+                                    />
+                                )}
+
                                 {/* <Link href={`/home/${element._id}`}>Voir le produit</Link> */}
 
                                 <div className={styles.container}>
-                                    <p
-                                        className={`title title-h2 text-left ${styles.interligne} ${styles.titre}`}
+                                    <Button
+                                        className="btn btn-ad"
+                                        onClick={() => router.push(`/home/${element._id}`)}
                                     >
-                                        <Button
-                                            className="btn btn-white"
-                                            onClick={() => router.push(`/home/${element._id}`)}
+                                        <p
+                                            className={`title title-h2 text-left ${styles.interligne} ${styles.titre}`}
                                         >
                                             {element.name}
-                                        </Button>
-                                    </p>
+                                        </p>
+                                    </Button>
+
                                     <p className={`title title-h3 text-left ${styles.interligne}`}>
-                                        {element.price} $
+                                        {element.price} €
                                     </p>
+                                    <br />
                                     <br />
                                     <p
                                         className={`title-p color-greyligth text-left ${styles.interligne}`}
                                     >
                                         {element.country}
                                     </p>
-                                    {/* <p>{element.localization}</p> */}
                                     <p
                                         className={`title-p color-greyligth text-left ${styles.interligne}`}
                                     >
-                                        02/03/2023 à 8:25
+                                        {element.date}
                                     </p>
                                     {/* <p>{element.date}</p> */}
                                 </div>
                                 {/* </Button> */}
-                                <div>
-                                    {favoris ? (
-                                        <div>
-                                            <Favoris idElement={element._id} />
-                                        </div>
-                                    ) : (
-                                        <div>
-                                            <Deletead idElement={x._id} idAd={element._id} />
-                                        </div>
-                                    )}
-                                </div>
+                            </div>
+                            <div className={styles.buttonHeartOrDelete}>
+                                {favoris ? (
+                                    <div>
+                                        <Favoris idElement={element._id} />
+                                    </div>
+                                ) : (
+                                    <div>
+                                        <Deletead idElement={x._id} idAd={element._id} />
+                                    </div>
+                                )}
                             </div>
                         </div>
                     )

@@ -84,7 +84,7 @@ const Index = () => {
                     ) : (
                         <div>
                             <p className="color-red title-h6">
-                                * La description doit contenir entre 100 et 00 caractères
+                                * La description doit contenir entre 100 et 400 caractères
                             </p>
                             <>
                                 <Button className="btn-grey" title="Continuer" />

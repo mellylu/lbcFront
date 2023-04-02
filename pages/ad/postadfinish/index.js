@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react"
 import { useRouter } from "next/router"
+import { AiOutlineClose } from "react-icons/ai"
 
 import Button from "../../../components/body/button/button"
 import Headerleft from "../../../components/header/headerleft/headerleft"
@@ -24,6 +25,7 @@ const Index = () => {
     const [isError, setIsError] = useState(false)
     const [message, setMessage] = useState("")
     const [isVisible2, setIsVisible2] = useState(false)
+    const [isChangeUploadFile, setIsChangeUploadFile] = useState(false)
     const idUser = []
 
     // useEffect(() => {
@@ -102,8 +104,7 @@ const Index = () => {
             })
     }
 
-    const handleSubmit = async e => {
-        e.preventDefault()
+    const handleSubmit = async () => {
         console.log(uploadFile, "file")
         const formData = new FormData()
         formData.append("file", uploadFile)
@@ -125,8 +126,15 @@ const Index = () => {
     }
 
     const handleFileSelected = e => {
+        setIsChangeUploadFile(true)
         setUploadFile(e.target.files[0])
     }
+
+    useEffect(() => {
+        if (isChangeUploadFile) {
+            handleSubmit()
+        }
+    }, [uploadFile])
 
     const deleteImage = async () => {
         console.log(cloudinaryImage.public_id)
@@ -170,43 +178,50 @@ const Index = () => {
                             setAd({ ...ad, price: e.target.value })
                         }}
                     />
-                    <form onSubmit={handleSubmit}>
-                        <input type="file" name="image" onChange={handleFileSelected} />
-                        <button type="submit">Upload image</button>
-                    </form>
-                    {/* {cloudinaryImage && (
-                        <Image
-                            src={cloudinaryImage}
-                            alt="image annonce"
-                            className="image image-small"
-                        />
-                    )} */}
-                    {cloudinaryImage.secure_url && <img src={cloudinaryImage.secure_url} />}
-                    {isVisible ? (
-                        <Button
-                            title="Supprimer image"
-                            onClick={() => {
-                                deleteImage()
-                            }}
-                        />
-                    ) : (
-                        ""
-                    )}
                     <br />
+                    <input
+                        id="file"
+                        className={styles.inputfile}
+                        type="file"
+                        onChange={e => handleFileSelected(e)}
+                    />
+
+                    <label for="file" className={`${styles.labelfile} btn btn-grey2`}>
+                        {"Choisir une image"}
+                    </label>
+                    <div>
+                        {isVisible ? (
+                            <div className={styles.buttonCroix}>
+                                <Button
+                                    onClick={() => {
+                                        deleteImage()
+                                    }}
+                                    className={`btn btn-link `}
+                                >
+                                    <AiOutlineClose size={20} />
+                                </Button>
+                            </div>
+                        ) : (
+                            ""
+                        )}
+                        {cloudinaryImage.secure_url && <img src={cloudinaryImage.secure_url} />}
+                    </div>
+
+                    {/* <br />
                     <Button
                         title="Next"
                         onClick={() => {
                             setIsVisible2(true)
                         }}
                     />
-                    {isVisible2 ? (
-                        <div>
-                            <h3>Localisation</h3>
-                            <Geobis setAd={setAd} ad={ad} />
-                        </div>
-                    ) : (
+                    {isVisible2 ? ( */}
+                    <div>
+                        <h3>Localisation</h3>
+                        <Geobis setAd={setAd} ad={ad} />
+                    </div>
+                    {/* ) : (
                         ""
-                    )}
+                    )} */}
                     {isError ? <Message type="error" mess={message} /> : ""}
 
                     <Button

@@ -2,7 +2,7 @@
     width: 200px;
     height: 150px;
     border-radius: 5px;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .flex {
@@ -14,10 +14,12 @@
 
 .flex2 {
     display: flex;
+    width: 100%;
 }
 
 .container {
     margin-left: 3%;
+    width: 100%;
 }
 
 .interligne {
@@ -28,4 +30,9 @@
     display: flex;
     width: 100%;
     border-radius: 10px;
+}
+
+.buttonHeartOrDelete {
+    position: absolute;
+    right: 5px;
 }

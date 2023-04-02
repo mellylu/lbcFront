@@ -81,7 +81,6 @@ const Profil = () => {
 
     useEffect(() => {
         if (isChangeUploadFile) {
-            console.log("dddddddddddddddd")
             handleSubmitPhoto()
         }
     }, [uploadFile])
@@ -93,19 +92,8 @@ const Profil = () => {
     }, [userContext])
 
     const logout = () => {
-        // localStorage.removeItem("user")
-        // localStorage.getItem("user").clear()
-        // while (typeof window !== undefined) {
-        //     localStorage.clear()
-        // }
-        // localStorage.clear()
-        // localStorage.clear()
-
-        // setUserContext(null)
         localStorage.removeItem("user")
-        // setUserContext(null)
         router.push("/home")
-        // setUserContext(null)
     }
 
     return (

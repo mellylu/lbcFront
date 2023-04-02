@@ -31,7 +31,7 @@ const index = () => {
                 />
                 <br />
                 <Button
-                    onClick={() => router.push("/profil")}
+                    onClick={() => router.push("/profilpublic")}
                     className="btn btn-linkPage"
                     title="Visualiser mes annonces dans mon profil"
                 />

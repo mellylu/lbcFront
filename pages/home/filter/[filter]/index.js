@@ -228,17 +228,14 @@ const Index = () => {
                     <div className={styles.div}>
                         <div className={`${styles.searchdiv}`}>
                             <br />
+
                             <div>
-                                <h2 className="title-h1">Faire une nouvelle recherche</h2>
-                                <Button
-                                    className="btn btn-blue"
-                                    title="Nouvelle recherche"
-                                    onClick={() => {}}
-                                />
-                            </div>
-                            <br />
-                            <div>
-                                <h2 className="title-h1">Votre recherche est .... à ....</h2>
+                                <h2 className="title-h1">
+                                    Votre recherche
+                                    {filter.category ? ` est ${filter.category}` : ""}
+                                    {filter.search ? ` est ${filter.search}` : ""}
+                                    {filter.lat ? ` à ville` : ""}
+                                </h2>
                             </div>
                             <div className={styles.divmaintrifilter}>
                                 <select
@@ -301,39 +298,42 @@ const Index = () => {
                             )}
                             <Announcement stateElement={ad.ad} />
                             <br />
-                            {ad.top && !ad.bottom ? (
-                                <Button
-                                    className="btn btn-orange"
-                                    title="page précédente"
-                                    onClick={() => previousPage()}
-                                />
-                            ) : ad.bottom && !ad.top ? (
-                                <Button
-                                    className="btn btn-orange"
-                                    title="page suivante"
-                                    onClick={() => nextPage()}
-                                />
-                            ) : ad.top && ad.bottom ? (
-                                <div></div>
-                            ) : (
-                                <div>
+                            <div>
+                                {ad.top && !ad.bottom ? (
                                     <Button
-                                        className="btn btn-orange"
+                                        className={`btn btn-orange ${styles.buttonleft}`}
                                         title="page précédente"
                                         onClick={() => previousPage()}
                                     />
-                                    <Button
-                                        className="btn btn-orange"
-                                        title="page suivante"
-                                        onClick={() => nextPage()}
-                                    />
-                                </div>
-                            )}
+                                ) : ad.bottom && !ad.top ? (
+                                    <div>
+                                        <Button
+                                            className={`btn btn-orange ${styles.buttonright}`}
+                                            title="page suivante"
+                                            onClick={() => nextPage()}
+                                        />
+                                    </div>
+                                ) : ad.top && ad.bottom ? (
+                                    <div></div>
+                                ) : (
+                                    <div className={styles.buttonrightleft}>
+                                        <Button
+                                            className={`btn btn-orange ${styles.buttonleft}`}
+                                            title="page précédente"
+                                            onClick={() => previousPage()}
+                                        />
+                                        <Button
+                                            className={`btn btn-orange ${styles.buttonright}`}
+                                            title="page suivante"
+                                            onClick={() => nextPage()}
+                                        />
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
             </Modal>
-            <Footer />
         </div>
     )
 }

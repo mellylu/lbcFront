@@ -37,8 +37,8 @@ const Favorite = () => {
             <Header />
             <h1 className="title-h0 text-center py-t">Annonces sauvegardées</h1>
             <div className={styles.maindiv}>
-                <div className={styles.div}>
-                    {isNull ? (
+                {isNull ? (
+                    <div className={styles.div}>
                         <div className={styles.notAnnouncement}>
                             <div>
                                 <h2 className="title-h2 text-center py-t">
@@ -53,7 +53,9 @@ const Favorite = () => {
                                 </div>
                             </div>
                         </div>
-                    ) : (
+                    </div>
+                ) : (
+                    <div className={styles.div2}>
                         <div className={`${styles.searchdiv}`}>
                             <p className="title-h2 text-center py-t">
                                 {
@@ -61,9 +63,13 @@ const Favorite = () => {
                                 }
                             </p>
                             <Announcement stateElement={favoris} ad={true} />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
             </div>
         </div>
     )

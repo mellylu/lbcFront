@@ -75,35 +75,22 @@ const Favoris = ({ idElement }) => {
     }, [userContext])
 
     return (
-        <div>
+        <div className={styles.divmain}>
             <Button
+                className="btn btn-heart"
                 onClick={() => {
                     addFavoris({ idElement })
                 }}
             >
                 {isFavorite ? (
-                    <div className={styles.heart}>
+                    <div className="btn btn-heart">
                         <AiFillHeart size={25} />
                     </div>
                 ) : (
-                    <div className={styles.heart}>
-                        <AiOutlineHeart size={25} />
+                    <div>
+                        <AiOutlineHeart className="btn btn-heart" size={25} />
                     </div>
                 )}
-
-                {/* <Button
-            >
-                {/* {userContext.favorite.forEach(element => {
-                    element.ad._id.includes(idElement) ? (
-                        <div className={styles.heart}>
-                            <AiFillHeart size={25} />
-                        </div>
-                    ) : (
-                        <div className={styles.heart}>
-                            <AiOutlineHeart size={25} />
-                        </div>
-                    )
-                })} */}
             </Button>
         </div>
     )

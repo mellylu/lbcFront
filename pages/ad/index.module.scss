@@ -45,9 +45,20 @@
 
 .divbody {
     width: 100%;
-    height: 100%;
+    height: 80%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+}
+
+.labelfile {
+    cursor: pointer;
+    color: black;
+    font-weight: bold;
+}
+
+// et on masque le input
+.inputfile {
+    display: none;
 }

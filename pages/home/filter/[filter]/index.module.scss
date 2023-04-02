@@ -114,3 +114,18 @@
     display: flex;
     justify-content: space-between;
 }
+
+.buttonrightleft {
+    display: flex;
+}
+
+.buttonleft {
+    left: 0px;
+    position: absolute;
+    width: 30%;
+}
+.buttonright {
+    right: 0px;
+    position: absolute;
+    width: 30%;
+}
