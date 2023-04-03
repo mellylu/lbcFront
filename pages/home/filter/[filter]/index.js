@@ -225,111 +225,110 @@ const Index = () => {
                 text="Des millions de petites annonces et autant d occasions de se faire plaisir"
             >
                 <div className={styles.maindiv}>
-                    <div className={styles.div}>
-                        <div className={`${styles.searchdiv}`}>
-                            <br />
+                    {/* <div className={styles.div}> */}
+                    <div className={`${styles.searchdiv}`}>
+                        <br />
 
+                        <div>
+                            <h2 className="title-h1">
+                                Votre recherche
+                                {filter.category ? ` est ${filter.category}` : ""}
+                                {filter.search ? ` est ${filter.search}` : ""}
+                                {filter.lat ? ` à ville` : ""}
+                            </h2>
+                        </div>
+                        <div className={styles.divmaintrifilter}>
+                            <select
+                                onChange={e => {
+                                    setSort(e.target.value)
+                                }}
+                                name="pets"
+                                id="pet-select"
+                                className={`input input-form ${styles.select}`}
+                            >
+                                <option value="" disabled selected hidden>
+                                    Choix du tri
+                                </option>
+                                <option value="name">Titre</option>
+                                <option value="price">Prix</option>
+                            </select>
                             <div>
-                                <h2 className="title-h1">
-                                    Votre recherche
-                                    {filter.category ? ` est ${filter.category}` : ""}
-                                    {filter.search ? ` est ${filter.search}` : ""}
-                                    {filter.lat ? ` à ville` : ""}
-                                </h2>
-                            </div>
-                            <div className={styles.divmaintrifilter}>
-                                <select
-                                    onChange={e => {
-                                        setSort(e.target.value)
+                                <Button
+                                    title="Choix des filtres"
+                                    onClick={() => {
+                                        choiceFilter()
                                     }}
-                                    name="pets"
-                                    id="pet-select"
-                                    className={`input input-form ${styles.select}`}
-                                >
-                                    <option value="" disabled selected hidden>
-                                        Choix du tri
-                                    </option>
-                                    <option value="name">Titre</option>
-                                    <option value="price">Prix</option>
-                                </select>
-                                <div>
-                                    <Button
-                                        title="Choix des filtres"
-                                        onClick={() => {
-                                            choiceFilter()
-                                        }}
-                                        className="btn btn-grey2"
+                                    className="btn btn-grey2"
+                                />
+                            </div>
+                        </div>
+                        {isVisibleSecondFilter ? (
+                            <div className={styles.divfilter}>
+                                <div className={styles.secondfilter}>
+                                    <Secondfilter
+                                        secondFilter={secondFilter}
+                                        type={type}
+                                        setType={setType}
+                                        color={color}
+                                        setColor={setColor}
+                                        univers={univers}
+                                        setUnivers={setUnivers}
+                                        size={size}
+                                        setSize={setSize}
+                                        brand={brand}
+                                        setBrand={setBrand}
+                                        material={material}
+                                        setMaterial={setMaterial}
+                                        state={state}
+                                        setState={setState}
                                     />
                                 </div>
-                            </div>
-                            {isVisibleSecondFilter ? (
-                                <div className={styles.divfilter}>
-                                    <div className={styles.secondfilter}>
-                                        <Secondfilter
-                                            secondFilter={secondFilter}
-                                            type={type}
-                                            setType={setType}
-                                            color={color}
-                                            setColor={setColor}
-                                            univers={univers}
-                                            setUnivers={setUnivers}
-                                            size={size}
-                                            setSize={setSize}
-                                            brand={brand}
-                                            setBrand={setBrand}
-                                            material={material}
-                                            setMaterial={setMaterial}
-                                            state={state}
-                                            setState={setState}
+                                <div className={styles.button}>
+                                    <div>
+                                        <Button
+                                            className="btn btn-grey2"
+                                            title="Rechercher"
+                                            onClick={() => searchFilter()}
                                         />
                                     </div>
-                                    <div className={styles.button}>
-                                        <div>
-                                            <Button
-                                                className="btn btn-grey2"
-                                                title="Rechercher"
-                                                onClick={() => searchFilter()}
-                                            />
-                                        </div>
-                                    </div>
                                 </div>
+                            </div>
+                        ) : (
+                            ""
+                        )}
+                        <Announcement stateElement={ad.ad} />
+                        <br />
+                        <div>
+                            {ad.top && !ad.bottom ? (
+                                <Button
+                                    className={`btn btn-orange ${styles.buttonleft}`}
+                                    title="page précédente"
+                                    onClick={() => previousPage()}
+                                />
+                            ) : ad.bottom && !ad.top ? (
+                                <div>
+                                    <Button
+                                        className={`btn btn-orange ${styles.buttonright}`}
+                                        title="page suivante"
+                                        onClick={() => nextPage()}
+                                    />
+                                </div>
+                            ) : ad.top && ad.bottom ? (
+                                <div></div>
                             ) : (
-                                ""
-                            )}
-                            <Announcement stateElement={ad.ad} />
-                            <br />
-                            <div>
-                                {ad.top && !ad.bottom ? (
+                                <div className={styles.buttonrightleft}>
                                     <Button
                                         className={`btn btn-orange ${styles.buttonleft}`}
                                         title="page précédente"
                                         onClick={() => previousPage()}
                                     />
-                                ) : ad.bottom && !ad.top ? (
-                                    <div>
-                                        <Button
-                                            className={`btn btn-orange ${styles.buttonright}`}
-                                            title="page suivante"
-                                            onClick={() => nextPage()}
-                                        />
-                                    </div>
-                                ) : ad.top && ad.bottom ? (
-                                    <div></div>
-                                ) : (
-                                    <div className={styles.buttonrightleft}>
-                                        <Button
-                                            className={`btn btn-orange ${styles.buttonleft}`}
-                                            title="page précédente"
-                                            onClick={() => previousPage()}
-                                        />
-                                        <Button
-                                            className={`btn btn-orange ${styles.buttonright}`}
-                                            title="page suivante"
-                                            onClick={() => nextPage()}
-                                        />
-                                    </div>
-                                )}
-                            </div>
+                                    <Button
+                                        className={`btn btn-orange ${styles.buttonright}`}
+                                        title="page suivante"
+                                        onClick={() => nextPage()}
+                                    />
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

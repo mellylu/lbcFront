@@ -10,14 +10,14 @@ import { BiPhotoAlbum } from "react-icons/bi"
 const Modal = ({ children, title = false, text }) => {
     return (
         <div className={`${styles.flex}`}>
-            <Image src={Pub} className={styles.image} alt="pub" />
+            {/* <Image src={Pub} className={styles.image} alt="pub" /> */}
             <div className={`${styles.container} py-t`}>
                 {title ? <h1 className="title-h0 text-center py-t">{text}</h1> : ""}
 
                 <br />
                 {children}
             </div>
-            <Image src={Pub2} alt="pub" />
+            {/* <Image src={Pub2} alt="pub" /> */}
         </div>
     )
 }
