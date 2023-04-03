@@ -24,59 +24,76 @@ const Index = () => {
     const [isVisibleSecondFilter, setIsVisibleSecondFilter] = useState(false)
     const [univers, setUnivers] = useState([])
     const [size, setSize] = useState([])
-    const [type, setType] = useState([router.query.type || ""])
+    const [type, setType] = useState([])
     const [brand, setBrand] = useState([])
-    const [material, setMaterial] = useState([router.query.material || ""])
+    const [material, setMaterial] = useState([])
     const [color, setColor] = useState([])
     const [state, setState] = useState([])
     const { userContext, setUserContext } = useState(AuthContext)
     let x = 0
     const filter = router.query
+    let tab = []
+    let tabMaterial = []
 
     useEffect(() => {
         if (!router.isReady) {
         } else {
-            ////////////////////////////
-            // console.log(type, "type")
-            // if (router.query.type) {
-            //     let TypeSplit = router.query.type.split(",")
-            //     if (x === 0) {
-            //         if (TypeSplit.length === 1) {
-            //             if (type.indexOf(TypeSplit) === -1) {
-            //                 setType([...type.filter(element => element !== ""), TypeSplit[0]])
-            //             }
-            //         } else if (TypeSplit.length >= 1) {
-            //             TypeSplit.forEach(element => {
-            //                 if (type.indexOf(element) === -1) {
-            //                     setType([...type.filter(el => el !== ""), element])
-            //                 }
-            //             })
-            //         } else {
-            //         }
-            //     }
-            // }
-            if (router.query.material) {
-                let materialSplit = router.query.material.split(",")
-                // if (x === 0) {
-                if (materialSplit.length === 1) {
-                    if (material.indexOf(materialSplit) === -1) {
-                        setMaterial([
-                            ...material.filter(element => element !== ""),
-                            materialSplit[0],
-                        ])
-                    }
-                } else if (materialSplit.length >= 1) {
-                    materialSplit.forEach(element => {
-                        if (material.indexOf(element) === -1) {
-                            setMaterial([...material.filter(el => el !== ""), element])
+            if (router.query.type) {
+                setType([router.query.type])
+            }
+            if (router.query.type) {
+                let TypeSplit = router.query.type.split(",")
+                if (TypeSplit.length === 1) {
+                    setType([router.query.type])
+                } else if (TypeSplit.length > 1) {
+                    TypeSplit.forEach(element => {
+                        if (type.indexOf(element) === -1) {
+                            tab.push(element)
                         }
                     })
-                } else {
+                    console.log(tab, "tab")
+                    setType(tab)
                 }
-                // }
-                // x += 1
             }
-
+            if (router.query.material) {
+                setMaterial([router.query.material])
+            }
+            if (router.query.material) {
+                let materialSplit = router.query.material.split(",")
+                if (materialSplit.length === 1) {
+                    setMaterial([router.query.material])
+                } else if (materialSplit.length > 1) {
+                    materialSplit.forEach(element => {
+                        if (material.indexOf(element) === -1) {
+                            tabMaterial.push(element)
+                        }
+                    })
+                    setMaterial(tabMaterial)
+                }
+            }
+            // }
+            // x += 1
+            // if (router.query.material) {
+            //     let materialSplit = router.query.material.split(",")
+            //     // if (x === 0) {
+            //     if (materialSplit.length === 1) {
+            //         if (material.indexOf(materialSplit) === -1) {
+            //             setMaterial([
+            //                 ...material.filter(element => element !== ""),
+            //                 materialSplit[0],
+            //             ])
+            //         }
+            //     } else if (materialSplit.length >= 1) {
+            //         materialSplit.forEach(element => {
+            //             if (material.indexOf(element) === -1) {
+            //                 setMaterial([...material.filter(el => el !== ""), element])
+            //             }
+            //         })
+            //     } else {
+            //     }
+            //     // }
+            //     // x += 1
+            // }
             adService
                 .getAllFilter(
                     filter.category || "",
@@ -85,8 +102,8 @@ const Index = () => {
                     filter.lng || "",
                     filter.page || "",
                     sort || router.query.sort || "",
-                    type.filter(element => element !== "") || router.query.type || "",
-                    material.filter(element => element !== "") || router.query.material || "",
+                    router.query.type || "",
+                    router.query.material || "",
                     // univers.toString() || router.query.univers || "",
                     // size.toString() || router.query.size || "",
 
@@ -112,31 +129,36 @@ const Index = () => {
     }, [sort])
 
     useEffect(() => {
-        adService
-            .getAllFilter(
-                filter.category || "",
-                filter.search || "",
-                filter.lat || "",
-                filter.lng || "",
-                filter.page || "",
-                sort || router.query.sort || "",
-                type.filter(element => element !== "") || router.query.type || "",
-                material.filter(element => element !== "") || router.query.material || "",
-                // univers.toString() || router.query.univers || "",
-                // size.toString() || router.query.size || "",
+        console.log(material, "8888")
+    }, [material])
 
-                // brand.toString() || router.query.brand || "",
-                // material.toString() || router.query.material || "",
-                // color.toString() || router.query.color || "",
-                // state.toString() || router.query.state || "",
-            )
-            .then(data => {
-                setAd(data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }, [type])
+    // useEffect(() => {
+    //     console.log(type, "type..")
+    //     adService
+    //         .getAllFilter(
+    //             filter.category || "",
+    //             filter.search || "",
+    //             filter.lat || "",
+    //             filter.lng || "",
+    //             filter.page || "",
+    //             sort || router.query.sort || "",
+    //             type || "",
+    //             // material.filter(element => element !== "") || router.query.material || "",
+    //             // univers.toString() || router.query.univers || "",
+    //             // size.toString() || router.query.size || "",
+
+    //             // brand.toString() || router.query.brand || "",
+    //             // material.toString() || router.query.material || "",
+    //             // color.toString() || router.query.color || "",
+    //             // state.toString() || router.query.state || "",
+    //         )
+    //         .then(data => {
+    //             setAd(data)
+    //         })
+    //         .catch(err => {
+    //             console.log(err)
+    //         })
+    // }, [type])
 
     const nextPage = () => {
         filter.page = parseInt(filter.page)
@@ -166,53 +188,107 @@ const Index = () => {
         }
     }
 
-    useEffect(() => {
-        console.log(material)
-    }, [material])
+    // useEffect(() => {
+    //     console.log(material)
+    // }, [material])
+
+    // useEffect(() => {
+    //     if (type.length === 0 || router.query.type === 0) {
+    //         delete router.query.type
+    //         router.push(router)
+    //     }
+    // }, [type])
 
     const searchFilter = () => {
         if (type) {
-            console.log(type, "TYPE")
-            router.query.type = type.filter(element => element !== "").toString()
-            router.push(router)
+            console.log("dans type")
             if (type.length === 0) {
                 delete router.query.type
                 router.push(router)
-            }
-        }
-        if (material) {
-            router.query.material = material.filter(element => element !== "").toString()
-            router.push(router)
-            if (material.length === 0) {
-                delete router.query.material
+            } else {
+                router.query.type = type.filter(element => element !== undefined).toString()
                 router.push(router)
             }
         }
+        if (router.query.type) {
+            console.log("dans query type")
+            let TypeSplit = router.query.type.split(",")
+            if (TypeSplit.length === 1) {
+                setType([router.query.type])
+            } else if (TypeSplit.length > 1) {
+                TypeSplit.forEach(element => {
+                    if (type.indexOf(element) === -1) {
+                        tab.push(element)
+                    }
+                })
+                setType(tab)
+            } else {
+            }
+        }
+        if (material) {
+            console.log("dans meterial")
+            if (material.length === 0) {
+                delete router.query.material
+                router.push(router)
+            } else {
+                console.log(material, "material")
+                router.query.material = material.filter(element => element !== undefined).toString()
+                router.push(router)
+                console.log(router)
+            }
+        }
+        if (router.query.material) {
+            console.log("dans query material")
+            if (router.query.material) {
+                setMaterial([router.query.material])
+            }
+            if (router.query.material) {
+                let materialSplit = router.query.material.split(",")
+                if (materialSplit.length === 1) {
+                    setMaterial([router.query.material])
+                } else if (materialSplit.length > 1) {
+                    materialSplit.forEach(element => {
+                        if (material.indexOf(element) === -1) {
+                            tabMaterial.push(element)
+                        }
+                    })
+                    setMaterial(tabMaterial)
+                }
+            }
+        }
 
-        // if (univers) {
-        //     router.query.univers = univers.toString()
-        //     router.push(router)
-        // }
-        // if (size) {
-        //     router.query.size = size.toString()
-        //     router.push(router)
-        // }
-        // if (color) {
-        //     router.query.color = color.toString()
-        //     router.push(router)
-        // }
-        // if (brand) {
-        //     router.query.brand = brand.toString()
-        //     router.push(router)
-        // }
-        // if (material) {
-        //     router.query.material = material.toString()
-        //     router.push(router)
-        // }
-        // if (state) {
-        //     router.query.state = state.toString()
-        //     router.push(router)
-        // }
+        //     // if (material) {
+        //     //     router.query.material = material.filter(element => element !== "").toString()
+        //     //     router.push(router)
+        //     //     if (material.length === 0) {
+        //     //         delete router.query.material
+        //     //         router.push(router)
+        //     //     }
+        //     // }
+        //     // if (univers) {
+        //     //     router.query.univers = univers.toString()
+        //     //     router.push(router)
+        //     // }
+        //     // if (size) {
+        //     //     router.query.size = size.toString()
+        //     //     router.push(router)
+        //     // }
+        //     // if (color) {
+        //     //     router.query.color = color.toString()
+        //     //     router.push(router)
+        //     // }
+        //     // if (brand) {
+        //     //     router.query.brand = brand.toString()
+        //     //     router.push(router)
+        //     // }
+        //     // if (material) {
+        //     //     router.query.material = material.toString()
+        //     //     router.push(router)
+        //     // }
+        //     // if (state) {
+        //     //     router.query.state = state.toString()
+        //     //     router.push(router)
+        //     // }
         setIsVisibleSecondFilter(false)
     }
 
@@ -222,7 +298,7 @@ const Index = () => {
 
             <Modal
                 title={true}
-                text="Des millions de petites annonces et autant d occasions de se faire plaisir"
+                text="Des millions de petites annonces et autant d'occasions de se faire plaisir"
             >
                 <div className={styles.maindiv}>
                     {/* <div className={styles.div}> */}

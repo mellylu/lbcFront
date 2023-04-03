@@ -1,20 +1,17 @@
-.div {
-    display: flex;
-    flex-direction: row;
-}
-
 .maindiv {
-    display: flex;
-    justify-content: center;
-    height: 100%;
-}
-.div {
-    width: 70%;
     display: flex;
     justify-content: center;
 }
 
 .searchdiv {
-    width: 80%;
-    height: 15%;
+    width: 100%;
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5%;
+}
+
+.announcement {
+    width: 70%;
+    position: relative;
 }

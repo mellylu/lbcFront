@@ -25,13 +25,17 @@ export default function Home() {
     const [category, setCategory] = useState("")
     const [lat, setLat] = useState()
     const [lng, setLng] = useState()
-    const { setUserContext } = useContext(AuthContext)
+    const { userContext, setUserContext } = useContext(AuthContext)
 
     useEffect(() => {
         if (!localStorage.getItem("user") || localStorage.getItem("user") === null) {
+            console.log("ggggggggggggggggggggggg")
             setUserContext(null)
             location.reload()
         } else {
+            userService.getuser(userContext.id).then(data => {
+                console.log(data)
+            })
         }
         //     let B2 = 49.1154686
         //     let B3 = -1.0828136

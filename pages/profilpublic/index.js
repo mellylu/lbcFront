@@ -56,21 +56,17 @@ const Index = () => {
             <Header />
             <h1 className="title-h0 text-center py-t">Profil public</h1>
             <div className={styles.maindiv}>
+                <div className={`${styles.searchdiv}`}>
+                    <div className={styles.announcement}>
+                        {/* <div className={styles.maindiv}>
                 <div className={styles.div}>
-                    <div className={`${styles.searchdiv}`}>
-                        {s ? (
-                            <div>
-                                <p> {cpt} annonces</p>
-                            </div>
-                        ) : (
-                            <div>
-                                <p> {cpt} annonce</p>
-                            </div>
-                        )}
+                    <div className={`${styles.searchdiv}`}> */}
+                        {s ? <p> {cpt} annonces</p> : <p> {cpt} annonce</p>}
+
                         <Announcement stateElement={announcement} ad={true} favoris={false} />
-                        <br />
-                        <br />
                     </div>
+                    <br />
+                    <br />
                 </div>
             </div>
         </div>

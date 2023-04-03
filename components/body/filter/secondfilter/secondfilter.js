@@ -23,20 +23,20 @@ const Secondfilter = ({
     state,
     setState,
 }) => {
-    const { filtreContext, setFilterContext } = useContext(FilterContext)
-    const [isNotNull, setIsNotNull] = useState(false)
+    // const { filtreContext, setFilterContext } = useContext(FilterContext)
+    // const [isNotNull, setIsNotNull] = useState(false)
     let router = useRouter()
     const functionType = e => {
         if (type.indexOf(e.target.value) === -1) {
-            setType([...type, e.target.value])
+            setType([...type.filter(element => element !== undefined), e.target.value])
         } else {
             setType(type.filter(el => el !== e.target.value))
         }
     }
 
     const functionMaterial = e => {
-        if (type.indexOf(e.target.value) === -1) {
-            setMaterial([...material, e.target.value])
+        if (material.indexOf(e.target.value) === -1) {
+            setMaterial([...material.filter(element => element !== undefined), e.target.value])
         } else {
             setMaterial(material.filter(el => el !== e.target.value))
         }
@@ -103,7 +103,7 @@ const Secondfilter = ({
                           />
                           <Detailfilter
                               filtre={element.material}
-                              title="Matériel"
+                              title="Matière"
                               onClick={e => {
                                   functionMaterial(e)
                               }}
