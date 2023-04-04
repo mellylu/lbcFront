@@ -21,6 +21,7 @@ const Profil = () => {
     const [uploadFile, setUploadFile] = useState({})
     const [isChangeUploadFile, setIsChangeUploadFile] = useState(false)
     const [isUserImage, setIsUserImage] = useState(false)
+    let cpt = 0
     useEffect(() => {
         if (userContext && userContext.token) {
             userService
@@ -55,7 +56,31 @@ const Profil = () => {
             .catch(err => console.log(err))
     }
 
+    const deleteImage = async publicid => {
+        console.log(publicid, "publicidSSS")
+        //http://localhost:5000/api/v1/upload/annonces/fxeiisq1gjoejakmpu5y fonctionne
+        //http://localhost:5000/api/v1/upload/users/lxe9xcfmfkepvcrz3ol3    ne fonctionne pas
+        const response = await fetch(
+            `http://localhost:5000/api/v1/upload/users/lxe9xcfmfkepvcrz3ol3`,
+            {
+                method: "DELETE",
+                headers: {
+                    "content-type": "application/json",
+                },
+            },
+        )
+        const data = await response.json()
+        if (data.message) {
+        }
+    }
+
     const handleSubmitPhoto = async () => {
+        let publicid = ""
+        if (userContext && userContext.image) {
+            let imgdelete = userContext.image.split("/users/")[1]
+            publicid = "users/" + imgdelete.split(".")[0]
+            console.log(publicid, "publicid")
+        }
         const formData = new FormData()
         formData.append("file", uploadFile)
         formData.append("upload_preset", "ml_default")
@@ -73,15 +98,22 @@ const Profil = () => {
                 .catch(err => console.log(err))
         } else {
         }
+        if (userContext && userContext.image) {
+            deleteImage(publicid)
+        }
     }
     const handleFileSelected = e => {
+        cpt = 0
         setIsChangeUploadFile(true)
         setUploadFile(e.target.files[0])
     }
 
     useEffect(() => {
-        if (isChangeUploadFile) {
-            handleSubmitPhoto()
+        if (cpt === 0) {
+            if (isChangeUploadFile) {
+                handleSubmitPhoto()
+                cpt += 1
+            }
         }
     }, [uploadFile])
 
@@ -127,7 +159,7 @@ const Profil = () => {
                         </div>
                     ) : (
                         <div>
-                            <div>
+                            <div className={styles.imageProfil}>
                                 <Image
                                     className="image-profil"
                                     src={PhotoProfil}

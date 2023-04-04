@@ -137,7 +137,11 @@ const Index = () => {
     }, [uploadFile])
 
     const deleteImage = async () => {
-        console.log(cloudinaryImage.public_id)
+        console.log(cloudinaryImage.public_id, "cloudinary public id")
+        console.log(
+            `http://localhost:5000/api/v1/upload/` + cloudinaryImage.public_id,
+            "DDDDDDDDDDDDDDDDD",
+        )
         const response = await fetch(
             `http://localhost:5000/api/v1/upload/` + cloudinaryImage.public_id,
             {
