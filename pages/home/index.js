@@ -24,8 +24,10 @@ export default function Home() {
     const [search, setSearch] = useState("")
     const [localization, setLocalization] = useState({})
     const [category, setCategory] = useState("")
+    const [adress, setAdress] = useState("")
     const [lat, setLat] = useState()
     const [lng, setLng] = useState()
+    const [recentSearch, setRecentSearch] = useState([])
     const { userContext, setUserContext } = useContext(AuthContext)
 
     useEffect(() => {
@@ -33,23 +35,14 @@ export default function Home() {
             setUserContext(null)
             location.reload()
         } else {
-            // let adDelete = false
-            // userService.getuser(userContext.id).then(data => {
-            //     adService.getAllAd().then(dataad => {
-            //         data.user.favorite.forEach(element => {
-            //             dataad.ad.forEach(el => {
-            //                 if (element._id) {
-            //                     if (element._id === el._id) {
-            //                         adDelete = false
-            //                     } else {
-            //                         console.log(element)
-            //                         // update le user en supprimer l'élément des favoris
-            //                     }
-            //                 }
-            //             })
-            //         })
-            //     })
-            // })
+            if (userContext && userContext.token) {
+                userService
+                    .getuser(userContext.id)
+                    .then(data => {
+                        setRecentSearch(data.user.recentSearch)
+                    })
+                    .catch(err => console.log(err))
+            }
         }
         //     let B2 = 49.1154686
         //     let B3 = -1.0828136
@@ -67,7 +60,7 @@ export default function Home() {
         //     // console.log("bbbb = ", b)
     }, [])
 
-    const searchAd = () => {
+    const url = () => {
         router.push(
             `/home/filter/carte?${category}${
                 search && category && search !== "search="
@@ -87,10 +80,62 @@ export default function Home() {
         )
     }
 
+    const searchAd = () => {
+        if (userContext && userContext.token) {
+            let recentSearchUser = []
+            recentSearchUser = recentSearch
+            let newcategory = category.split("=")[1]
+            let newsearch = search.split("=")[1]
+            let obj = {
+                category: newcategory,
+                search: newsearch,
+                localization: { lat: lat, lng: lng },
+                country: adress,
+            }
+            if (recentSearchUser.length < 3) {
+                recentSearchUser.push(obj)
+            } else {
+                recentSearchUser.shift()
+                recentSearchUser.push(obj)
+            }
+            userService
+                .updateuser(userContext.id, { recentSearch: recentSearchUser })
+                .then(() => {
+                    url()
+                })
+                .catch(err => console.log(err))
+        } else {
+            url()
+        }
+    }
+
+    const searchRecentsearch = (letcategory, letsearch, letlat, latlng) => {
+        router.push(
+            `/home/filter/carte?${letcategory ? `category=${letcategory}` : ""}${
+                letsearch && letcategory && letsearch
+                    ? `&search=${letsearch}`
+                    : letsearch && !letcategory
+                    ? `search=${letsearch}`
+                    : ""
+            }${
+                letlat && !letcategory && !letsearch
+                    ? `lat=${letlat}`
+                    : letlat && (letcategory || letsearch)
+                    ? `&lat=${letlat}`
+                    : ""
+            }${latlng ? `&lng=${latlng}` : ""}${
+                (letsearch && letsearch !== "search=") || letcategory || letlat
+                    ? "&page=0"
+                    : "page=0"
+            }`,
+        )
+    }
+
     useEffect(() => {
         if (localization.localization) {
             setLat(localization.localization.lat)
             setLng(localization.localization.lng)
+            setAdress(localization.country)
         }
     }, [localization])
 
@@ -100,7 +145,7 @@ export default function Home() {
 
             <Modal
                 title={true}
-                text="Des millions de petites annonces et autant d occasions de se faire plaisir"
+                text="Des millions de petites annonces et autant d'occasions de se faire plaisir"
             >
                 <div className={styles.maindiv}>
                     <div className={styles.div}>
@@ -138,6 +183,7 @@ export default function Home() {
                                     <Geobis setAd={setLocalization} ad={localization} />
                                 </div>
                             </div>
+                            <br />
                             <div className={styles.btnmain}>
                                 <div className={styles.btn}>
                                     <Button
@@ -149,6 +195,57 @@ export default function Home() {
                                     />
                                 </div>
                             </div>
+                            {recentSearch ? (
+                                <div className={styles.divmainrecentsearch}>
+                                    <h2>Vos précédentes recherches :</h2>
+                                    <br />
+                                    <div className={styles.divrecentsearch}>
+                                        {recentSearch.map(element => (
+                                            <div key={element._id} className={styles.recentsearch}>
+                                                <Button
+                                                    className="btn btn-ad"
+                                                    onClick={() =>
+                                                        searchRecentsearch(
+                                                            element.category,
+                                                            element.search,
+                                                            element.localization?.lat,
+                                                            element.localization?.lng,
+                                                        )
+                                                    }
+                                                >
+                                                    <div>
+                                                        {element.category ? (
+                                                            <div>
+                                                                <p>{element.category}</p>
+                                                                <br />
+                                                            </div>
+                                                        ) : (
+                                                            ""
+                                                        )}
+                                                        {element.search ? (
+                                                            <div>
+                                                                <p>{element.search}</p>
+                                                                <br />
+                                                            </div>
+                                                        ) : (
+                                                            ""
+                                                        )}
+                                                        {element.country ? (
+                                                            <div>
+                                                                <p>{element.country}</p> <br />
+                                                            </div>
+                                                        ) : (
+                                                            ""
+                                                        )}
+                                                    </div>
+                                                </Button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            ) : (
+                                ""
+                            )}
                         </div>
                     </div>
                 </div>

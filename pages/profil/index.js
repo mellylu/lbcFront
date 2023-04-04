@@ -56,22 +56,16 @@ const Profil = () => {
             .catch(err => console.log(err))
     }
 
-    const deleteImage = async publicid => {
+    const deleteImage = publicid => {
         console.log(publicid, "publicidSSS")
-        //http://localhost:5000/api/v1/upload/annonces/fxeiisq1gjoejakmpu5y fonctionne
-        //http://localhost:5000/api/v1/upload/users/lxe9xcfmfkepvcrz3ol3    ne fonctionne pas
-        const response = await fetch(
-            `http://localhost:5000/api/v1/upload/users/lxe9xcfmfkepvcrz3ol3`,
-            {
-                method: "DELETE",
-                headers: {
-                    "content-type": "application/json",
-                },
+        fetch(`http://localhost:5000/api/v1/upload/` + publicid, {
+            method: "DELETE",
+            headers: {
+                "content-type": "application/json",
             },
-        )
-        const data = await response.json()
-        if (data.message) {
-        }
+        })
+            .then(() => {})
+            .catch(err => console.log(err))
     }
 
     const handleSubmitPhoto = async () => {
@@ -109,11 +103,9 @@ const Profil = () => {
     }
 
     useEffect(() => {
-        if (cpt === 0) {
-            if (isChangeUploadFile) {
-                handleSubmitPhoto()
-                cpt += 1
-            }
+        if (isChangeUploadFile) {
+            handleSubmitPhoto()
+            setIsChangeUploadFile(false)
         }
     }, [uploadFile])
 

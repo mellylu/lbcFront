@@ -24,7 +24,7 @@ const Index = () => {
     const [isVisible, setIsVisible] = useState(false)
     const [isError, setIsError] = useState(false)
     const [message, setMessage] = useState("")
-    const [isVisible2, setIsVisible2] = useState(false)
+    const [isVisible2, setIsVisible2] = useState(true)
     const [isChangeUploadFile, setIsChangeUploadFile] = useState(false)
     const idUser = []
 
@@ -115,10 +115,10 @@ const Index = () => {
         })
         const data = await response.json()
         if (data.api_key) {
-            console.log("l'image est possible")
             setCloudinaryImage(data)
             setAd({ ...ad, image: data.secure_url })
             setIsVisible(true)
+            setIsVisible2(false)
         } else {
             console.log(data.message)
         }
@@ -137,11 +137,6 @@ const Index = () => {
     }, [uploadFile])
 
     const deleteImage = async () => {
-        console.log(cloudinaryImage.public_id, "cloudinary public id")
-        console.log(
-            `http://localhost:5000/api/v1/upload/` + cloudinaryImage.public_id,
-            "DDDDDDDDDDDDDDDDD",
-        )
         const response = await fetch(
             `http://localhost:5000/api/v1/upload/` + cloudinaryImage.public_id,
             {
@@ -156,6 +151,7 @@ const Index = () => {
             setCloudinaryImage("")
             setAd({ ...ad, image: "" })
             setIsVisible(false)
+            setIsVisible2(true)
         }
     }
 
@@ -183,16 +179,23 @@ const Index = () => {
                         }}
                     />
                     <br />
-                    <input
-                        id="file"
-                        className={styles.inputfile}
-                        type="file"
-                        onChange={e => handleFileSelected(e)}
-                    />
+                    {isVisible2 ? (
+                        <div>
+                            <input
+                                id="file"
+                                className={styles.inputfile}
+                                type="file"
+                                onChange={e => handleFileSelected(e)}
+                            />
 
-                    <label for="file" className={`${styles.labelfile} btn btn-grey2`}>
-                        {"Choisir une image"}
-                    </label>
+                            <label for="file" className={`${styles.labelfile} btn btn-grey2`}>
+                                {"Choisir une image"}
+                            </label>
+                        </div>
+                    ) : (
+                        ""
+                    )}
+
                     <div>
                         {isVisible ? (
                             <div className={styles.buttonCroix}>
