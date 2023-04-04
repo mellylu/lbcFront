@@ -80,6 +80,7 @@ export default {
         }).then(res => res.json())
     },
     verifyToken(token) {
+        console.log(token, "token")
         return fetch(`http://localhost:5000/api/v1/users/verifyToken`, {
             method: "GET",
             headers: {

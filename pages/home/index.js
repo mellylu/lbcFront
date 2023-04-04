@@ -17,6 +17,7 @@ import styles from "./index.module.scss"
 
 import Carte from "../../public/carteFrance.jpg"
 import userService from "../../services/user.service"
+import adService from "../../services/ad.service"
 
 export default function Home() {
     const router = useRouter()
@@ -29,13 +30,26 @@ export default function Home() {
 
     useEffect(() => {
         if (!localStorage.getItem("user") || localStorage.getItem("user") === null) {
-            console.log("ggggggggggggggggggggggg")
             setUserContext(null)
             location.reload()
         } else {
-            userService.getuser(userContext.id).then(data => {
-                console.log(data)
-            })
+            // let adDelete = false
+            // userService.getuser(userContext.id).then(data => {
+            //     adService.getAllAd().then(dataad => {
+            //         data.user.favorite.forEach(element => {
+            //             dataad.ad.forEach(el => {
+            //                 if (element._id) {
+            //                     if (element._id === el._id) {
+            //                         adDelete = false
+            //                     } else {
+            //                         console.log(element)
+            //                         // update le user en supprimer l'élément des favoris
+            //                     }
+            //                 }
+            //             })
+            //         })
+            //     })
+            // })
         }
         //     let B2 = 49.1154686
         //     let B3 = -1.0828136
