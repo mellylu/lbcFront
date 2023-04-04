@@ -71,6 +71,22 @@ const Index = () => {
                     setMaterial(tabMaterial)
                 }
             }
+            // if (router.query.univers) {
+            //     setUnivers([router.query.univers])
+            // }
+            // if (router.query.univers) {
+            //     let materialSplit = router.query.material.split(",")
+            //     if (materialSplit.length === 1) {
+            //         setMaterial([router.query.material])
+            //     } else if (materialSplit.length > 1) {
+            //         materialSplit.forEach(element => {
+            //             if (material.indexOf(element) === -1) {
+            //                 tabMaterial.push(element)
+            //             }
+            //         })
+            //         setMaterial(tabMaterial)
+            //     }
+            // }
             // }
             // x += 1
             // if (router.query.material) {
@@ -104,7 +120,7 @@ const Index = () => {
                     sort || router.query.sort || "",
                     router.query.type || "",
                     router.query.material || "",
-                    // univers.toString() || router.query.univers || "",
+                    // router.query.univers || "",
                     // size.toString() || router.query.size || "",
 
                     // brand.toString() || router.query.brand || "",
@@ -188,30 +204,17 @@ const Index = () => {
         }
     }
 
-    // useEffect(() => {
-    //     console.log(material)
-    // }, [material])
-
-    // useEffect(() => {
-    //     if (type.length === 0 || router.query.type === 0) {
-    //         delete router.query.type
-    //         router.push(router)
-    //     }
-    // }, [type])
-
     const searchFilter = () => {
-        if (type) {
-            console.log("dans type")
-            if (type.length === 0) {
-                delete router.query.type
-                router.push(router)
-            } else {
-                router.query.type = type.filter(element => element !== undefined).toString()
-                router.push(router)
+        if (type.length !== 0) {
+            router.query.type = type.filter(element => element !== undefined).toString()
+        } else {
+            if (router.query.type) {
+                if (type.length === 0) {
+                    delete router.query.type
+                }
             }
         }
         if (router.query.type) {
-            console.log("dans query type")
             let TypeSplit = router.query.type.split(",")
             if (TypeSplit.length === 1) {
                 setType([router.query.type])
@@ -225,16 +228,13 @@ const Index = () => {
             } else {
             }
         }
-        if (material) {
-            console.log("dans meterial")
-            if (material.length === 0) {
-                delete router.query.material
-                router.push(router)
-            } else {
-                console.log(material, "material")
-                router.query.material = material.filter(element => element !== undefined).toString()
-                router.push(router)
-                console.log(router)
+        if (material.length !== 0) {
+            router.query.material = material.filter(element => element !== undefined).toString()
+        } else {
+            if (router.query.material) {
+                if (material.length === 0) {
+                    delete router.query.material
+                }
             }
         }
         if (router.query.material) {
@@ -256,6 +256,7 @@ const Index = () => {
                 }
             }
         }
+        router.push(router)
 
         //     // if (material) {
         //     //     router.query.material = material.filter(element => element !== "").toString()
