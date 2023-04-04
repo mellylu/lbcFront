@@ -29,87 +29,42 @@ const Index = () => {
     const [material, setMaterial] = useState([])
     const [color, setColor] = useState([])
     const [state, setState] = useState([])
-    const { userContext, setUserContext } = useState(AuthContext)
-    let x = 0
     const filter = router.query
     let tab = []
-    let tabMaterial = []
+
+    const prepareFiltreUseEffect = (routerQueryElement, setStateEl, stateEl, isTrue) => {
+        tab = []
+        if (isTrue) {
+            if (routerQueryElement) {
+                setStateEl([routerQueryElement])
+            }
+        }
+        if (routerQueryElement) {
+            let TypeSplit = routerQueryElement.split(",")
+            if (TypeSplit.length === 1) {
+                setStateEl([routerQueryElement])
+            } else if (TypeSplit.length > 1) {
+                TypeSplit.forEach(element => {
+                    if (stateEl.indexOf(element) === -1) {
+                        tab.push(element)
+                    }
+                })
+                setStateEl(tab)
+            }
+        }
+    }
 
     useEffect(() => {
         if (!router.isReady) {
         } else {
-            if (router.query.type) {
-                setType([router.query.type])
-            }
-            if (router.query.type) {
-                let TypeSplit = router.query.type.split(",")
-                if (TypeSplit.length === 1) {
-                    setType([router.query.type])
-                } else if (TypeSplit.length > 1) {
-                    TypeSplit.forEach(element => {
-                        if (type.indexOf(element) === -1) {
-                            tab.push(element)
-                        }
-                    })
-                    console.log(tab, "tab")
-                    setType(tab)
-                }
-            }
-            if (router.query.material) {
-                setMaterial([router.query.material])
-            }
-            if (router.query.material) {
-                let materialSplit = router.query.material.split(",")
-                if (materialSplit.length === 1) {
-                    setMaterial([router.query.material])
-                } else if (materialSplit.length > 1) {
-                    materialSplit.forEach(element => {
-                        if (material.indexOf(element) === -1) {
-                            tabMaterial.push(element)
-                        }
-                    })
-                    setMaterial(tabMaterial)
-                }
-            }
-            // if (router.query.univers) {
-            //     setUnivers([router.query.univers])
-            // }
-            // if (router.query.univers) {
-            //     let materialSplit = router.query.material.split(",")
-            //     if (materialSplit.length === 1) {
-            //         setMaterial([router.query.material])
-            //     } else if (materialSplit.length > 1) {
-            //         materialSplit.forEach(element => {
-            //             if (material.indexOf(element) === -1) {
-            //                 tabMaterial.push(element)
-            //             }
-            //         })
-            //         setMaterial(tabMaterial)
-            //     }
-            // }
-            // }
-            // x += 1
-            // if (router.query.material) {
-            //     let materialSplit = router.query.material.split(",")
-            //     // if (x === 0) {
-            //     if (materialSplit.length === 1) {
-            //         if (material.indexOf(materialSplit) === -1) {
-            //             setMaterial([
-            //                 ...material.filter(element => element !== ""),
-            //                 materialSplit[0],
-            //             ])
-            //         }
-            //     } else if (materialSplit.length >= 1) {
-            //         materialSplit.forEach(element => {
-            //             if (material.indexOf(element) === -1) {
-            //                 setMaterial([...material.filter(el => el !== ""), element])
-            //             }
-            //         })
-            //     } else {
-            //     }
-            //     // }
-            //     // x += 1
-            // }
+            prepareFiltreUseEffect(router.query.type, setType, type, true)
+            prepareFiltreUseEffect(router.query.material, setMaterial, material, true)
+            prepareFiltreUseEffect(router.query.color, setColor, color, true)
+            prepareFiltreUseEffect(router.query.state, setState, state, true)
+            prepareFiltreUseEffect(router.query.univers, setUnivers, univers, true)
+            prepareFiltreUseEffect(router.query.size, setSize, size, true)
+            prepareFiltreUseEffect(router.query.brand, setBrand, brand, true)
+            setSort(router.query.sort)
             adService
                 .getAllFilter(
                     filter.category || "",
@@ -117,16 +72,14 @@ const Index = () => {
                     filter.lat || "",
                     filter.lng || "",
                     filter.page || "",
-                    sort || router.query.sort || "",
+                    router.query.sort || "",
                     router.query.type || "",
                     router.query.material || "",
-                    // router.query.univers || "",
-                    // size.toString() || router.query.size || "",
-
-                    // brand.toString() || router.query.brand || "",
-                    // material.toString() || router.query.material || "",
-                    // color.toString() || router.query.color || "",
-                    // state.toString() || router.query.state || "",
+                    router.query.color || "",
+                    router.query.state || "",
+                    router.query.univers || "",
+                    router.query.size || "",
+                    router.query.brand || "",
                 )
                 .then(data => {
                     setAd(data)
@@ -143,38 +96,6 @@ const Index = () => {
             router.push(router)
         }
     }, [sort])
-
-    useEffect(() => {
-        console.log(material, "8888")
-    }, [material])
-
-    // useEffect(() => {
-    //     console.log(type, "type..")
-    //     adService
-    //         .getAllFilter(
-    //             filter.category || "",
-    //             filter.search || "",
-    //             filter.lat || "",
-    //             filter.lng || "",
-    //             filter.page || "",
-    //             sort || router.query.sort || "",
-    //             type || "",
-    //             // material.filter(element => element !== "") || router.query.material || "",
-    //             // univers.toString() || router.query.univers || "",
-    //             // size.toString() || router.query.size || "",
-
-    //             // brand.toString() || router.query.brand || "",
-    //             // material.toString() || router.query.material || "",
-    //             // color.toString() || router.query.color || "",
-    //             // state.toString() || router.query.state || "",
-    //         )
-    //         .then(data => {
-    //             setAd(data)
-    //         })
-    //         .catch(err => {
-    //             console.log(err)
-    //         })
-    // }, [type])
 
     const nextPage = () => {
         filter.page = parseInt(filter.page)
@@ -214,20 +135,7 @@ const Index = () => {
                 }
             }
         }
-        if (router.query.type) {
-            let TypeSplit = router.query.type.split(",")
-            if (TypeSplit.length === 1) {
-                setType([router.query.type])
-            } else if (TypeSplit.length > 1) {
-                TypeSplit.forEach(element => {
-                    if (type.indexOf(element) === -1) {
-                        tab.push(element)
-                    }
-                })
-                setType(tab)
-            } else {
-            }
-        }
+        prepareFiltreUseEffect(router.query.type, setType, type, false)
         if (material.length !== 0) {
             router.query.material = material.filter(element => element !== undefined).toString()
         } else {
@@ -237,59 +145,58 @@ const Index = () => {
                 }
             }
         }
-        if (router.query.material) {
-            console.log("dans query material")
-            if (router.query.material) {
-                setMaterial([router.query.material])
-            }
-            if (router.query.material) {
-                let materialSplit = router.query.material.split(",")
-                if (materialSplit.length === 1) {
-                    setMaterial([router.query.material])
-                } else if (materialSplit.length > 1) {
-                    materialSplit.forEach(element => {
-                        if (material.indexOf(element) === -1) {
-                            tabMaterial.push(element)
-                        }
-                    })
-                    setMaterial(tabMaterial)
+        prepareFiltreUseEffect(router.query.material, setMaterial, material, false)
+        if (color.length !== 0) {
+            router.query.color = color.filter(element => element !== undefined).toString()
+        } else {
+            if (router.query.color) {
+                if (color.length === 0) {
+                    delete router.query.color
                 }
             }
         }
+        prepareFiltreUseEffect(router.query.color, setColor, color, false)
+        if (state.length !== 0) {
+            router.query.state = state.filter(element => element !== undefined).toString()
+        } else {
+            if (router.query.state) {
+                if (state.length === 0) {
+                    delete router.query.state
+                }
+            }
+        }
+        prepareFiltreUseEffect(router.query.state, setState, state, false)
+        if (univers.length !== 0) {
+            router.query.univers = univers.filter(element => element !== undefined).toString()
+        } else {
+            if (router.query.univers) {
+                if (univers.length === 0) {
+                    delete router.query.univers
+                }
+            }
+        }
+        prepareFiltreUseEffect(router.query.univers, setUnivers, univers, false)
+        if (size.length !== 0) {
+            router.query.size = size.filter(element => element !== undefined).toString()
+        } else {
+            if (router.query.size) {
+                if (size.length === 0) {
+                    delete router.query.size
+                }
+            }
+        }
+        prepareFiltreUseEffect(router.query.size, setSize, size, false)
+        if (brand.length !== 0) {
+            router.query.brand = brand.filter(element => element !== undefined).toString()
+        } else {
+            if (router.query.brand) {
+                if (brand.length === 0) {
+                    delete router.query.brand
+                }
+            }
+        }
+        prepareFiltreUseEffect(router.query.brand, setBrand, brand, false)
         router.push(router)
-
-        //     // if (material) {
-        //     //     router.query.material = material.filter(element => element !== "").toString()
-        //     //     router.push(router)
-        //     //     if (material.length === 0) {
-        //     //         delete router.query.material
-        //     //         router.push(router)
-        //     //     }
-        //     // }
-        //     // if (univers) {
-        //     //     router.query.univers = univers.toString()
-        //     //     router.push(router)
-        //     // }
-        //     // if (size) {
-        //     //     router.query.size = size.toString()
-        //     //     router.push(router)
-        //     // }
-        //     // if (color) {
-        //     //     router.query.color = color.toString()
-        //     //     router.push(router)
-        //     // }
-        //     // if (brand) {
-        //     //     router.query.brand = brand.toString()
-        //     //     router.push(router)
-        //     // }
-        //     // if (material) {
-        //     //     router.query.material = material.toString()
-        //     //     router.push(router)
-        //     // }
-        //     // if (state) {
-        //     //     router.query.state = state.toString()
-        //     //     router.push(router)
-        //     // }
         setIsVisibleSecondFilter(false)
     }
 

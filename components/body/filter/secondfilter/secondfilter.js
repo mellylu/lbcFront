@@ -43,43 +43,43 @@ const Secondfilter = ({
     }
 
     const functionColor = e => {
-        // if (type.indexOf(e.target.value) === -1) {
-        //     setColor([...color, e.target.value])
-        // } else {
-        //     setColor(color.filter(el => el !== e.target.value))
-        // }
+        if (color.indexOf(e.target.value) === -1) {
+            setColor([...color, e.target.value])
+        } else {
+            setColor(color.filter(el => el !== e.target.value))
+        }
     }
 
     const functionUnivers = e => {
-        // if (type.indexOf(e.target.value) === -1) {
-        //     setUnivers([...univers, e.target.value])
-        // } else {
-        //     setUnivers(univers.filter(el => el !== e.target.value))
-        // }
+        if (univers.indexOf(e.target.value) === -1) {
+            setUnivers([...univers, e.target.value])
+        } else {
+            setUnivers(univers.filter(el => el !== e.target.value))
+        }
     }
 
     const functionSize = e => {
-        // if (type.indexOf(e.target.value) === -1) {
-        //     setSize([...size, e.target.value])
-        // } else {
-        //     setSize(size.filter(el => el !== e.target.value))
-        // }
+        if (size.indexOf(e.target.value) === -1) {
+            setSize([...size, e.target.value])
+        } else {
+            setSize(size.filter(el => el !== e.target.value))
+        }
     }
 
     const functionBrand = e => {
-        // if (type.indexOf(e.target.value) === -1) {
-        //     setBrand([...brand, e.target.value])
-        // } else {
-        //     setBrand(brand.filter(el => el !== e.target.value))
-        // }
+        if (brand.indexOf(e.target.value) === -1) {
+            setBrand([...brand, e.target.value])
+        } else {
+            setBrand(brand.filter(el => el !== e.target.value))
+        }
     }
 
     const functionState = e => {
-        // if (type.indexOf(e.target.value) === -1) {
-        //     setState([...state, e.target.value])
-        // } else {
-        //     setState(state.filter(el => el !== e.target.value))
-        // }
+        if (state.indexOf(e.target.value) === -1) {
+            setState([...state, e.target.value])
+        } else {
+            setState(state.filter(el => el !== e.target.value))
+        }
     }
 
     return (
@@ -87,13 +87,13 @@ const Secondfilter = ({
             {secondFilter
                 ? secondFilter.map(element => (
                       <div key={element._id} className={styles.flex}>
-                          {/* <Detailfilter
+                          <Detailfilter
                               filtre={element.univers}
                               title="Univers"
                               onClick={e => {
                                   functionUnivers(e)
                               }}
-                          /> */}
+                          />
                           <Detailfilter
                               filtre={element.type}
                               title="Type"
@@ -108,7 +108,7 @@ const Secondfilter = ({
                                   functionMaterial(e)
                               }}
                           />
-                          {/* <Detailfilter
+                          <Detailfilter
                               filtre={element.color}
                               title="Couleur"
                               onClick={e => {
@@ -129,14 +129,14 @@ const Secondfilter = ({
                                   functionBrand(e)
                               }}
                           />
-                        
+
                           <Detailfilter
                               filtre={element.state}
                               title="Etat"
                               onClick={e => {
                                   functionState(e)
                               }}
-                          /> */}
+                          />
                       </div>
                   ))
                 : ""}

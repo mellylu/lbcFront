@@ -21,7 +21,13 @@ const Detailfilter = ({ filtre, title, onClick, defaultChecked }) => {
                                 defaultChecked={
                                     (router.query.type && router.query.type.indexOf(el) !== -1) ||
                                     (router.query.material &&
-                                        router.query.material.indexOf(el) !== -1)
+                                        router.query.material.indexOf(el) !== -1) ||
+                                    (router.query.color && router.query.color.indexOf(el) !== -1) ||
+                                    (router.query.univers &&
+                                        router.query.univers.indexOf(el) !== -1) ||
+                                    (router.query.brand && router.query.brand.indexOf(el) !== -1) ||
+                                    (router.query.size && router.query.size.indexOf(el) !== -1) ||
+                                    (router.query.state && router.query.state.indexOf(el) !== -1)
                                 }
                                 type="checkbox"
                                 onClick={onClick}
