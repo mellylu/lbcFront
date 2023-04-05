@@ -19,7 +19,7 @@ const Headerleft = ({ postAdd, title }) => {
                     onClick={() => router.push("/home")}
                     src={Logo}
                     alt="Logo leboncoin"
-                    className="image image-small"
+                    className={`image image-small ${styles.imageLogo}`}
                 />
             </div>
             {postAdd ? (

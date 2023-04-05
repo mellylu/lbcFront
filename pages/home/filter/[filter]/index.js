@@ -217,8 +217,12 @@ const Index = () => {
                             <h2 className="title-h1">
                                 Votre recherche
                                 {filter.category ? ` est ${filter.category}` : ""}
-                                {filter.search ? ` est ${filter.search}` : ""}
-                                {filter.lat ? ` à ville` : ""}
+                                {filter.search && !filter.category
+                                    ? ` est ${filter.search}`
+                                    : filter.category && filter.search
+                                    ? ` et ${filter.search}`
+                                    : ""}
+                                {filter.lat ? ` à ${filter.address}` : ""}
                             </h2>
                         </div>
                         <div className={styles.divmaintrifilter}>

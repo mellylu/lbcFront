@@ -17,7 +17,7 @@ import Image from "next/image"
 const Profil = () => {
     const router = useRouter()
     const { setUserContext, userContext } = useContext(AuthContext)
-    const [user, setUser] = useState({ username: userContext.username || "" })
+    const [user, setUser] = useState({ username: userContext?.username || "" })
     const [uploadFile, setUploadFile] = useState({})
     const [isChangeUploadFile, setIsChangeUploadFile] = useState(false)
     const [isUserImage, setIsUserImage] = useState(false)
@@ -117,6 +117,8 @@ const Profil = () => {
 
     const logout = () => {
         localStorage.removeItem("user")
+        // localStorage.setItem("user", null)
+        // setUserContext()
         router.push("/home")
     }
 

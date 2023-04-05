@@ -31,10 +31,16 @@ export default function Home() {
     const { userContext, setUserContext } = useContext(AuthContext)
 
     useEffect(() => {
-        if (!localStorage.getItem("user") || localStorage.getItem("user") === null) {
-            localStorage.setItem("user", null)
-            setUserContext(null)
-            location.reload()
+        if (
+            !localStorage.getItem("user") ||
+            localStorage.getItem("user") === null ||
+            localStorage.getItem("user") === ""
+        ) {
+            // localStorage.setItem("user", null)
+            // localStorage.removeItem("user")
+            // setUserContext(null)
+            // // localStorage.removeItem("user")
+            // location.reload()
         } else {
             if (userContext && userContext.token) {
                 userService
@@ -75,7 +81,7 @@ export default function Home() {
                     : lat && (category || search)
                     ? `&lat=${lat}`
                     : ""
-            }${lng ? `&lng=${lng}` : ""}${
+            }${lng ? `&lng=${lng}` : ""}${adress ? `&address=${adress}` : ""}${
                 (search && search !== "search=") || category || lat ? "&page=0" : "page=0"
             }`,
         )
@@ -96,9 +102,10 @@ export default function Home() {
             if (recentSearchUser.length < 3) {
                 recentSearchUser.push(obj)
             } else {
-                recentSearchUser.shift()
+                recentSearchUser.pop()
                 recentSearchUser.push(obj)
             }
+            recentSearchUser = recentSearchUser.reverse()
             userService
                 .updateuser(userContext.id, { recentSearch: recentSearchUser })
                 .then(() => {
@@ -216,27 +223,34 @@ export default function Home() {
                                                 >
                                                     <div>
                                                         {element.category ? (
-                                                            <div>
-                                                                <p>{element.category}</p>
-                                                                <br />
-                                                            </div>
+                                                            <p className="text-left title-h2">
+                                                                {element.category}
+                                                            </p>
                                                         ) : (
-                                                            ""
+                                                            <div>
+                                                                <p className="text-left title-h2">
+                                                                    Pas catégorie
+                                                                </p>
+                                                            </div>
                                                         )}
                                                         {element.search ? (
-                                                            <div>
-                                                                <p>{element.search}</p>
-                                                                <br />
-                                                            </div>
+                                                            <p className="text-left">
+                                                                {element.search}
+                                                            </p>
                                                         ) : (
-                                                            ""
+                                                            <br />
                                                         )}
                                                         {element.country ? (
-                                                            <div>
-                                                                <p>{element.country}</p> <br />
+                                                            <div className={styles.box2}>
+                                                                <div className={styles.icon}>
+                                                                    <AiFillEnvironment size={20} />
+                                                                </div>
+                                                                <p className="text-left">
+                                                                    {element.country}
+                                                                </p>
                                                             </div>
                                                         ) : (
-                                                            ""
+                                                            <p>pas de localisation</p>
                                                         )}
                                                     </div>
                                                 </Button>
@@ -250,7 +264,6 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
-                <Image src={Carte} alt="Carte France" />
             </Modal>
         </div>
     )
