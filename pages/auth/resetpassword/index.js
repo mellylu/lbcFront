@@ -64,7 +64,8 @@ const Index = () => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        console.log(idToken)
+        console.log(idToken, "idtoken")
+        console.log(password, "password")
         userService
             .updateuser(idToken, password)
             .then(() => {

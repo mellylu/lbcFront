@@ -32,6 +32,7 @@ export default function Home() {
 
     useEffect(() => {
         if (!localStorage.getItem("user") || localStorage.getItem("user") === null) {
+            localStorage.setItem("user", null)
             setUserContext(null)
             location.reload()
         } else {
