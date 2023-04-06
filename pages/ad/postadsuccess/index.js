@@ -27,7 +27,7 @@ const Index = () => {
                 <Button
                     onClick={() => router.push("/home")}
                     className="btn btn-linkPage"
-                    title="Revenir à la page d accueil"
+                    title="Revenir à la page d'accueil"
                 />
                 <br />
                 <Button

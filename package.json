@@ -20,6 +20,7 @@
     "react-geocode": "^0.2.3",
     "react-icons": "^4.7.1",
     "sass": "^1.56.2",
+    "socket.io-client": "^4.6.1",
     "use-places-autocomplete": "^4.0.0"
   },
   "devDependencies": {

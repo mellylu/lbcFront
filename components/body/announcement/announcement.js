@@ -1,19 +1,29 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import { useRouter } from "next/router"
 import Link from "next/link"
 import Image from "next/image"
+
+import AuthContext from "../../../contexts/AuthContext"
 
 import Button from "../button/button"
 import Deletead from "../deletead/deletead"
 import Favoris from "../favoris/favoris"
 
 import styles from "./announcement.module.scss"
+
 import NotImage from "../../../public/pasimage.png"
 
 const Announcement = ({ stateElement, ad = false, favoris = true }) => {
     const router = useRouter()
-
+    const { userContext } = useContext(AuthContext)
+    const [isContext, setIsContext] = useState(false)
     // const [isok, setisok] = useState()
+
+    useEffect(() => {
+        if (userContext) {
+            setIsContext(true)
+        }
+    }, [])
 
     // userContext.favorite.forEach(element => {
     //     element.ad._id.includes(idElement) ? (
@@ -82,14 +92,18 @@ const Announcement = ({ stateElement, ad = false, favoris = true }) => {
                                 {/* </Button> */}
                             </div>
                             <div className={styles.buttonHeartOrDelete}>
-                                {favoris ? (
-                                    <div>
-                                        <Favoris idElement={element._id} />
-                                    </div>
+                                {isContext ? (
+                                    favoris ? (
+                                        <div>
+                                            <Favoris idElement={element._id} />
+                                        </div>
+                                    ) : (
+                                        <div>
+                                            <Deletead idElement={x._id} idAd={element._id} />
+                                        </div>
+                                    )
                                 ) : (
-                                    <div>
-                                        <Deletead idElement={x._id} idAd={element._id} />
-                                    </div>
+                                    ""
                                 )}
                             </div>
                         </div>

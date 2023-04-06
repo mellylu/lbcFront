@@ -61,16 +61,18 @@ const Favoris = ({ idElement }) => {
 
     useEffect(() => {
         let cpt = 0
-        userContext.favorite.forEach(element => {
-            console.log(element.ad.name)
-            if (element.ad._id.includes(idElement)) {
-                cpt += 1
+        if (userContext && userContext.favorite) {
+            userContext.favorite.forEach(element => {
+                console.log(element.ad.name)
+                if (element.ad._id.includes(idElement)) {
+                    cpt += 1
+                }
+            })
+            if (cpt === 0) {
+                setIsFavorite(false)
+            } else {
+                setIsFavorite(true)
             }
-        })
-        if (cpt === 0) {
-            setIsFavorite(false)
-        } else {
-            setIsFavorite(true)
         }
     }, [userContext])
 

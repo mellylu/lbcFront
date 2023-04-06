@@ -37,7 +37,7 @@ const Index = () => {
                 router.push("/")
                 console.log(err)
             })
-    })
+    }, [])
 
     useEffect(() => {
         if (password.password !== undefined) {
@@ -65,9 +65,10 @@ const Index = () => {
     const handleSubmit = e => {
         e.preventDefault()
         console.log(idToken, "idtoken")
+        console.log(typeof idToken)
         console.log(password, "password")
         userService
-            .updateuser(idToken, password)
+            .updatepassword(idToken, password)
             .then(() => {
                 router.push("/auth/login")
             })

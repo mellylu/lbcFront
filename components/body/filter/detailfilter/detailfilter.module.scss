@@ -1,0 +1,77 @@
+.title {
+    font-weight: 700;
+    margin-bottom: 0.5em;
+}
+
+.label {
+    font-weight: 300;
+    display: inline-block;
+    vertical-align: top;
+    text-align: left;
+    padding-left: 1.5em;
+}
+.checkbox {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    margin-bottom: 8px;
+}
+
+.input {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    margin: 0;
+    opacity: 0;
+    z-index: 1;
+}
+.fieldset {
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px 2.5em 0 0;
+    background: #666;
+    padding: 0.3em;
+    border-radius: 3px;
+}
+
+.label:before,
+.label:after {
+    content: "";
+    display: block;
+    position: absolute;
+}
+
+.checkbox label:before {
+    left: 0;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    background: #ddd;
+    border-radius: 3px;
+}
+
+.label:after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    background: #333;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.input:checked ~ label:after {
+    opacity: 1;
+}
+
+.input:focus ~ .label:before {
+    background: #eee;
+}

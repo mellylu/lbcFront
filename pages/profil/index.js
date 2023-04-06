@@ -22,6 +22,7 @@ const Profil = () => {
     const [isChangeUploadFile, setIsChangeUploadFile] = useState(false)
     const [isUserImage, setIsUserImage] = useState(false)
     let cpt = 0
+
     useEffect(() => {
         if (userContext && userContext.token) {
             userService
@@ -117,9 +118,8 @@ const Profil = () => {
 
     const logout = () => {
         localStorage.removeItem("user")
-        // localStorage.setItem("user", null)
-        // setUserContext()
-        router.push("/home")
+
+        router.push("/")
     }
 
     return (

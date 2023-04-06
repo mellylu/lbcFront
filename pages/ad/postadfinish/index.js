@@ -181,16 +181,23 @@ const Index = () => {
                     <br />
                     {isVisible2 ? (
                         <div>
-                            <input
-                                id="file"
-                                className={styles.inputfile}
-                                type="file"
-                                onChange={e => handleFileSelected(e)}
-                            />
-
-                            <label for="file" className={`${styles.labelfile} btn btn-grey2`}>
-                                {"Choisir une image"}
-                            </label>
+                            <h3>Ajouter une image</h3>
+                            <div className={`${styles.fileupload} ${styles.file}`}>
+                                <link
+                                    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+                                    rel="stylesheet"
+                                ></link>
+                                <input
+                                    id="file"
+                                    //className={styles.inputfile}
+                                    type="file"
+                                    onChange={e => handleFileSelected(e)}
+                                />{" "}
+                                <label for="file" className={`${styles.label} btn btn-grey1`}>
+                                    <i class="material-icons">backup</i>
+                                    <strong className={styles.strong}>{"Choisir une image"}</strong>
+                                </label>
+                            </div>
                         </div>
                     ) : (
                         ""
@@ -226,9 +233,7 @@ const Index = () => {
                         <h3>Localisation</h3>
                         <Geobis setAd={setAd} ad={ad} />
                     </div>
-                    {/* ) : (
-                        ""
-                    )} */}
+                    <br />
                     {isError ? <Message type="error" mess={message} /> : ""}
 
                     <Button

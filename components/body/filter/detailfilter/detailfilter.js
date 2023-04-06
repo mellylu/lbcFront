@@ -9,8 +9,8 @@ const Detailfilter = ({ filtre, title, onClick, defaultChecked }) => {
     return (
         <div>
             {filtre !== undefined && filtre.length > 0 ? (
-                <div>
-                    <h3>{title}</h3>
+                <div className={styles.fieldset}>
+                    <h3 className={styles.title}>{title}</h3>
 
                     {filtre.map(el => (
                         <div key={el} className={styles.checkbox}>
@@ -32,7 +32,7 @@ const Detailfilter = ({ filtre, title, onClick, defaultChecked }) => {
                                 type="checkbox"
                                 onClick={onClick}
                             />
-                            <label> {el}</label>
+                            <label className={styles.label}> {el}</label>
                         </div>
                     ))}
                 </div>

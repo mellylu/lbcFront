@@ -63,8 +63,6 @@ const Index = () => {
                             </p>
                             <p className="text-left py-l title-h4">{ad.date}</p>
                             <hr></hr>
-                            <br />
-                            <hr></hr>
                             <p className="text-left py-l title-h2">
                                 <strong>Description</strong>{" "}
                             </p>

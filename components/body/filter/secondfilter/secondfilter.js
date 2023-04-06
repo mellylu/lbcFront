@@ -83,7 +83,7 @@ const Secondfilter = ({
     }
 
     return (
-        <div>
+        <div className="width">
             {secondFilter
                 ? secondFilter.map(element => (
                       <div key={element._id} className={styles.flex}>
@@ -129,7 +129,6 @@ const Secondfilter = ({
                                   functionBrand(e)
                               }}
                           />
-
                           <Detailfilter
                               filtre={element.state}
                               title="Etat"

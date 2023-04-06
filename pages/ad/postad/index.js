@@ -38,6 +38,13 @@ const Index = () => {
             .catch(err => console.log(err))
     }
 
+    const clicklabel = () => {
+        //         var menu = document.querySelector('#toggle') // Using a class instead, see note below.
+        // menu.classList.toggle('.toggled');
+        document.getElementById("#toggle").className = `${styles.toggled}`
+        document.getElementById("#expands").className = `${styles.open}`
+    }
+
     useEffect(() => {}, [])
 
     return (
@@ -125,174 +132,177 @@ const Index = () => {
                                 <div>
                                     <br />
                                     <h3>Dites nous en plus</h3>
-
-                                    {filter.type !== undefined && filter.type.length > 0 ? (
-                                        <div>
-                                            <select
-                                                onClick={e => {
-                                                    setAd({ ...ad, type: e.target.value })
-                                                }}
-                                                name="pets"
-                                                id="pet-select"
-                                                className="input input-select"
-                                            >
-                                                <option value="" disabled selected hidden>
-                                                    Type
-                                                </option>
-                                                {filter.type.map(element => (
-                                                    <option key={element} value={element}>
-                                                        {element}
+                                    <div className={styles.divfiltre}>
+                                        {filter.type !== undefined && filter.type.length > 0 ? (
+                                            <div>
+                                                <select
+                                                    onClick={e => {
+                                                        setAd({ ...ad, type: e.target.value })
+                                                    }}
+                                                    name="pets"
+                                                    id="pet-select"
+                                                    className={`${styles.select} input input-select`}
+                                                >
+                                                    <option value="" disabled selected hidden>
+                                                        Type
                                                     </option>
-                                                ))}
-                                            </select>
-                                        </div>
-                                    ) : (
-                                        ""
-                                    )}
+                                                    {filter.type.map(element => (
+                                                        <option key={element} value={element}>
+                                                            {element}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                        ) : (
+                                            ""
+                                        )}
 
-                                    {filter.univers !== undefined && filter.univers.length > 0 ? (
-                                        <div>
-                                            <select
-                                                onClick={e => {
-                                                    setAd({ ...ad, univers: e.target.value })
-                                                }}
-                                                name="pets"
-                                                id="pet-select"
-                                                className="input input-select"
-                                            >
-                                                <option value="" disabled selected hidden>
-                                                    Univers
-                                                </option>
-                                                {filter.univers.map(element => (
-                                                    <option key={element} value={element}>
-                                                        {element}
+                                        {filter.univers !== undefined &&
+                                        filter.univers.length > 0 ? (
+                                            <div>
+                                                <select
+                                                    onClick={e => {
+                                                        setAd({ ...ad, univers: e.target.value })
+                                                    }}
+                                                    name="pets"
+                                                    id="pet-select"
+                                                    className={`${styles.select} input input-select`}
+                                                >
+                                                    <option value="" disabled selected hidden>
+                                                        Univers
                                                     </option>
-                                                ))}
-                                            </select>
-                                        </div>
-                                    ) : (
-                                        ""
-                                    )}
+                                                    {filter.univers.map(element => (
+                                                        <option key={element} value={element}>
+                                                            {element}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                        ) : (
+                                            ""
+                                        )}
 
-                                    {filter.brand !== undefined && filter.brand.length > 0 ? (
-                                        <div>
-                                            <select
-                                                onClick={e => {
-                                                    setAd({ ...ad, brand: e.target.value })
-                                                }}
-                                                name="pets"
-                                                id="pet-select"
-                                                className="input input-select"
-                                            >
-                                                <option value="" disabled selected hidden>
-                                                    Marque
-                                                </option>
-                                                {filter.brand.map(element => (
-                                                    <option key={element} value={element}>
-                                                        {element}
+                                        {filter.brand !== undefined && filter.brand.length > 0 ? (
+                                            <div>
+                                                <select
+                                                    onClick={e => {
+                                                        setAd({ ...ad, brand: e.target.value })
+                                                    }}
+                                                    name="pets"
+                                                    id="pet-select"
+                                                    className={`${styles.select} input input-select`}
+                                                >
+                                                    <option value="" disabled selected hidden>
+                                                        Marque
                                                     </option>
-                                                ))}
-                                            </select>
-                                        </div>
-                                    ) : (
-                                        ""
-                                    )}
+                                                    {filter.brand.map(element => (
+                                                        <option key={element} value={element}>
+                                                            {element}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                        ) : (
+                                            ""
+                                        )}
 
-                                    {filter.material !== undefined && filter.material.length > 0 ? (
-                                        <div>
-                                            <select
-                                                onClick={e => {
-                                                    setAd({ ...ad, material: e.target.value })
-                                                }}
-                                                name="pets"
-                                                id="pet-select"
-                                                className="input input-select"
-                                            >
-                                                <option value="" disabled selected hidden>
-                                                    Matière
-                                                </option>
-                                                {filter.material.map(element => (
-                                                    <option key={element} value={element}>
-                                                        {element}
+                                        {filter.material !== undefined &&
+                                        filter.material.length > 0 ? (
+                                            <div>
+                                                <select
+                                                    onClick={e => {
+                                                        setAd({ ...ad, material: e.target.value })
+                                                    }}
+                                                    name="pets"
+                                                    id="pet-select"
+                                                    className={`${styles.select} input input-select`}
+                                                >
+                                                    <option value="" disabled selected hidden>
+                                                        Matière
                                                     </option>
-                                                ))}
-                                            </select>
-                                        </div>
-                                    ) : (
-                                        ""
-                                    )}
+                                                    {filter.material.map(element => (
+                                                        <option key={element} value={element}>
+                                                            {element}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                        ) : (
+                                            ""
+                                        )}
 
-                                    {filter.color !== undefined && filter.color.length > 0 ? (
-                                        <div>
-                                            <select
-                                                onClick={e => {
-                                                    setAd({ ...ad, color: e.target.value })
-                                                }}
-                                                name="pets"
-                                                id="pet-select"
-                                                className="input input-select"
-                                            >
-                                                <option value="" disabled selected hidden>
-                                                    Couleur
-                                                </option>
-                                                {filter.color.map(element => (
-                                                    <option key={element} value={element}>
-                                                        {element}
+                                        {filter.color !== undefined && filter.color.length > 0 ? (
+                                            <div>
+                                                <select
+                                                    onClick={e => {
+                                                        setAd({ ...ad, color: e.target.value })
+                                                    }}
+                                                    name="pets"
+                                                    id="pet-select"
+                                                    className={`${styles.select} input input-select`}
+                                                >
+                                                    <option value="" disabled selected hidden>
+                                                        Couleur
                                                     </option>
-                                                ))}
-                                            </select>
-                                        </div>
-                                    ) : (
-                                        ""
-                                    )}
+                                                    {filter.color.map(element => (
+                                                        <option key={element} value={element}>
+                                                            {element}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                        ) : (
+                                            ""
+                                        )}
 
-                                    {filter.state !== undefined && filter.state.length > 0 ? (
-                                        <div>
-                                            <select
-                                                onClick={e => {
-                                                    setAd({ ...ad, state: e.target.value })
-                                                }}
-                                                name="pets"
-                                                id="pet-select"
-                                                className="input input-select"
-                                            >
-                                                <option value="" disabled selected hidden>
-                                                    Etat
-                                                </option>
-                                                {filter.state.map(element => (
-                                                    <option key={element} value={element}>
-                                                        {element}
+                                        {filter.state !== undefined && filter.state.length > 0 ? (
+                                            <div>
+                                                <select
+                                                    onClick={e => {
+                                                        setAd({ ...ad, state: e.target.value })
+                                                    }}
+                                                    name="pets"
+                                                    id="pet-select"
+                                                    className={`${styles.select} input input-select`}
+                                                >
+                                                    <option value="" disabled selected hidden>
+                                                        Etat
                                                     </option>
-                                                ))}
-                                            </select>
-                                        </div>
-                                    ) : (
-                                        ""
-                                    )}
+                                                    {filter.state.map(element => (
+                                                        <option key={element} value={element}>
+                                                            {element}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                        ) : (
+                                            ""
+                                        )}
 
-                                    {filter.size !== undefined && filter.size.length > 0 ? (
-                                        <div>
-                                            <select
-                                                onClick={e => {
-                                                    setAd({ ...ad, size: e.target.value })
-                                                }}
-                                                name="pets"
-                                                id="pet-select"
-                                                className="input input-select"
-                                            >
-                                                <option value="" disabled selected hidden>
-                                                    Taille
-                                                </option>
-                                                {filter.size.map(element => (
-                                                    <option key={element} value={element}>
-                                                        {element}
+                                        {filter.size !== undefined && filter.size.length > 0 ? (
+                                            <div>
+                                                <select
+                                                    onClick={e => {
+                                                        setAd({ ...ad, size: e.target.value })
+                                                    }}
+                                                    name="pets"
+                                                    id="pet-select"
+                                                    className={`${styles.select} input input-select`}
+                                                >
+                                                    <option value="" disabled selected hidden>
+                                                        Taille
                                                     </option>
-                                                ))}
-                                            </select>
-                                        </div>
-                                    ) : (
-                                        ""
-                                    )}
+                                                    {filter.size.map(element => (
+                                                        <option key={element} value={element}>
+                                                            {element}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                        ) : (
+                                            ""
+                                        )}
+                                    </div>
 
                                     <Button
                                         onClick={() => {

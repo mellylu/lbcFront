@@ -246,7 +246,7 @@ const Index = () => {
                                     onClick={() => {
                                         choiceFilter()
                                     }}
-                                    className="btn btn-grey2"
+                                    className="btn btn-grey1"
                                 />
                             </div>
                         </div>

@@ -23,15 +23,19 @@ const Deletead = ({ idElement, idAd }) => {
                 console.log(publicid, "publicid")
             })
             .catch(err => console.log(err))
+
         userService
             .deleteAnnouncement(userContext.id, idEl.idElement)
-            .then(data => {
-                console.log(data)
-            })
+            .then(data => {})
             .catch(err => console.log(err))
         adService
             .deleteAd(idAd)
+            .then(data => {})
+            .catch(err => console.log(err))
+        userService
+            .deleteAnnouncementFavoris(idAd)
             .then(data => {
+                console.log(data)
                 deleteImage(publicid)
                 location.reload()
             })

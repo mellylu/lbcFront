@@ -50,15 +50,24 @@
         width: 100%;
         border-radius: 5px;
     }
-    &-grey2 {
-        background-color: #ffffff;
-        color: black;
+    &-grey1 {
+        background-color: white;
         border: 2px solid #d3d3d3;
+        border-radius: 5px;
+        &:focus {
+            border: 1px solid black;
+        }
+    }
+    &-grey2 {
+        background-color: #666;
+        color: #ddd;
+        border: 2px solid #ddd;
         width: 100%;
         border-radius: 5px;
         &:hover {
-            background: #d3d3d3;
-            color: black;
+            background: #ddd;
+            color: #666;
+            border: 2px solid #666;
         }
     }
     &-orange {

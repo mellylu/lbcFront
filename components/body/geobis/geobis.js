@@ -15,7 +15,7 @@ import styles from "./geobis.module.scss"
 import Input from "../input/input"
 import Button from "../button/button"
 
-export default function Index({ setAd, ad, setAdressHome }) {
+export default function Index({ setAd, ad }) {
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: "AIzaSyDbr6FgqPsctO5kXmIFoYL7X7TuaXAGX_o",
         libraries: ["places"],
@@ -36,7 +36,7 @@ function Map({ setAd, ad }) {
     )
 }
 
-const PlacesAutocomplete = ({ setSelected, setAd, ad, setAdressHome }) => {
+const PlacesAutocomplete = ({ setSelected, setAd, ad }) => {
     const {
         ready,
         value,

@@ -63,6 +63,16 @@ export default {
             body: JSON.stringify(user),
         }).then(res => res.json())
     },
+    updatepassword(userId, password) {
+        return fetch("http://localhost:5000/api/v1/users/updatepassword/" + userId, {
+            method: "PUT",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(password),
+        }).then(res => res.json())
+    },
+
     getuser(id) {
         return fetch("http://localhost:5000/api/v1/users/" + id, {
             method: "GET",
@@ -85,6 +95,14 @@ export default {
             method: "GET",
             headers: {
                 authorization: token,
+                // "content-type": "application/json",
+            },
+        }).then(res => res.json())
+    },
+    deleteAnnouncementFavoris(idAd) {
+        return fetch(`http://localhost:5000/api/v1/users/deleteAnnouncementFavoris/` + idAd, {
+            method: "GET",
+            headers: {
                 "content-type": "application/json",
             },
         }).then(res => res.json())

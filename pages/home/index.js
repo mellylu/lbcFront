@@ -29,27 +29,17 @@ export default function Home() {
     const [lng, setLng] = useState()
     const [recentSearch, setRecentSearch] = useState([])
     const { userContext, setUserContext } = useContext(AuthContext)
+    const [isContext, setIsContext] = useState(false)
 
     useEffect(() => {
-        if (
-            !localStorage.getItem("user") ||
-            localStorage.getItem("user") === null ||
-            localStorage.getItem("user") === ""
-        ) {
-            // localStorage.setItem("user", null)
-            // localStorage.removeItem("user")
-            // setUserContext(null)
-            // // localStorage.removeItem("user")
-            // location.reload()
-        } else {
-            if (userContext && userContext.token) {
-                userService
-                    .getuser(userContext.id)
-                    .then(data => {
-                        setRecentSearch(data.user.recentSearch)
-                    })
-                    .catch(err => console.log(err))
-            }
+        if (userContext && userContext.token) {
+            userService
+                .getuser(userContext.id)
+                .then(data => {
+                    setRecentSearch(data.user.recentSearch)
+                    setIsContext(true)
+                })
+                .catch(err => console.log(err))
         }
         //     let B2 = 49.1154686
         //     let B3 = -1.0828136
@@ -203,7 +193,8 @@ export default function Home() {
                                     />
                                 </div>
                             </div>
-                            {recentSearch ? (
+
+                            {isContext && recentSearch ? (
                                 <div className={styles.divmainrecentsearch}>
                                     <h2>Vos précédentes recherches :</h2>
                                     <br />
