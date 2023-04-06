@@ -58,7 +58,6 @@ const Profil = () => {
     }
 
     const deleteImage = publicid => {
-        console.log(publicid, "publicidSSS")
         fetch(`http://localhost:5000/api/v1/upload/` + publicid, {
             method: "DELETE",
             headers: {
@@ -70,11 +69,11 @@ const Profil = () => {
     }
 
     const handleSubmitPhoto = async () => {
+        console.log("dans handleSubmitPoto")
         let publicid = ""
         if (userContext && userContext.image) {
             let imgdelete = userContext.image.split("/users/")[1]
             publicid = "users/" + imgdelete.split(".")[0]
-            console.log(publicid, "publicid")
         }
         const formData = new FormData()
         formData.append("file", uploadFile)
@@ -84,7 +83,9 @@ const Profil = () => {
             body: formData,
         })
         const data = await response.json()
+        console.log(data, "data")
         if (data.api_key) {
+            console.log("FFFFFFFFFFFFFFFF")
             userService
                 .updateuser(userContext.id, { image: data.secure_url })
                 .then(() => {
@@ -111,6 +112,7 @@ const Profil = () => {
     }, [uploadFile])
 
     useEffect(() => {
+        console.log(userContext, "userContext")
         if (userContext && userContext.image) {
             setUser({ ...user, image: userContext.image })
         }
